@@ -4,14 +4,30 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 
 public class LoginActivity extends Activity {
+	
+	Button bregistrieren;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        
+        bregistrieren = (Button) findViewById(R.id.button1);
+        bregistrieren.setOnClickListener(new OnClickListener() {
+        	
+        	public void onClick(View view) {
+        		
+        		if(view == bregistrieren) {
+        			bregistrieren.setText("blabla");
+        		}       					
+        	}
+        });
     }
 
     @Override
@@ -31,4 +47,8 @@ public class LoginActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+    
+
+    
+
 }
