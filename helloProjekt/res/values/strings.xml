@@ -10,5 +10,6 @@
     <string name="title_activity_main_activity_tic_tac_toe">MainActivityTicTacToe</string>
     <string name="title_activity_tic_tac_toe">TicTacToe</string>
     <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="title_activity_contact_list">ContactListActivity</string>
 
 </resources>

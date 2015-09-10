@@ -9,7 +9,7 @@
     tools:context="com.Schulprojekt.helloprojekt.LoginActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -22,8 +22,8 @@
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/textViewContact"
+        android:layout_below="@+id/textViewContact"
         android:ems="10"
         android:inputType="textPersonName" >
 
@@ -53,7 +53,7 @@
         android:id="@+id/imageButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView1"
+        android:layout_above="@+id/textViewContact"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
         android:src="@drawable/smile" />
