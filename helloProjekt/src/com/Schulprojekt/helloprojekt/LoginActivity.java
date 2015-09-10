@@ -15,7 +15,7 @@ public class LoginActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_registration);
+		setContentView(R.layout.activity_login);
 		
 		button1 = (Button) findViewById(R.id.button1);
 		button1.setOnClickListener(new OnClickListener() {
@@ -34,7 +34,7 @@ public class LoginActivity extends Activity{
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.registration, menu);
+		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
 	}
 
