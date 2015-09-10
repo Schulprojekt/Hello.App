@@ -1,14 +1,12 @@
 package com.Schulprojekt.helloprojekt.GUILogik;
 
-import java.sql.Blob;
 import java.util.UUID;
 
 public class User {
 
 	private UUID 	AccountID;
-	private String 	name;
-	private String 	firstName;
 	private String 	AccountName;
+	private String 	Alias;
 	private Boolean AccountState;
 	private Integer Experienced;
 	private Byte[]	AccountPicture;
@@ -19,23 +17,17 @@ public class User {
 	public void setAccountID(UUID accountID) {
 		AccountID = accountID;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
 	public String getAccountName() {
 		return AccountName;
 	}
 	public void setAccountName(String accountName) {
 		AccountName = accountName;
+	}
+	public String getAlias() {
+		return Alias;
+	}
+	public void setAlias(String alias) {
+		Alias = alias;
 	}
 	public Boolean getAccountState() {
 		return AccountState;
