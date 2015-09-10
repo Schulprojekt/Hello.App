@@ -1,5 +1,9 @@
 package com.Schulprojekt.helloprojekt;
 
+import java.util.ArrayList;
+
+import com.Schulprojekt.helloprojekt.GUILogik.ContactListEntry;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,10 +11,13 @@ import android.view.MenuItem;
 
 public class ContactListActivity extends Activity {
 
+	ArrayList<ContactListEntry> contactList = new ArrayList<ContactListEntry>();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_list);
+		
 	}
 
 	@Override

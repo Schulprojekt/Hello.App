@@ -1,14 +1,25 @@
 package com.Schulprojekt.helloprojekt.GUILogik;
 
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 public class ContactListEntry {
 
-	private byte[] ContactPicture;
+	LinearLayout linlayout;
+	ImageView ContactPicture;
 	private String alias;
 	private String accountName;
-	public byte[] getContactPicture() {
+	
+	public LinearLayout getLinlayout() {
+		return linlayout;
+	}
+	public void setLinlayout(LinearLayout linlayout) {
+		this.linlayout = linlayout;
+	}
+	public ImageView getContactPicture() {
 		return ContactPicture;
 	}
-	public void setContactPicture(byte[] contactPicture) {
+	public void setContactPicture(ImageView contactPicture) {
 		ContactPicture = contactPicture;
 	}
 	public String getAlias() {

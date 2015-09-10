@@ -7,10 +7,29 @@ public class User {
 	private UUID 	AccountID;
 	private String 	AccountName;
 	private String 	Alias;
+	private String	Password;
 	private Boolean AccountState;
 	private Integer Experienced;
-	private Byte[]	AccountPicture;
+	private Byte[]	AccountPicture;	
 	
+	public User(UUID accountID, String accountName, String alias,
+			Boolean accountState, Integer experienced, Byte[] accountPicture) {
+		super();
+		AccountID = accountID;
+		AccountName = accountName;
+		Alias = alias;
+		AccountState = accountState;
+		Experienced = experienced;
+		AccountPicture = accountPicture;
+	}
+	public User(String accountName, String alias, String password,
+			Boolean accountState) {
+		super();
+		AccountName = accountName;
+		Alias = alias;
+		Password = password;
+		AccountState = accountState;
+	}
 	public UUID getAccountID() {
 		return AccountID;
 	}
@@ -29,6 +48,14 @@ public class User {
 	public void setAlias(String alias) {
 		Alias = alias;
 	}
+	public String getPassword() {
+		return Password;
+	}
+
+	public void setPassword(String password) {
+		Password = password;
+	}
+
 	public Boolean getAccountState() {
 		return AccountState;
 	}
