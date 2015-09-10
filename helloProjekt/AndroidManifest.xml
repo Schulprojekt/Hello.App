@@ -24,11 +24,11 @@
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="spiele.MainActivityTicTacToe"
+            android:name="com.Schulprojekt.helloprojekt.Spiele.MainActivityTicTacToe"
             android:label="@string/title_activity_main_activity_tic_tac_toe" >
         </activity>
         <activity
-            android:name="spiele.TicTacToe"
+            android:name="com.Schulprojekt.helloprojekt.Spiele.TicTacToe"
             android:label="@string/title_activity_tic_tac_toe" >
         </activity>
         <activity

@@ -1,4 +1,4 @@
-package spiele;
+package com.Schulprojekt.helloprojekt.Spiele;
 
 import com.Schulprojekt.helloprojekt.R;
 import com.Schulprojekt.helloprojekt.R.id;
