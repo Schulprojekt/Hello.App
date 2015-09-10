@@ -1,6 +1,7 @@
 package com.Schulprojekt.helloprojekt;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,21 +11,22 @@ import android.widget.Button;
 
 public class LoginActivity extends Activity{
 
-	public Button button1;
+	public Button registrieren;
+	public Button anmelden;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
-		button1 = (Button) findViewById(R.id.button1);
-		button1.setOnClickListener(new OnClickListener() {
+		registrieren = (Button) findViewById(R.id.registrieren);
+		registrieren.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (v == button1){
-					button1.setText("Yess!");
+				if (v == registrieren){
+					startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
 				}
 				
 			}
