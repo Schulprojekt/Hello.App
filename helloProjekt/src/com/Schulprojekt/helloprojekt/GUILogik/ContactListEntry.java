@@ -1,13 +1,15 @@
 package com.Schulprojekt.helloprojekt.GUILogik;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class ContactListEntry {
 
 	LinearLayout linlayout;
 	ImageView ContactPicture;
-	private String alias;
+	private TextView alias;
 	private String accountName;
 	
 	public LinearLayout getLinlayout() {
@@ -22,10 +24,10 @@ public class ContactListEntry {
 	public void setContactPicture(ImageView contactPicture) {
 		ContactPicture = contactPicture;
 	}
-	public String getAlias() {
+	public TextView getAlias() {
 		return alias;
 	}
-	public void setAlias(String alias) {
+	public void setAlias(TextView alias) {
 		this.alias = alias;
 	}
 	public String getAccountName() {
