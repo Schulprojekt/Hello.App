@@ -59,7 +59,7 @@
         android:src="@drawable/smile" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/registrieren"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,12 +69,12 @@
         android:text="Registrieren" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/anmelden"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
+        android:layout_alignBaseline="@+id/registrieren"
+        android:layout_alignBottom="@+id/registrieren"
         android:layout_alignRight="@+id/editText2"
         android:text="Anmelden" />
 
