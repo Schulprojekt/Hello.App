@@ -2,6 +2,7 @@ package com.Schulprojekt.helloprojekt.GUILogik;
 
 import java.util.ArrayList;
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,5 +26,13 @@ public class ContactListLogik {
 			contactList.add(entry);
 		}
 		return contactList;
+	}
+	
+	public View.OnClickListener getOnKlickListener(ImageView img){
+		    return new View.OnClickListener() {
+		        public void onClick(View v) {
+		        	
+		        }
+		    };
 	}
 }

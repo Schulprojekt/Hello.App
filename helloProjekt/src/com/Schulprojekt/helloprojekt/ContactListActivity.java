@@ -28,6 +28,7 @@ public class ContactListActivity extends Activity {
 		ScrollView scrollView = (ScrollView) findViewById(R.id.scrollViewContact);
 		for (ContactListEntry contact : contactList) {
 			LinearLayout lilayout = contact.getLinlayout();
+			conlog.getOnKlickListener(contact.getContactPicture());
 			lilayout.addView(contact.getContactPicture());
 			lilayout.addView(contact.getAlias());
 			scrollView.addView(lilayout);
