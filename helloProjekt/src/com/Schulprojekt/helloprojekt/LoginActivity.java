@@ -1,6 +1,7 @@
 package com.Schulprojekt.helloprojekt;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,29 +9,67 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity{
 
-	public Button registrieren;
-	public Button anmelden;
+	public Button bregistrieren;
+	public Button banmelden;
+	public Button imageButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
-		registrieren = (Button) findViewById(R.id.registrieren);
-		registrieren.setOnClickListener(new OnClickListener() {
+		bregistrieren = (Button) findViewById(R.id.register);
+		bregistrieren.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (v == registrieren){
+				if (v == bregistrieren){
 					startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
 				}
 				
 			}
 		});
+		banmelden = (Button) findViewById(R.id.login);
+		banmelden.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (v == banmelden){
+					Boolean methode = true;
+					if(methode){
+						startActivity(new Intent(LoginActivity.this, ContactListActivity.class));					
+					}else{
+						Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", Toast.LENGTH_LONG).show();
+					}
+				}
+				
+			}
+		});
+		imageButton = (Button) findViewById(R.id.imageButton);
+		banmelden.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if (v == banmelden){
+					Boolean methode = true;
+					
+					if(methode){
+						startActivity(new Intent(LoginActivity.this, ContactListActivity.class));					
+					}else{
+						Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", Toast.LENGTH_LONG).show();
+					}
+				}
+				
+			}
+		});
+		
 	}
 
 	@Override

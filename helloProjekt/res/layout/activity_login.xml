@@ -19,7 +19,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/anmeldenUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewContact"
@@ -31,7 +31,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/anmeldenPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
@@ -43,14 +43,14 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/editText1"
+        android:layout_alignLeft="@+id/anmeldenUsername"
+        android:layout_below="@+id/anmeldenUsername"
         android:layout_marginTop="32dp"
         android:text="Passwort"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageButton
-        android:id="@+id/imageButton1"
+        android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/textViewContact"
@@ -59,23 +59,23 @@
         android:src="@drawable/smile" />
 
     <Button
-        android:id="@+id/registrieren"
+        android:id="@+id/register"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_below="@+id/editText2"
+        android:layout_alignLeft="@+id/anmeldenPassword"
+        android:layout_below="@+id/anmeldenPassword"
         android:layout_marginTop="19dp"
         android:text="Registrieren" />
 
     <Button
-        android:id="@+id/anmelden"
+        android:id="@+id/login"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/registrieren"
-        android:layout_alignBottom="@+id/registrieren"
-        android:layout_alignRight="@+id/editText2"
+        android:layout_alignBaseline="@+id/register"
+        android:layout_alignBottom="@+id/register"
+        android:layout_alignRight="@+id/anmeldenPassword"
         android:text="Anmelden" />
 
 </RelativeLayout>

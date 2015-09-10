@@ -18,7 +18,7 @@ public class RegistrationActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         
-        bregistrieren = (Button) findViewById(R.id.anmelden);
+        bregistrieren = (Button) findViewById(R.id.login);
         bregistrieren.setOnClickListener(new OnClickListener() {
         	
         	public void onClick(View view) {
