@@ -24,7 +24,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/anmeldenUsername"
+        android:id="@+id/loginUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
@@ -37,7 +37,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/anmeldenPassword"
+        android:id="@+id/loginPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView3"
@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/anmeldenUsername"
+        android:layout_alignRight="@+id/loginUsername"
         android:layout_marginTop="22dp"
         android:src="@drawable/smile" />
 
@@ -77,7 +77,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/anmeldenPassword"
+        android:layout_below="@+id/loginPassword"
         android:layout_centerHorizontal="true"
         android:text="Registrieren" />
  
