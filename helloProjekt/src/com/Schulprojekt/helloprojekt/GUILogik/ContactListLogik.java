@@ -23,6 +23,7 @@ public class ContactListLogik {
 			LinearLayout linlay = new LinearLayout(con);
 			ImageView img = new ImageView(con);
 			img.setImageResource(R.drawable.dummycontact);
+			//img.setId(user.getAccountName());
 			TextView tv = new TextView(con);
 			tv.setText(user.getAlias());
 			ContactListEntry entry = new ContactListEntry(linlay, img, tv, user.getAccountName());
