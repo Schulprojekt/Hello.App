@@ -7,9 +7,13 @@ import com.Schulprojekt.helloprojekt.GUILogik.ContactListLogik;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -17,22 +21,37 @@ public class ContactListActivity extends Activity {
 
 	ArrayList<User> userList;
 	ArrayList<ContactListEntry> contactList;
-	ContactListLogik conlog = new ContactListLogik();
+	//ContactListLogik conlog = new ContactListLogik();
+	User u1 = new User("test", "test", "test",true);
+	User u2 = new User("test", "test", "test",true);
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_list);
-		contactList = conlog.fillList(userList, this);
-		ScrollView scrollView = (ScrollView) findViewById(R.id.scrollViewContact);
-		for (ContactListEntry contact : contactList) {
-			LinearLayout lilayout = contact.getLinlayout();
-			conlog.getOnKlickListener(contact.getContactPicture());
-			lilayout.addView(contact.getContactPicture());
-			lilayout.addView(contact.getAlias());
-			scrollView.addView(lilayout);
-		}
+		//contactList = conlog.fillList(userList, this);
+		final ScrollView scrollView = (ScrollView) findViewById(R.id.scrollViewContact);
+		scrollView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(v == scrollView)
+				{
+				userList.add(u1);
+				userList.add(u2);
+				//contactList = conlog.fillList(userList, null);
+				for (ContactListEntry contact : contactList) {
+					LinearLayout lilayout = contact.getLinlayout();
+					//conlog.getOnKlickListener(contact.getContactPicture());
+					lilayout.addView(contact.getContactPicture());
+					lilayout.addView(contact.getAlias());
+					scrollView.addView(lilayout);
+				}
+				}
+			}
+		});
 	}
 
 	@Override

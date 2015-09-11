@@ -42,9 +42,10 @@ public class LoginActivity extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if (v == banmelden){
-					Boolean methode = false;
+					Boolean methode = true;
 					if(methode){
-						startActivity(new Intent(LoginActivity.this, ContactListActivity.class));					
+						Intent myIntent = new Intent(LoginActivity.this, ContactListActivity.class);
+						LoginActivity.this.startActivity(myIntent);					
 					}else{
 						Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", Toast.LENGTH_LONG).show();
 					}

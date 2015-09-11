@@ -11,7 +11,15 @@ public class ContactListEntry {
 	ImageView ContactPicture;
 	private TextView alias;
 	private String accountName;
-	
+		
+	public ContactListEntry(LinearLayout linlayout, ImageView contactPicture,
+			TextView alias, String accountName) {
+		super();
+		this.linlayout = linlayout;
+		ContactPicture = contactPicture;
+		this.alias = alias;
+		this.accountName = accountName;
+	}
 	public LinearLayout getLinlayout() {
 		return linlayout;
 	}
