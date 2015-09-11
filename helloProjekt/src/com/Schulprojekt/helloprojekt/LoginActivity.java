@@ -9,13 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity{
 
 	public Button bregistrieren;
 	public Button banmelden;
-	public Button imageButton;
+	public ImageButton imageButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class LoginActivity extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if (v == banmelden){
-					Boolean methode = true;
+					Boolean methode = false;
 					if(methode){
 						startActivity(new Intent(LoginActivity.this, ContactListActivity.class));					
 					}else{
@@ -51,25 +52,25 @@ public class LoginActivity extends Activity{
 				
 			}
 		});
-		imageButton = (Button) findViewById(R.id.imageButton);
-		banmelden.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (v == banmelden){
-					Boolean methode = true;
-					
-					if(methode){
-						startActivity(new Intent(LoginActivity.this, ContactListActivity.class));					
-					}else{
-						Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", Toast.LENGTH_LONG).show();
-					}
-				}
-				
-			}
-		});
-		
+//		imageButton = (ImageButton) findViewById(R.id.imageButton);
+//		imageButton.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				if (v == imageButton){
+//					Boolean methode = true;
+//					
+//					if(methode){
+//						startActivity(new Intent(LoginActivity.this, ContactListActivity.class));					
+//					}else{
+//						Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", Toast.LENGTH_LONG).show();
+//					}
+//				}
+//				
+//			}
+//		});
+//		
 	}
 
 	@Override
