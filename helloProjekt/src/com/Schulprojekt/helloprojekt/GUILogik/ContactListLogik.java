@@ -1,7 +1,12 @@
 package com.Schulprojekt.helloprojekt.GUILogik;
 
 import java.util.ArrayList;
+
+import com.Schulprojekt.helloprojekt.R;
+
 import android.content.Context;
+import android.media.Image;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,6 +22,7 @@ public class ContactListLogik {
 			
 			LinearLayout linlay = new LinearLayout(con);
 			ImageView img = new ImageView(con);
+			img.setImageResource(R.drawable.dummycontact);
 			TextView tv = new TextView(con);
 			tv.setText(user.getAlias());
 			ContactListEntry entry = new ContactListEntry(linlay, img, tv, user.getAccountName());
