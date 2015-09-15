@@ -25,8 +25,8 @@ import android.widget.Toast;
 
 public class LoginActivity extends Activity{
 
-	public Button bregistrieren;
-	public Button banmelden;
+	public Button btnRegistration;
+	public Button btnLogin;
 	public ImageButton imageButton;
 	public EditText loginUsername;
 	public EditText loginPassword;
@@ -42,25 +42,25 @@ public class LoginActivity extends Activity{
 		loginUsername = (EditText)findViewById(R.id.loginUsername);
 		loginPassword = (EditText)findViewById(R.id.loginPassword);
 		
-		bregistrieren = (Button) findViewById(R.id.register);
-		bregistrieren.setOnClickListener(new OnClickListener() {
+		btnRegistration = (Button) findViewById(R.id.register);
+		btnRegistration.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (v == bregistrieren){
+				if (v == btnRegistration){
 					startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
 				}
 				
 			}
 		});
-		banmelden = (Button) findViewById(R.id.login);
-		banmelden.setOnClickListener(new OnClickListener() {
+		btnLogin = (Button) findViewById(R.id.login);
+		btnLogin.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (v == banmelden){
+				if (v == btnLogin){
 					try{
 						DefaultHttpClient httpClient = new DefaultHttpClient();
 						HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/" + loginUsername);
@@ -72,7 +72,7 @@ public class LoginActivity extends Activity{
 				        
 				        HttpEntity responseEntity = response.getEntity();
 				        
-				     // Read response data into buffer
+				        // Read response data into buffer
 				        char[] buffer = new char[(int)responseEntity.getContentLength()];
 				        InputStream stream = responseEntity.getContent();
 				        InputStreamReader reader = new InputStreamReader(stream);
