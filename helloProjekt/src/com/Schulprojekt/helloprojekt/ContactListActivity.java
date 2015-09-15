@@ -10,6 +10,7 @@ import android.R.color;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +34,7 @@ public class ContactListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_list);
+		
 		//contactList = conlog.fillList(userList, this);
 		imgV = (ImageView) findViewById(R.id.imageView1);
 		final LinearLayout linlayoutVertical = (LinearLayout) findViewById(R.id.linLayoutContactVertical);
@@ -43,19 +45,21 @@ public class ContactListActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				ContactListLogik conlog = new ContactListLogik();
-				userList.add(u1);
-				userList.add(u2);
-				contactList = conlog.fillList(userList, getApplicationContext());
-				textV.setText("test");
-				for (ContactListEntry contact : contactList) {
-					LinearLayout lilayout = contact.getLinlayout();
-					lilayout.setOrientation(LinearLayout.HORIZONTAL);
-					contact.getContactPicture().setOnClickListener(conlog.getOnKlickListener(contact.getContactPicture()));
-					lilayout.addView(contact.getContactPicture());
-					lilayout.addView(contact.getAlias());
-					linlayoutVertical.addView(lilayout);
-				}
+				startActivity(new Intent(ContactListActivity.this, ChatActivity.class));
+				
+//				ContactListLogik conlog = new ContactListLogik();
+//				userList.add(u1);
+//				userList.add(u2);
+//				contactList = conlog.fillList(userList, getApplicationContext());
+//				textV.setText("test");
+//				for (ContactListEntry contact : contactList) {
+//					LinearLayout lilayout = contact.getLinlayout();
+//					lilayout.setOrientation(LinearLayout.HORIZONTAL);
+//					contact.getContactPicture().setOnClickListener(conlog.getOnKlickListener(contact.getContactPicture()));
+//					lilayout.addView(contact.getContactPicture());
+//					lilayout.addView(contact.getAlias());
+//					linlayoutVertical.addView(lilayout);
+//				}
 			}
 		});
 	}
@@ -64,6 +68,7 @@ public class ContactListActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.contact_list, menu);
+		getActionBar().setIcon(R.drawable.dummycontact);
 		return true;
 	}
 

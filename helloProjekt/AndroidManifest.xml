@@ -24,11 +24,11 @@
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="com.Schulprojekt.helloprojekt.Spiele.MainActivityTicTacToe"
+            android:name=".Spiele.MainActivityTicTacToe"
             android:label="@string/title_activity_main_activity_tic_tac_toe" >
         </activity>
         <activity
-            android:name="com.Schulprojekt.helloprojekt.Spiele.TicTacToe"
+            android:name=".Spiele.TicTacToe"
             android:label="@string/title_activity_tic_tac_toe" >
         </activity>
         <activity
@@ -43,6 +43,10 @@
         <activity
             android:name=".ContactListActivity"
             android:label="@string/title_activity_contact_list" >
+        </activity>
+        <activity
+            android:name=".ChatActivity"
+            android:label="@string/title_activity_chat" >
         </activity>
     </application>
 
