@@ -53,35 +53,11 @@ public class ChatActivity extends Activity implements
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 		
-		Bundle bundle = getIntent().getExtras();
-		Bitmap bmp = BitmapFactory.decodeByteArray(bundle.getByteArray("ContactImage"), 0, bundle.getByteArray("ContactImage").length);		
-		BitmapDrawable bmp2 = new BitmapDrawable(bmp);
-		Drawable draw = new Drawable() {
-			
-			@Override
-			public void setColorFilter(ColorFilter cf) {
-				// TODO Auto-generated method stub
-			}
-			
-			@Override
-			public void setAlpha(int alpha) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public int getOpacity() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-			
-			@Override
-			public void draw(Canvas canvas) {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-		getActionBar().setIcon(draw);
+		getActionBar().setIcon(R.drawable.dummycontact);
+//		Bundle bundle = getIntent().getExtras();		
+//		@SuppressWarnings("deprecation")
+//		BitmapDrawable bmp = new BitmapDrawable(BitmapFactory.decodeByteArray(bundle.getByteArray("ContactImage"), 0, bundle.getByteArray("ContactImage").length));
+//		getActionBar().setIcon(bmp);
 	}
 
 	@Override
