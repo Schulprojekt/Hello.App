@@ -45,7 +45,9 @@ public class ContactListActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				startActivity(new Intent(ContactListActivity.this, ChatActivity.class));
+				Intent in = new Intent(ContactListActivity.this, ChatActivity.class);
+				in.putExtra("ContactImage", (CharSequence) imgV.getBackground());
+				startActivity(in);
 				
 //				ContactListLogik conlog = new ContactListLogik();
 //				userList.add(u1);

@@ -6,6 +6,13 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -45,6 +52,36 @@ public class ChatActivity extends Activity implements
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+		
+		Bundle bundle = getIntent().getExtras();
+		Bitmap bmp = BitmapFactory.decodeByteArray(bundle.getByteArray("ContactImage"), 0, bundle.getByteArray("ContactImage").length);		
+		BitmapDrawable bmp2 = new BitmapDrawable(bmp);
+		Drawable draw = new Drawable() {
+			
+			@Override
+			public void setColorFilter(ColorFilter cf) {
+				// TODO Auto-generated method stub
+			}
+			
+			@Override
+			public void setAlpha(int alpha) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public int getOpacity() {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			@Override
+			public void draw(Canvas canvas) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		getActionBar().setIcon(draw);
 	}
 
 	@Override
