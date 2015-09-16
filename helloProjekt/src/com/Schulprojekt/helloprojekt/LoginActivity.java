@@ -21,13 +21,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity{
 
 	public Button btnRegistration;
 	public Button btnLogin;
-	public ImageButton imageButton;
+	public ImageView imageView;
 	public EditText loginUsername;
 	public EditText loginPassword;
 	
@@ -103,13 +104,13 @@ public class LoginActivity extends Activity{
 				
 			}
 		});
-		imageButton = (ImageButton) findViewById(R.id.imageButton);
-		imageButton.setOnClickListener(new OnClickListener() {
+		imageView = (ImageView) findViewById(R.id.imageView);
+		imageView.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (v == imageButton){
+				if (v == imageView){
 					Boolean methode = false;
 					
 					if(methode){

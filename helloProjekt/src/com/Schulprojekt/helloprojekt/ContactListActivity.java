@@ -36,7 +36,7 @@ public class ContactListActivity extends Activity {
 		setContentView(R.layout.activity_contact_list);
 		
 		//contactList = conlog.fillList(userList, this);
-		imgV = (ImageView) findViewById(R.id.imageView1);
+		imgV = (ImageView) findViewById(R.id.imageView);
 		final LinearLayout linlayoutVertical = (LinearLayout) findViewById(R.id.linLayoutContactVertical);
 		final ScrollView scrollView = (ScrollView) findViewById(R.id.scrollViewContact);
 		final TextView textV = (TextView) findViewById(R.id.textViewContact);
@@ -79,10 +79,13 @@ public class ContactListActivity extends Activity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		switch (item.getItemId()) {
+		case R.id.action_settings:
 			return true;
+		case R.id.act_ContactSearch:
+			startActivity(new Intent(ContactListActivity.this, ContactSearchActivity.class));
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 }
