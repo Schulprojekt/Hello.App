@@ -19,5 +19,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="title_activity_contact_search">ContactSearchActivity</string>
+    <string name="act_ContactSearch">Suchen</string>
 
 </resources>
