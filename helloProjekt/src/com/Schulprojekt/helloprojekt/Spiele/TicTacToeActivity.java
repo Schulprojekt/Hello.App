@@ -15,7 +15,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 public class TicTacToeActivity extends Activity {
-	private Button buttonTicTacToe1, buttonTicTacToe2, buttonTicTacToe3, buttonTicTacToe4,
+	private Button buttonTicTacToe1, buttonTicTacToe2, buttonTicTacToe3, buttonTicTacToe4,					//Deklaration
 		buttonTicTacToe5, buttonTicTacToe6, buttonTicTacToe7, buttonTicTacToe8, buttonId,
 		buttonTicTacToe9, buttonNewGame, buttonExit;
 	private boolean noughtsTurn = false; 																	//false=X true=O der erste Spieler beginnt mit X
@@ -25,7 +25,7 @@ public class TicTacToeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {													//Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tic_tac_toe);
-		buttonTicTacToe1 = (Button) findViewById(R.id.button11);												//auf die Button zugreifen
+		buttonTicTacToe1 = (Button) findViewById(R.id.button11);											//auf die Button zugreifen
 		buttonTicTacToe2 = (Button) findViewById(R.id.button12);
 		buttonTicTacToe3 = (Button) findViewById(R.id.button13);
 		buttonTicTacToe4 = (Button) findViewById(R.id.button21);
@@ -171,7 +171,7 @@ public class TicTacToeActivity extends Activity {
 	            B.setEnabled(false);																		//disable den Button
 	            noughtsTurn = !noughtsTurn;																	//beim nächsten Zug darf nicht das gleiche Zeichen gesetzt werden					
 	            id = B.getId();																				//speichert in der Variable id die ID des geklickten Buttons        
-	            buttonId = (Button) B.findViewById(id);													//sucht den Button über die Variable id
+	            buttonId = (Button) B.findViewById(id);													    //sucht den Button über die Variable id
 	            if (checkWin() == true) {																	//überprüfe, ob checkWin() true zurück gibt
 	                disableButtons();																		//führe sofort die Methode disableButtons() aus
 	            }

@@ -14,81 +14,83 @@ import android.widget.Toast;
 import com.Schulprojekt.helloprojekt.R;
 
 public class HangmanActivity extends Activity {
-
+																										    //Deklaration
 	Button btn_beenden;
 	Button btn_senden;
 	EditText txt_eingabe;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {                                                    //Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_hangman);
-		btn_beenden = (Button) findViewById(R.id.btn_beenden);
-		btn_beenden.setOnClickListener(new OnClickListener() {
+		
+		btn_beenden = (Button) findViewById(R.id.btn_beenden);                                             	//Zugriff auf den Button "Beenden"
+		btn_beenden.setOnClickListener(new OnClickListener() {												//Methodenaufruf
 
 			@Override
-			public void onClick(View v) {
-				finish();
-				System.exit(0);
+			public void onClick(View v) {																  	//Beim Klick auf den Button Aktion ausführen
+				finish();																					//Activity beenden
+				System.exit(0);																				//Activity schließen
 			}
 		});
-		btn_senden = (Button) findViewById(R.id.btn_senden);
-		btn_senden.setOnClickListener(new OnClickListener() {
+		
+		btn_senden = (Button) findViewById(R.id.btn_senden);												//Zugriff auf den Button "Senden"
+		btn_senden.setOnClickListener(new OnClickListener() {												//Methodenaufruf
 
 			@Override
-			public void onClick(View v) {
-				String eingabe = gibWort();
-				eingabe.trim();
-				if (!eingabe.equalsIgnoreCase("")
+			public void onClick(View v) {																	//Beim Klick auf den Button Aktion ausführen
+				String eingabe = gibWort();																	//Aufruf der Methode gibWort()
+				eingabe.trim();																				//Leerstrings entfernen
+				if (!eingabe.equalsIgnoreCase("")															//Prüfung ob das Feld Eingabe leer ist
 						&& !eingabe.equalsIgnoreCase(null)) {
-					if (eingabe.length() <= 12){
+					if (eingabe.length() <= 12){															//Prüfung ob das Feld mehr als 12 Zeichen hat
 						
-					if (isAlpha(eingabe) == true) {
-						Intent i = new Intent(HangmanActivity.this,
-								MainHangmanActivity.class);
-						Bundle b = new Bundle();
-						b.putString("wort", eingabe.toUpperCase());
-						i.putExtras(b);
-						startActivity(i);
-						finish();
-						System.exit(0);
+					if (isAlpha(eingabe) == true) {															//Prüfung ob das Feld nur Buchstaben enthält
+						Intent i = new Intent(HangmanActivity.this,											//Aufbau des Pfades zur nächsten Activity
+								MainHangmanActivity.class);													
+						Bundle b = new Bundle();															//Erstellen eines Bundles
+						b.putString("wort", eingabe.toUpperCase());											//Füllen des Bundles mit Key und dem dazugehörigen Wert
+						i.putExtras(b);																		//Bundle ins Intent hinzufügen
+						startActivity(i);																	//Nächste Activity starten
+						finish();																			//Activity beenden	
+						System.exit(0);																		//Activity schliessen
 					}
 
 					 else{
-						 Toast.makeText(HangmanActivity.this, "Keine Zahlen und Sonderzeichen!", Toast.LENGTH_LONG).show();
+						 Toast.makeText(HangmanActivity.this, "Keine Zahlen und Sonderzeichen!", 			//Wenn die Eingabe Zahlen oder Sonderzeichen enthält, Fehlermeldung anzeigen
+								 Toast.LENGTH_LONG).show();
 					 }
 					}else{
-						Toast.makeText(HangmanActivity.this, "Nicht länger als 12 Zeichen!", Toast.LENGTH_LONG).show();
+						Toast.makeText(HangmanActivity.this, "Nicht länger als 12 Zeichen!", 				//Wenn die Eingabe mehr als 12 Zeichen hat, Fehlermeldung anzeigen
+								Toast.LENGTH_LONG).show();
 					}
 				}
 				 else{		
-					 Toast.makeText(HangmanActivity.this, "Das Eingabefeld darf nicht leer sein", Toast.LENGTH_LONG).show();
+					 Toast.makeText(HangmanActivity.this, "Das Eingabefeld darf nicht leer sein", 			//Wenn die Eingabe leer ist, Fehlermeldung anzeigen
+							 Toast.LENGTH_LONG).show();
 				 }
 
 			}
 		});
-		txt_eingabe = (EditText) findViewById(R.id.txt_eingabe);
-		txt_eingabe.setOnClickListener(new OnClickListener() {
+		
+		txt_eingabe = (EditText) findViewById(R.id.txt_eingabe);											//Zugriff auf den Textfeld "Eingabe"
+		txt_eingabe.setOnClickListener(new OnClickListener() {												//Methodenaufruf
 
 			@Override
-			public void onClick(View v) {
-				txt_eingabe.setText("");
+			public void onClick(View v) {																	//Beim Klick auf das Textfeld Aktion ausführen
+				txt_eingabe.setText("");																	//Beim Klick auf das Textfeld Inhalt löschen
 			}
 		});
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu) {															//Aufbau eines Menüs
 		getMenuInflater().inflate(R.menu.hangman, menu);
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+	public boolean onOptionsItemSelected(MenuItem item) {													//Wird ein Item im Menü ausgewählt, wirft die Methode true zurück
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -96,19 +98,20 @@ public class HangmanActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public String gibWort() {
-		String wort = "";
-		txt_eingabe = (EditText) findViewById(R.id.txt_eingabe);
-		wort = txt_eingabe.getText().toString();
-		return wort;
+	public String gibWort() {																				//Methode zum Erhalten der Eingabe
+		String wort = "";																					//Deklaration
+		txt_eingabe = (EditText) findViewById(R.id.txt_eingabe);											//Zugriff auf den Textfeld "Eingabe"
+		wort = txt_eingabe.getText().toString();															//Füllen der Variable "Wort"
+		return wort;																						//Rückgabewert
 
 	}
 
-	public boolean isAlpha(String text) {
-		if (text.matches("[a-zA-Z]*")) {
+	public boolean isAlpha(String text) {																	//Methode zur Prüfung ob die Eingabe nur Buchstaben enthält
+		if (text.matches("[a-zA-Z]*")) {																	//Prüfung mit RegEx
 			return true;
 		} else {
 			return false;
 		}
 	}
 }
+

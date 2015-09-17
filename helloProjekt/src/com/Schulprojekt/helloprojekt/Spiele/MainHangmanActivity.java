@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.Schulprojekt.helloprojekt.R;
 
 public class MainHangmanActivity extends Activity {
-
+																										    //Deklaration
 	Button btn_schliessen;
 	Button btn_loesen;
 	Button btn_a;
@@ -50,108 +50,108 @@ public class MainHangmanActivity extends Activity {
 	int win = 0;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {													//Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_hangman);
 		
-		txt_versuche = (TextView) findViewById(R.id.txt_versuche);
-		txt_versuche.setText(txt_versuche.getText().toString() + tries +" ");
+		txt_versuche = (TextView) findViewById(R.id.txt_versuche);											//Zugriff auf das Label "Versuche"
+		txt_versuche.setText(txt_versuche.getText().toString() + tries +" ");								//Setzen des Labels
 		
-		txt_wort = (TextView) findViewById(R.id.txt_wort);
-		Bundle b = getIntent().getExtras();
-		String suchwort = b.getString("wort");
-		String wort = "";
-		for (int i = 1; i <= suchwort.length(); i++) {
-			if (i == suchwort.length()) {
-				wort += ("_");
+		txt_wort = (TextView) findViewById(R.id.txt_wort);													//Zugriff auf das Label "Wort"
+		Bundle b = getIntent().getExtras();																	//Zugriff auf den Übergabewert von HangmanActivity
+		String suchwort = b.getString("wort");																//Füllen der Variable mit dem Übergabewert
+		String wort = "";																					//Deklaration
+		for (int i = 1; i <= suchwort.length(); i++) {														//Schleife um für jeden Buchstaben im Wort einen Unterstrich zu setzen
+			if (i == suchwort.length()) {																	//Prüfung ob beim letzten Buchstaben angekommen
+				wort += ("_");																				//Nur Unterstrich setzen
 			} else {
-				wort += ("_ ");
+				wort += ("_ ");																				//Sonst Unterstrich und Leerstring setzen
 			}
 		}
 
-		txt_wort.setText(wort);
+		txt_wort.setText(wort);																				//Label "Wort" neu setzen
 
-		btn_schliessen = (Button) findViewById(R.id.btn_schliessen);
-		btn_schliessen.setOnClickListener(new OnClickListener() {
+		btn_schliessen = (Button) findViewById(R.id.btn_schliessen);										//Zugriff auf den Button "Schliessen"
+		btn_schliessen.setOnClickListener(new OnClickListener() {											//Methodenaufruf
 
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				finish();
-				System.exit(0);
+			public void onClick(View v) {																	//Beim Klick auf den Button Aktion ausführen
+				finish();																					//Activity beenden
+				System.exit(0);																				//Activity schliessen
 			}
 		});
 
-		btn_loesen = (Button) findViewById(R.id.btn_loesen);
-		btn_loesen.setOnClickListener(new OnClickListener() {
+		btn_loesen = (Button) findViewById(R.id.btn_loesen);												//Zugriff auf den Button "Lösen"
+		btn_loesen.setOnClickListener(new OnClickListener() {												//Methodenaufruf
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v) {																	//Beim Klick des Button Aktion ausführen
 				txt_loese = (EditText) findViewById(R.id.txt_loese);
 
-				if (btn_loesen.getText().toString().equalsIgnoreCase("OK")) {
-					txt_loese.setOnClickListener(new OnClickListener() {
+				if (btn_loesen.getText().toString().equalsIgnoreCase("OK")) {								//Prüfung auf den Textinhalt des "Lösen"-Button
+					
+					txt_loese.setOnClickListener(new OnClickListener() {									//Methodenaufruf
 
 						@Override
-						public void onClick(View v) {
-							txt_loese.setText("");
+						public void onClick(View v) {														//Beim Klick des Textfeldes Aktion ausführen
+							txt_loese.setText("");															//Textinhalt löschen
 						}
 					});
 
-					if (!txt_loese.getText().toString()
+					if (!txt_loese.getText().toString()														//Prüfung ob das Lösungsfeld gefüllt ist
 							.equalsIgnoreCase("Lösungswort eingeben")
 							|| !txt_loese.getText().toString()
 									.equalsIgnoreCase("")
 							|| !txt_loese.getText().toString()
 									.equalsIgnoreCase(null)) {
-						Bundle b = getIntent().getExtras();
-						String suchwort = b.getString("wort");
-						if (txt_loese.getText().toString()
+						Bundle b = getIntent().getExtras();													//Zugriff auf den Übergabewert von HangmanActivity
+						String suchwort = b.getString("wort");												//Füllen der Variable mit dem Übergabewert
+						if (txt_loese.getText().toString()													//Prüfung ob das Lösungswort mit dem gesuchten Wort übereinstimmt
 								.equalsIgnoreCase(suchwort)) {
-							win = 0;
-							Intent in = new Intent(MainHangmanActivity.this,
+							win = 0;																		//Variable "Win" auf 0 setzen
+							Intent in = new Intent(MainHangmanActivity.this,								//Aufbau des Pfades zur nächsten Activity
 									SolutionActivity.class);
-							Bundle bu = new Bundle();
-							bu.putInt("game", win);
-							in.putExtras(bu);
-							startActivity(in);
-							finish();
-							System.exit(0);
+							Bundle bu = new Bundle();														//Erstellen eines Bundles
+							bu.putInt("game", win);															//Füllen des Bundles mit Key und dem dazugehörigen Wert
+							in.putExtras(bu);																//Bundle ins Intent hinzufügen
+							startActivity(in);																//Nächste Activity starten
+							finish();																		//Activity beenden
+							System.exit(0);																	//Activity schliessen
 						} else {
-							win = 1;
-							Intent in = new Intent(MainHangmanActivity.this,
+							win = 1;																		//Sonst Variable "Win" auf 1 setzen
+							Intent in = new Intent(MainHangmanActivity.this,								//Aufbau des Pfades zur nächsten Activity
 									SolutionActivity.class);
-							Bundle bu = new Bundle();
-							bu.putInt("game", win);
-							in.putExtras(bu);
-							startActivity(in);
-							finish();
-							System.exit(0);
+							Bundle bu = new Bundle();														//Erstellen eines Bundles
+							bu.putInt("game", win);															//Füllen des Bundles mit Key und dem dazugehörigen Wert
+							in.putExtras(bu);																//Bundle ins Intent hinzufügen
+							startActivity(in);																//Nächste Activity starten
+							finish();																		//Activity beenden
+							System.exit(0);																	//Activity schliessen													
 						}
 					}
 
 				} else {
-					txt_loese.setVisibility(1);
-					btn_loesen.setText("OK");
-					txt_loese.setOnClickListener(new OnClickListener() {
+					txt_loese.setVisibility(1);																//Textfeld "Löse" sichtbar machen
+					btn_loesen.setText("OK");																//Buttontext auf "OK" setzen 
+					txt_loese.setOnClickListener(new OnClickListener() {                                    //Methodenaufruf
 
 						@Override
-						public void onClick(View v) {
-							txt_loese.setText("");
+						public void onClick(View v) {														//Beim Klick auf das Textfeld Aktion ausführen
+							txt_loese.setText("");															//Textinhalt löschen
 						}
 					});
 				}
 			}
 		});
+																											//--Gilt für die Buttons a-z--
+		btn_a = (Button) findViewById(R.id.btn_a);															//Zugriff auf die Buttons
+		btn_a.setOnClickListener(new OnClickListener() {													//Methodenaufruf
 
-		btn_a = (Button) findViewById(R.id.btn_a);
-		btn_a.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				checkLetter("A");
-				btn_a.setVisibility(View.INVISIBLE);
-
+			@Override																						
+			public void onClick(View v) {																	//Beim Klick auf den Button Aktion ausführen
+				checkLetter("A");																			//Methode mit dem Buchstaben des Button aufrufen
+				btn_a.setVisibility(View.INVISIBLE);														//Button nicht sichtbar setzen
+																											
 			}
 		});
 
@@ -412,17 +412,13 @@ public class MainHangmanActivity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu) {															//Aufbau eines Menüs
 		getMenuInflater().inflate(R.menu.main_hangman, menu);
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+	public boolean onOptionsItemSelected(MenuItem item) {													//Wird ein Item im Menü ausgewählt, wirft die Methode true zurück
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -430,66 +426,66 @@ public class MainHangmanActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void checkLetter(String letter) {
-		Bundle b = getIntent().getExtras();
-		String suchwort = b.getString("wort");
-		String wort = "";
-		int j = 0;
-		if (suchwort.contains(letter)) {
-			for (int i = 0; i < suchwort.length(); i++) {
-				if (txt_wort.getText().toString().charAt(j) == '_') {
-					if (suchwort.charAt(i) == letter.charAt(0)) {
-						if (i == suchwort.length()) {
-							wort += (letter);
+	public void checkLetter(String letter) {																//Methode zur Überprüfung ob der Buchstabe im Wort enthalten ist
+		Bundle b = getIntent().getExtras();																	//Zugriff auf den Übergabewert von HangmanActivity
+		String suchwort = b.getString("wort");																//Füllen der Variable mit dem Übergabewert
+		String wort = "";																					//Deklaration
+		int j = 0;									
+		if (suchwort.contains(letter)) {																	//Prüfung ob Buchstabe enthalten ist
+			for (int i = 0; i < suchwort.length(); i++) {													//Schleife zu entsetzen der Unterstriche in Buchstaben
+				if (txt_wort.getText().toString().charAt(j) == '_') {										//Prüfung ob Unterstrich vorhanden ist
+					if (suchwort.charAt(i) == letter.charAt(0)) {											//Prüfung ob an der Stelle der Buchstabe ist
+						if (i == suchwort.length()) {														//Prüfung ob man am letzten Buchstaben des Wortes angelangt ist
+							wort += (letter);																//Buchstaben setzen
 						} else {
-							wort += (letter + " ");
+							wort += (letter + " ");															//Sonst Buchstaben und Leerstring setzen
 						}
 					} else {
-						if (i == suchwort.length()) {
-							wort += ("_");
+						if (i == suchwort.length()) {														//Prüfung ob man am letzten Buchstaben des Wortes angelangt ist										
+							wort += ("_");																	//Unterstrich setzen
 						} else {
-							wort += ("_ ");
+							wort += ("_ ");																	//Sonst Unterstrich und Leerstring setzen
 						}
 					}
 				}
 				 else {
-				  if (i == suchwort.length()) {
-				  wort += (suchwort.charAt(i));
+				  if (i == suchwort.length()) {																//Prüfung ob man am letzten Buchstaben des Wortes angelangt ist														
+				  wort += (suchwort.charAt(i));																//Buchstaben setzen
 				  } else {
-				  wort += (suchwort.charAt(i) + " ");
+				  wort += (suchwort.charAt(i) + " ");														//Sonst Buchstaben und Leerstring setzen
 				  }
 				  }
-				j = j + 2;
+				j = j + 2;																					//Variable j um 2 erhöhen
 			}
 
-			txt_wort.setText(wort);
+			txt_wort.setText(wort);																			//Label "Wort" neu setzen
 		} 
 		else{
-			tries = tries - 1;
-			if (tries < 1){
-				win = 1;
-				Intent in = new Intent(MainHangmanActivity.this,
+			tries = tries - 1;                                                                              //Wenn Buchstabe nicht enthalten, ein Versuch abziehen
+			if (tries < 1){																					//Prüfung ob Versuche kleiner 1 ist
+				win = 1;																					//Variable "Win" auf 1 setzen
+				Intent in = new Intent(MainHangmanActivity.this,											//Aufbau des Pfades zur nächsten Activity
 						SolutionActivity.class);
-				Bundle bu = new Bundle();
-				bu.putInt("game", win);
-				in.putExtras(bu);
-				startActivity(in);
-				finish();
-				System.exit(0);
+				Bundle bu = new Bundle();																	//Erstellen eines Bundles
+				bu.putInt("game", win);																		//Füllen des Bundles mit Key und dem dazugehörigen Wert
+				in.putExtras(bu);																			//Bundle ins Intent hinzufügen
+				startActivity(in);																			//Nächste Activity starten
+				finish();																					//Activity beenden	
+				System.exit(0);																				//Activity schliessen
 
 			}
-			txt_versuche.setText(txt_versuche.getText().toString().substring(0,11) + tries +" ");
+			txt_versuche.setText(txt_versuche.getText().toString().substring(0,11) + tries +" ");           //Label "Versuche" neu setzen
 		}
-		if (!txt_wort.getText().toString().contains("_")){
-			win = 0;
-			Intent in = new Intent(MainHangmanActivity.this,
+		if (!txt_wort.getText().toString().contains("_")){													//Prüfun ob alle Buchstaben gefunden worden sind
+			win = 0;																						//Variable "Win" auf 0 setzen
+			Intent in = new Intent(MainHangmanActivity.this,												//Aufbau des Pfades zur nächsten Activity
 					SolutionActivity.class);
-			Bundle bu = new Bundle();
-			bu.putInt("game", win);
-			in.putExtras(bu);
-			startActivity(in);
-			finish();
-			System.exit(0);
+			Bundle bu = new Bundle();																		//Erstellen eines Bundles
+			bu.putInt("game", win);																			//Füllen des Bundles mit Key und dem dazugehörigen Wert
+			in.putExtras(bu);																				//Bundle ins Intent hinzufügen
+			startActivity(in);																				//Nächste Activity starten
+			finish();																						//Activity beenden
+			System.exit(0);																					//Activity schliessen
 		}
 	}
 
