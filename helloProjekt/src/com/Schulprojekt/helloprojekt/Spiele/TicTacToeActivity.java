@@ -1,4 +1,8 @@
-package com.Schulprojekt.helloprojekt;
+package com.Schulprojekt.helloprojekt.Spiele;
+
+import com.Schulprojekt.helloprojekt.R;
+import com.Schulprojekt.helloprojekt.R.id;
+import com.Schulprojekt.helloprojekt.R.layout;
 
 import android.app.Activity;
 import android.os.Bundle;

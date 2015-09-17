@@ -69,7 +69,7 @@
             android:label="@string/title_activity_select_game" >
         </activity>
         <activity
-            android:name=".TicTacToeActivity"
+            android:name="com.Schulprojekt.helloprojekt.Spiele.TicTacToeActivity"
             android:label="@string/title_activity_tic_tac_toe" >
         </activity>
     </application>

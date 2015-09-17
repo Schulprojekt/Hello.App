@@ -1,4 +1,6 @@
 package com.Schulprojekt.helloprojekt;
+import com.Schulprojekt.helloprojekt.Spiele.HangmanActivity;
+import com.Schulprojekt.helloprojekt.Spiele.TicTacToeActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,7 +22,9 @@ public class SelectGameActivity extends Activity {
 		buttonBack = (Button) findViewById(R.id.buttonBack);
 		buttonHangman.setOnClickListener(new OnClickListener() {												//auf den Button Hangman einen OnClickListenener setzen
 			public void onClick(View view) {
-				//																								//wird auf die nächste Activity geleitet
+				Intent i = new Intent(SelectGameActivity.this,
+		        		HangmanActivity.class);
+		        startActivity(i);																							//wird auf die nächste Activity geleitet
 			}
 		});
 		buttonTicTacToe.setOnClickListener(new OnClickListener() {												//auf den Button TicTacToe einen OnClickListenener setzen
