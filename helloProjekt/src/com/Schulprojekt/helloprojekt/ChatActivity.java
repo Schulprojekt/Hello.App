@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ChatActivity extends Activity implements
@@ -39,6 +41,7 @@ public class ChatActivity extends Activity implements
 	 * {@link #restoreActionBar()}.
 	 */
 	private CharSequence mTitle;
+	private ImageView imageViewGame;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +57,21 @@ public class ChatActivity extends Activity implements
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 		
 		getActionBar().setIcon(R.drawable.dummycontact);
+		imageViewGame = (ImageView) findViewById(R.id.imageView2);
+		imageViewGame.setOnClickListener(new View.OnClickListener(){
+			public void onClick(View v) {
+			        Intent i = new Intent(ChatActivity.this,
+			        		SelectGameActivity.class);
+			        startActivity(i);
+			}
+		});
 //		Bundle bundle = getIntent().getExtras();		
 //		@SuppressWarnings("deprecation")
 //		BitmapDrawable bmp = new BitmapDrawable(BitmapFactory.decodeByteArray(bundle.getByteArray("ContactImage"), 0, bundle.getByteArray("ContactImage").length));
 //		getActionBar().setIcon(bmp);
 	}
-
+	
+	
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments

@@ -61,8 +61,16 @@
             android:label="@string/title_activity_main_hangman" >
         </activity>
         <activity
-            android:name="com.Schulprojekt.helloprojekt.Spiele.SolutionActivity"
+            android:name=".Spiele.SolutionActivity"
             android:label="@string/title_activity_solution" >
+        </activity>
+        <activity
+            android:name=".SelectGameActivity"
+            android:label="@string/title_activity_select_game" >
+        </activity>
+        <activity
+            android:name=".TicTacToeActivity"
+            android:label="@string/title_activity_tic_tac_toe" >
         </activity>
     </application>
 
