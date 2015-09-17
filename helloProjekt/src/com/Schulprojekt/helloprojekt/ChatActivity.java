@@ -57,7 +57,7 @@ public class ChatActivity extends Activity implements
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 		
 		getActionBar().setIcon(R.drawable.dummycontact);
-		imageViewGame = (ImageView) findViewById(R.id.imageView2);
+		imageViewGame = (ImageView) findViewById(R.id.imageViewGame);
 		imageViewGame.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {
 			        Intent i = new Intent(ChatActivity.this,

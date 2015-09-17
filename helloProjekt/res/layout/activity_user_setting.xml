@@ -12,7 +12,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
+        android:layout_below="@+id/imageViewMessageSend"
         android:layout_marginTop="36dp"
         android:text="Benutzername:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -48,7 +48,7 @@
     </EditText>
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageViewMessageSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/UserSettingAliasname"
         android:layout_marginTop="48dp"
-        android:layout_toRightOf="@+id/imageView1"
+        android:layout_toRightOf="@+id/imageViewMessageSend"
         android:text="Speichern" />
 
     <Button
@@ -74,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/btnSave"
-        android:layout_toLeftOf="@+id/imageView1"
+        android:layout_toLeftOf="@+id/imageViewMessageSend"
         android:text="Account löschen" />
 
 </RelativeLayout>

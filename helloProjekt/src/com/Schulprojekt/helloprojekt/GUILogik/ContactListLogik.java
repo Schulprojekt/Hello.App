@@ -16,14 +16,15 @@ public class ContactListLogik {
 	public ArrayList<ContactListEntry> fillList(ArrayList<User> userList, Context con){
 		ArrayList<ContactListEntry> contactList = new ArrayList<ContactListEntry>();
 		for (User user : userList) {
-			i = i+1;
 			LinearLayout linlay = new LinearLayout(con);
 			ImageView img = new ImageView(con);
 			img.setImageResource(R.drawable.dummycontact);
+			img.setId(i);
 			TextView tv = new TextView(con);
 			tv.setText(user.getAlias());
 			ContactListEntry entry = new ContactListEntry(linlay, img, tv, user.getAccountName());
 			contactList.add(entry);
+			i = i+1;
 		}
 		return contactList;
 	}

@@ -2,6 +2,8 @@ package com.Schulprojekt.helloprojekt.GUILogik;
 
 import java.util.UUID;
 
+import android.graphics.Bitmap;
+
 public class User {
 
 	private UUID 	AccountID;
@@ -10,12 +12,12 @@ public class User {
 	private String	Password;
 	private Boolean AccountState;
 	private Integer Experienced;
-	private Byte[]	AccountPicture;	
+	private Bitmap	AccountPicture;	
 	
-	public User(UUID accountID, String accountName, String alias,
-			Boolean accountState, Integer experienced, Byte[] accountPicture) {
+	public User(UUID i, String accountName, String alias,
+			Boolean accountState, Integer experienced, Bitmap accountPicture) {
 		super();
-		AccountID = accountID;
+		AccountID = i;
 		AccountName = accountName;
 		Alias = alias;
 		AccountState = accountState;
@@ -68,10 +70,10 @@ public class User {
 	public void setExperienced(Integer experienced) {
 		Experienced = experienced;
 	}
-	public Byte[] getAccountPicture() {
+	public Bitmap getAccountPicture() {
 		return AccountPicture;
 	}
-	public void setAccountPicture(Byte[] accountPicture) {
+	public void setAccountPicture(Bitmap accountPicture) {
 		AccountPicture = accountPicture;
 	}
 }

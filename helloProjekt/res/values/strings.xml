@@ -28,5 +28,6 @@
     <string name="chat_AppExit">Beenden</string>
     <string name="act_AppExit">Beenden</string>
     <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="title_activity_simple_chat">SimpleChatActivity</string>
 
 </resources>

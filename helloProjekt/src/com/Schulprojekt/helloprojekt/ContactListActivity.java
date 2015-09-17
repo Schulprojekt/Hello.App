@@ -3,6 +3,7 @@ package com.Schulprojekt.helloprojekt;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -10,9 +11,15 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
+import android.R.drawable;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.Telephony.Sms.Conversations;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,8 +34,8 @@ public class ContactListActivity extends Activity {
 
 	ArrayList<User> userList = new ArrayList<User>();
 	ArrayList<ContactListEntry> contactList;
-	User u1 = new User("test", "test", "test",true);
-	User u2 = new User("test", "test", "test",true);
+	User u1 = new User("test1", "test1", "test1",true);
+	User u2 = new User("test2", "test2", "test2",true);
 	ContactListLogik conlog = new ContactListLogik();
 	String userName;
 	private final static String SERVICE_URI = "http://lt0.studio.entail.ca:8080/VehicleService.svc";
@@ -36,15 +43,18 @@ public class ContactListActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		User user =  (User) getIntent().getExtras().getParcelable("LoggedUser");
-		userName = user.getAccountName();
+//		User user =  (User) getIntent().getExtras().getParcelable("LoggedUser");
+//		userName = user.getAccountName();
 		//onLoadVehicle(userName);
 		setContentView(R.layout.activity_contact_list);
+		Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.dummycontact);
+		User u3 = new User(UUID.randomUUID(), "test3", "test3", true, 0, icon);
 		final LinearLayout linlayoutVertical = (LinearLayout) findViewById(R.id.linLayoutContactVertical);
 		findViewById(R.id.scrollViewContact);
 		findViewById(R.id.textViewContact);
 		userList.add(u1);
 		userList.add(u2);
+		userList.add(u3);
 		contactList = conlog.fillList(userList, getApplicationContext());
 		for (ContactListEntry contact : contactList) {
 			LinearLayout lilayout = contact.getLinlayout();
@@ -116,7 +126,11 @@ public class ContactListActivity extends Activity {
 	public View.OnClickListener getOnKlickListener(ImageView img){
 	    return new View.OnClickListener() {
 	        public void onClick(View v) {
-	        	Intent in = new Intent(ContactListActivity.this, ChatActivity.class);
+	        	Intent in = new Intent(ContactListActivity.this, SimpleChatActivity.class);
+	        	Bundle b = new Bundle();
+				b.putString("username", userList.get(v.getId()).getAlias().toString());
+				b.putParcelable("picture", userList.get(v.getId()).getAccountPicture());
+				in.putExtras(b);
 				startActivity(in);
 	        }
 	    };
