@@ -12,26 +12,26 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class SelectGameActivity extends Activity {
-	private Button buttonHangman, buttonTicTacToe, buttonBack;
+	private Button buttonHangman, buttonTicTacToe, buttonBack;													//Deklaration 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {														//Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_game);
-		buttonHangman = (Button) findViewById(R.id.buttonHangman);
-		buttonTicTacToe = (Button) findViewById(R.id.buttonTicTacToe);
-		buttonBack = (Button) findViewById(R.id.buttonBack);
+		buttonHangman = (Button) findViewById(R.id.buttonHangman);												//auf den Button buttonHangman zugreifen
+		buttonTicTacToe = (Button) findViewById(R.id.buttonTicTacToe);											//auf den Button buttonTicTacToe zugreifen
+		buttonBack = (Button) findViewById(R.id.buttonBack);													//auf den Button buttonBack zugreifen
 		buttonHangman.setOnClickListener(new OnClickListener() {												//auf den Button Hangman einen OnClickListenener setzen
 			public void onClick(View view) {
-				Intent i = new Intent(SelectGameActivity.this,
+				Intent i = new Intent(SelectGameActivity.this,													//Aufbau des Pfades zur nächsten Activity
 		        		HangmanActivity.class);
-		        startActivity(i);																							//wird auf die nächste Activity geleitet
+		        startActivity(i);																				//Activity wird gestartet
 			}
 		});
 		buttonTicTacToe.setOnClickListener(new OnClickListener() {												//auf den Button TicTacToe einen OnClickListenener setzen
 			public void onClick(View view) {
-				Intent i = new Intent(SelectGameActivity.this,
+				Intent i = new Intent(SelectGameActivity.this,													//Aufbau des Pfades zur nächsten Activity
 		        		TicTacToeActivity.class);
-		        startActivity(i);																				//wird auf die nächste Activity geleitet
+		        startActivity(i);																				//Activity wird gestartet
 			}
 		});
 		buttonBack.setOnClickListener(new OnClickListener() {													//auf den Button Zurück einen OnClickListenener setzen
@@ -40,22 +40,14 @@ public class SelectGameActivity extends Activity {
 				System.exit(0);																					//Anwendung komplett schließen
 			}
 		});
-
-
 	}
-
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu) {																//Menü wird aufgebaut
 		getMenuInflater().inflate(R.menu.select_game, menu);
-		return true;
+		return true;																							//wenn Menü aufgebaut ist, gibt die Methode true zurück
 	}
-
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+	public boolean onOptionsItemSelected(MenuItem item) {														//wird ein Item im Menüe ausgewählt, gibt die Methode true zurück
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;

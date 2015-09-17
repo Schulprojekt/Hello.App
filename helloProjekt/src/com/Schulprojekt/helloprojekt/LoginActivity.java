@@ -25,72 +25,56 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity{
-
-	public Button btnRegistration;
+	public Button btnRegistration;																				//Deklaration
 	public Button btnLogin;
 	public ImageView imageView;
 	public EditText loginUsername;
-	public EditText loginPassword;
-	
-	
-	private final static String SERVICE_URI = "http://muss.noch.geaendert.werden";
-	
+	public EditText loginPassword;																										
+	private final static String SERVICE_URI = "http://muss.noch.geaendert.werden";								//URL zum WebService
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {														//Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
-		loginUsername = (EditText)findViewById(R.id.loginUsername);
-		loginPassword = (EditText)findViewById(R.id.loginPassword);
-		
-		btnRegistration = (Button) findViewById(R.id.register);
-		btnRegistration.setOnClickListener(new OnClickListener() {
-			
+		loginUsername = (EditText)findViewById(R.id.loginUsername);												//auf Textfeld loginUsername zurgreifen
+		loginPassword = (EditText)findViewById(R.id.loginPassword);												//auf Textfeld loginPassword zurgreifen
+		btnRegistration = (Button) findViewById(R.id.register);													//auf Button register zurgreifen
+		btnLogin = (Button) findViewById(R.id.login);															//auf Button login zugreifen
+		imageView = (ImageView) findViewById(R.id.imageView);													//auf ImageView imageView zugreifen
+		btnRegistration.setOnClickListener(new OnClickListener() {												//auf den Button register einen OnClickListener setzen
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
+			public void onClick(View v) {																		
 				if (v == btnRegistration){
-					startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
+					startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));					//auf RegistrationActivity weiterleiten, wenn Button geklickt wird
 				}
 				
 			}
 		});
-		btnLogin = (Button) findViewById(R.id.login);
-		btnLogin.setOnClickListener(new OnClickListener() {
-			
+		btnLogin.setOnClickListener(new OnClickListener() {														//auf den Button login einen OnClickListener setzen
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (v == btnLogin){
+				if (v == btnLogin){																				//wird der Button geklickt, wird die Verbindung zur Datenbank aufgebaut
 					try{
 						DefaultHttpClient httpClient = new DefaultHttpClient();
-						HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/" + loginUsername);
-						
+						HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/" +					//auf die Felder AccountName + loginUsername zugreifen
+						loginUsername);
 						request.setHeader("Accept", "application/json");
 				        request.setHeader("Content-type", "application/json");
-
 				        HttpResponse response = httpClient.execute(request);
-				        
 				        HttpEntity responseEntity = response.getEntity();
-				        
-				        // Read response data into buffer
-				        char[] buffer = new char[(int)responseEntity.getContentLength()];
+				        char[] buffer = new char[(int)responseEntity.getContentLength()];						//Daten im Array speichern
 				        InputStream stream = responseEntity.getContent();
-				        InputStreamReader reader = new InputStreamReader(stream);
-				        reader.read(buffer);
+				        InputStreamReader reader = new InputStreamReader(stream);								//Reader deklarieren
+				        reader.read(buffer);																	//Reader liest Buffer
 				        stream.close();
 
-				        JSONObject user = new JSONObject(new String(buffer));
-				        
-				        // Populate text fields
-				        loginUsername.setText(user.getString("accountName"));
-				        
-				        if(loginUsername == null){
-				        	Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", Toast.LENGTH_LONG).show();
+				        JSONObject user = new JSONObject(new String(buffer));									//ein JSONObject erstellens
+				        loginUsername.setText(user.getString("accountName"));									//in das Feld loginUsername die Eingabe accountName setzen
+				        if(loginUsername == null){																//ist loginUsername nulll, kommt die Fehlermeldung
+				        	Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", 
+				        			Toast.LENGTH_LONG).show();
 				        }else{
-				        	startActivity(new Intent(LoginActivity.this, ContactListActivity.class));
-				        }
-				        
+				        	startActivity(new Intent(LoginActivity.this, ContactListActivity.class));			//sonst wird die nächste Activity ContactListActivity gestartet
+				        } 
 					}catch (Exception e){
 						e.printStackTrace();
 					}
@@ -98,25 +82,24 @@ public class LoginActivity extends Activity{
 					if(methode){
 						startActivity(new Intent(LoginActivity.this, ContactListActivity.class));					
 					}else{
-						Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", Toast.LENGTH_LONG).show();
+						Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", 
+								Toast.LENGTH_LONG).show();
 					}
 				}
 				
 			}
 		});
-		imageView = (ImageView) findViewById(R.id.imageView);
-		imageView.setOnClickListener(new OnClickListener() {
-			
+		imageView.setOnClickListener(new OnClickListener() {													//auf das ImageView imageView einen OnClickListener setzen
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (v == imageView){
+			public void onClick(View v) {					
+				if (v == imageView){																			//wird imageView geklickt, wird der Boolean auf false gesetzt
 					Boolean methode = false;
 					
-					if(methode){
+					if(methode){																				//wurde der Boolean methode erzeugt, wird die nächste Activity ContactListActivity aufgerufen
 						startActivity(new Intent(LoginActivity.this, ContactListActivity.class));					
-					}else{
-						Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", Toast.LENGTH_LONG).show();
+					}else{																						//sonst kommt die Fehlermeldung
+						Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", 
+								Toast.LENGTH_LONG).show();
 					}
 				}
 				
@@ -124,26 +107,19 @@ public class LoginActivity extends Activity{
 		});
 		
 	}
-
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu) {																//Menü wird aufgebaut
 		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
+		return true;																							//wenn Menü aufgebaut ist, gibt die Methode true zurück
 	}
-
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+	public boolean onOptionsItemSelected(MenuItem item) {														//wird ein Item im Menüe ausgewählt, gibt die Methode true zurück
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
 	public void onClickListener(){
 		
 	}
