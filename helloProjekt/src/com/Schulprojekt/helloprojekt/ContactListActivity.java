@@ -1,6 +1,14 @@
 package com.Schulprojekt.helloprojekt;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
 
 import com.Schulprojekt.helloprojekt.GUILogik.ContactListEntry;
 import com.Schulprojekt.helloprojekt.GUILogik.ContactListLogik;
@@ -27,14 +35,19 @@ public class ContactListActivity extends Activity {
 	User u1 = new User("test", "test", "test",true);
 	User u2 = new User("test", "test", "test",true);
 	ContactListLogik conlog = new ContactListLogik();
-	
+	Bundle bundle = new Bundle();
+	String userName;
+	private final static String SERVICE_URI = "http://lt0.studio.entail.ca:8080/VehicleService.svc";
+	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		userName = bundle.getString("userName");
+		onLoadVehicle(userName);
 		setContentView(R.layout.activity_contact_list);
 		final LinearLayout linlayoutVertical = (LinearLayout) findViewById(R.id.linLayoutContactVertical);
-		final ScrollView scrollView = (ScrollView) findViewById(R.id.scrollViewContact);
-		final TextView textV = (TextView) findViewById(R.id.textViewContact);
+		findViewById(R.id.scrollViewContact);
+		findViewById(R.id.textViewContact);
 		userList.add(u1);
 		userList.add(u2);
 		contactList = conlog.fillList(userList, getApplicationContext());
@@ -46,6 +59,39 @@ public class ContactListActivity extends Activity {
 			lilayout.addView(contact.getAlias());
 			linlayoutVertical.addView(lilayout);
 		}
+	}
+
+	public void onLoadVehicle(String userName) {
+	    try {
+	        // Send GET request to <service>/GetVehicle/<plate>
+	        DefaultHttpClient httpClient = new DefaultHttpClient();
+	        HttpGet request = new HttpGet(SERVICE_URI + "/GetRelationship/" + userName);
+	 
+	        request.setHeader("Accept", "application/json");
+	        request.setHeader("Content-type", "application/json");
+	 
+	        HttpResponse response = httpClient.execute(request);
+	 
+	        HttpEntity responseEntity = response.getEntity();
+	 
+	        // Read response data into buffer
+	        char[] buffer = new char[(int)responseEntity.getContentLength()];
+	        InputStream stream = responseEntity.getContent();
+	        InputStreamReader reader = new InputStreamReader(stream);
+	        reader.read(buffer);
+	        stream.close();
+	 
+	        JSONObject vehicle = new JSONObject(new String(buffer));
+	 
+	        // Populate text fields
+//	        makeEdit.setText(vehicle.getString("make"));
+//	        plateEdit.setText(vehicle.getString("plate"));
+//	        modelEdit.setText(vehicle.getString("model"));
+//	        yearEdit.setText(vehicle.getString("year"));
+	 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	@Override

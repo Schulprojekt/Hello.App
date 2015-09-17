@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import com.Schulprojekt.helloprojekt.R;
 
-import android.app.ActionBar.LayoutParams;
 import android.content.Context;
-import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
