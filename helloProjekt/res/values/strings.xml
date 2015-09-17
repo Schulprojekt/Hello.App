@@ -24,5 +24,6 @@
     <string name="title_activity_main_hangman">MainHangmanActivity</string>
     <string name="title_activity_solution">SolutionActivity</string>
     <string name="title_activity_select_game">SelectGameActivity</string>
+    <string name="title_activity_user_setting">UserSettingActivity</string>
 
 </resources>

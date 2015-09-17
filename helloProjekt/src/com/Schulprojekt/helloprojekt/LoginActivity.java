@@ -6,12 +6,10 @@ import java.io.InputStreamReader;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,7 +18,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -73,14 +70,33 @@ public class LoginActivity extends Activity{
 				        	Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", 
 				        			Toast.LENGTH_LONG).show();
 				        }else{
-				        	startActivity(new Intent(LoginActivity.this, ContactListActivity.class));			//sonst wird die nächste Activity ContactListActivity gestartet
+				        	if(loginPassword.equals(user.getString("password"))){
+				        		Intent i = new Intent(LoginActivity.this,										//sonst wird die nächste Activity ContactListActivity gestartet
+										ContactListActivity.class);
+								Bundle b = new Bundle();
+								b.putString("username", loginUsername.toString());
+								i.putExtras(b);
+								startActivity(i);
+								finish();
+								System.exit(0);																	
+				        	}else{
+				        		Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", 
+					        			Toast.LENGTH_LONG).show();
+				        	}
 				        } 
 					}catch (Exception e){
 						e.printStackTrace();
 					}
 					Boolean methode = true;
 					if(methode){
-						startActivity(new Intent(LoginActivity.this, ContactListActivity.class));					
+						Intent i = new Intent(LoginActivity.this,
+								ContactListActivity.class);
+						Bundle b = new Bundle();
+						b.putString("username", loginUsername.toString());
+						i.putExtras(b);
+						startActivity(i);
+						finish();
+						System.exit(0);
 					}else{
 						Toast.makeText(LoginActivity.this, "Benutzername oder Passwort falsch!", 
 								Toast.LENGTH_LONG).show();
