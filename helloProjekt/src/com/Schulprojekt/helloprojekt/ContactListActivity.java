@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,7 +44,7 @@ public class ContactListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		userName = bundle.getString("userName");
-		onLoadVehicle(userName);
+//		onLoadVehicle(userName);
 		setContentView(R.layout.activity_contact_list);
 		final LinearLayout linlayoutVertical = (LinearLayout) findViewById(R.id.linLayoutContactVertical);
 		findViewById(R.id.scrollViewContact);
@@ -122,7 +123,6 @@ public class ContactListActivity extends Activity {
 	    return new View.OnClickListener() {
 	        public void onClick(View v) {
 	        	Intent in = new Intent(ContactListActivity.this, ChatActivity.class);
-//				in.putExtra("ContactImage", (CharSequence) imgV.getBackground());
 				startActivity(in);
 	        }
 	    };
