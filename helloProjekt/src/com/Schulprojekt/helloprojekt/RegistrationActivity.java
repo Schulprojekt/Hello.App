@@ -62,25 +62,18 @@ public class RegistrationActivity extends Activity {
         			        InputStreamReader reader = new InputStreamReader(stream);							//Reader deklarieren
         			        reader.read(buffer);																//Reader liest Buffer ein
         			        stream.close();
-        			 
         			        user = new JSONObject(new String(buffer));											//ein JSONObject erstellens
-
 							} catch (ClientProtocolException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							} catch (JSONException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-        					
         					if(user.isNull(name)){
-        						Toast.makeText(RegistrationActivity.this, "Name schon vergeben!", Toast.LENGTH_LONG).show();
+        						Toast.makeText(RegistrationActivity.this, "Name schon vergeben!", 
+        								Toast.LENGTH_LONG).show();
         					}else{
-        					
-        							
         				
 //        					new User(name, alias, passwort, true);
 //        					
@@ -131,7 +124,8 @@ public class RegistrationActivity extends Activity {
         					}
         				}
         				else{
-        					Toast.makeText(RegistrationActivity.this, "Passwörter stimmen nicht ueberein", Toast.LENGTH_LONG).show();
+        					Toast.makeText(RegistrationActivity.this, "Passwörter stimmen nicht ueberein", 		
+        							Toast.LENGTH_LONG).show();
         				}
 
         			} 
@@ -141,16 +135,12 @@ public class RegistrationActivity extends Activity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {																//Menü wird aufgebaut
         getMenuInflater().inflate(R.menu.registration, menu);
-        return true;
+        return true;																							//wenn Menü aufgebaut ist, gibt die Methode true zurück
     }
-
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+    public boolean onOptionsItemSelected(MenuItem item) {														//wird ein Item im Menüe ausgewählt, gibt die Methode true zurück
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
