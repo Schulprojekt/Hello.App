@@ -9,9 +9,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
+import com.Schulprojekt.helloprojekt.GUILogik.User;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,7 +77,7 @@ public class LoginActivity extends Activity{
 				        		Intent i = new Intent(LoginActivity.this,										//sonst wird die nächste Activity ContactListActivity gestartet
 										ContactListActivity.class);
 								Bundle b = new Bundle();
-								b.putString("username", loginUsername.toString());
+								b.putParcelable("user", (Parcelable) user);
 								i.putExtras(b);
 								startActivity(i);
 								finish();

@@ -42,7 +42,8 @@ public class ContactListActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		userName = bundle.getString("userName");
+		User user =  (User) bundle.getParcelable("user");
+		userName = user.getAccountName();
 		onLoadVehicle(userName);
 		setContentView(R.layout.activity_contact_list);
 		final LinearLayout linlayoutVertical = (LinearLayout) findViewById(R.id.linLayoutContactVertical);

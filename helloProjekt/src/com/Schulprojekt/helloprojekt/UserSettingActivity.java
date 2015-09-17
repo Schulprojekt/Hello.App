@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class UserSettingActivity extends Activity {
 
@@ -26,7 +27,7 @@ public class UserSettingActivity extends Activity {
 	public Button btnSave;
 	public EditText userSettingUsername;
 	public EditText userSettingAliasname;
-	public User user;
+	public String user;
 	
 	private final static String SERVICE_URI = "http://muss.noch.geaendert.werden";
 	
@@ -35,10 +36,13 @@ public class UserSettingActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_setting);
 		
-		//user =  
+		Bundle b = getIntent().getExtras();
+		user = b.getString("username");
 		
 		// Datenbankzugriff für Username
 		// TODO auf den user zugreifen um den usernamen zu bekommen
+		userSettingUsername = (EditText) findViewById(R.id.UserSettingUsername);
+		userSettingUsername.setText(user);
 		
 		
 		// Datenbankzugriff für Aliasname
