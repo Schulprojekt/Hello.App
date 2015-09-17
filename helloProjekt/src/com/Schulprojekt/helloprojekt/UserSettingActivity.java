@@ -26,19 +26,20 @@ public class UserSettingActivity extends Activity {
 	public Button btnSave;
 	public EditText userSettingUsername;
 	public EditText userSettingAliasname;
-	public User user;
+	public User LoggedUser;
 	
-	private final static String SERVICE_URI = "http://muss.noch.geaendert.werden";
+	private final static String SERVICE_URI = "http:////hello-server//helloservice//messengerservice.svc";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_setting);
 		
-		//user =  
+		LoggedUser =  (User) getIntent().getExtras().getParcelable("LoggedUser");
 		
 		// Datenbankzugriff für Username
 		// TODO auf den user zugreifen um den usernamen zu bekommen
+		userSettingAliasname.setText(LoggedUser.getAlias());
 		
 		
 		// Datenbankzugriff für Aliasname
@@ -84,7 +85,7 @@ public class UserSettingActivity extends Activity {
 						DefaultHttpClient httpClient = new DefaultHttpClient();
 						
 						// TODO auf den user zugreifen um den usernamen zu bekommen
-						HttpGet request = new HttpGet(SERVICE_URI + "/DeleteUser/" + user);
+						HttpGet request = new HttpGet(SERVICE_URI + "/DeleteUser/" + LoggedUser);
 						
 						request.setHeader("Accept", "application/json");
 					    request.setHeader("Content-type", "application/json");

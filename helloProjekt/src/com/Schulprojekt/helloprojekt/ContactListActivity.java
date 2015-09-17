@@ -10,23 +10,18 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
-import com.Schulprojekt.helloprojekt.GUILogik.ContactListEntry;
-import com.Schulprojekt.helloprojekt.GUILogik.ContactListLogik;
-import com.Schulprojekt.helloprojekt.GUILogik.User;
-
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
+
+import com.Schulprojekt.helloprojekt.GUILogik.ContactListEntry;
+import com.Schulprojekt.helloprojekt.GUILogik.ContactListLogik;
+import com.Schulprojekt.helloprojekt.GUILogik.User;
 
 public class ContactListActivity extends Activity {
 
@@ -35,14 +30,13 @@ public class ContactListActivity extends Activity {
 	User u1 = new User("test", "test", "test",true);
 	User u2 = new User("test", "test", "test",true);
 	ContactListLogik conlog = new ContactListLogik();
-	Bundle bundle = new Bundle();
 	String userName;
 	private final static String SERVICE_URI = "http://lt0.studio.entail.ca:8080/VehicleService.svc";
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		User user =  (User) bundle.getParcelable("user");
+		User user =  (User) getIntent().getExtras().getParcelable("LoggedUser");
 		userName = user.getAccountName();
 		//onLoadVehicle(userName);
 		setContentView(R.layout.activity_contact_list);
