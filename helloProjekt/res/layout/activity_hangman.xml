@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/logo_hangman"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.spieletest.HangmanActivity" >
+
+    <Button
+        android:id="@+id/btn_beenden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_senden"
+        android:layout_alignBottom="@+id/btn_senden"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="33dp"
+        android:background="#228B22"
+        android:text="Beenden"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:width="100dp" />
+
+    <EditText
+        android:id="@+id/txt_eingabe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp"
+        android:ems="10"
+        android:text="Bitte ein Wort eingeben"
+        android:textColor="#ffffff"
+        android:textSize="19sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_senden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txt_eingabe"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="36dp"
+        android:background="#228B22"
+        android:singleLine="false"
+        android:text="Senden"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:width="100dp" />
+
+</RelativeLayout>
+

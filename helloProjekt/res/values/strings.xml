@@ -19,5 +19,9 @@
     <string name="action_example">Example action</string>
     <string name="title_activity_contact_search">Kontakt suchen</string>
     <string name="act_ContactSearch">Suchen</string>
+    <string name="title_activity_hangman">HangmanActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_main_hangman">MainHangmanActivity</string>
+    <string name="title_activity_solution">SolutionActivity</string>
 
 </resources>

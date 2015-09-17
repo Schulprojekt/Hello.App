@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/txt_ausgabe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#156C30"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.spieletest.SolutionActivity" >
+
+    <TextView
+        android:id="@+id/txt_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="121dp"
+        android:text="Sie haben gewonnen!!"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_ende"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_field"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="82dp"
+        android:text="Spiel beenden"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+</RelativeLayout>

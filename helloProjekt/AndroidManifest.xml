@@ -52,6 +52,18 @@
             android:name=".ContactSearchActivity"
             android:label="@string/title_activity_contact_search" >
         </activity>
+        <activity
+            android:name=".Spiele.HangmanActivity"
+            android:label="@string/title_activity_hangman" >
+        </activity>
+        <activity
+            android:name=".Spiele.MainHangmanActivity"
+            android:label="@string/title_activity_main_hangman" >
+        </activity>
+        <activity
+            android:name="com.Schulprojekt.helloprojekt.Spiele.SolutionActivity"
+            android:label="@string/title_activity_solution" >
+        </activity>
     </application>
 
 </manifest>
