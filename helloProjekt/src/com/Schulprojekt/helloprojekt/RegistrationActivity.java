@@ -22,61 +22,48 @@ import android.widget.Toast;
 
 
 public class RegistrationActivity extends Activity {
-	
-	private final static String SERVICE_URI = "http://";
-	
-	Button bregistrieren;
+	private final static String SERVICE_URI = "http://";														//URL zum WebService
+	Button bregistrieren;																						//Deklaration
 	JSONObject user;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {														//Activity wird aufgebaut
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         
-        bregistrieren = (Button) findViewById(R.id.registrieren);
-        bregistrieren.setOnClickListener(new OnClickListener() {
-        	
+        bregistrieren = (Button) findViewById(R.id.registrieren);												//auf Button register zurgreifen
+        bregistrieren.setOnClickListener(new OnClickListener() {												//auf den Button register einen OnClickListener setzen
         	public void onClick(View view) {
-        		
         		if(view == bregistrieren) {
-        			EditText tvname = (EditText) findViewById(R.id.username);
-        			EditText tvalias = (EditText) findViewById(R.id.username);
-        			EditText tvpasswort = (EditText) findViewById(R.id.passwort);
-        			EditText tvpasswortwh = (EditText) findViewById(R.id.passwortwh);
-        			
-        			String name = tvname.getText().toString();
-        			String alias = tvalias.getText().toString();
-        			String passwort = tvpasswort.getText().toString();
-        			String passwortwh = tvpasswortwh.getText().toString();
-        			
-        			
-
-        			if(name.equals("") || name.equals(null) || alias.equals("") || alias.equals(null) || passwort.equals("") || passwort.equals(null)){
-        				Toast.makeText(RegistrationActivity.this, "Es werden alle Eingaben Benötigt", Toast.LENGTH_LONG).show();
+        			EditText tvname = (EditText) findViewById(R.id.username);									//auf Textfeld username zugreifen
+        			EditText tvalias = (EditText) findViewById(R.id.username);									//auf Textfeld username zugreifen - bei der Registrierung entspricht der Alias dem Username
+        			EditText tvpasswort = (EditText) findViewById(R.id.passwort);								//auf Textfeld passwort zugreifen
+        			EditText tvpasswortwh = (EditText) findViewById(R.id.passwortwh);							//auf Textfeld passwortwh zugreifen
+        			String name = tvname.getText().toString();													//tvname in einen String umwandeln und in dem String name speichern
+        			String alias = tvalias.getText().toString();												//tvalias in einen String umwandeln und in dem String alias speichern
+        			String passwort = tvpasswort.getText().toString();											//tvpasswort in einen String umwandeln und in dem String passwort speichern
+        			String passwortwh = tvpasswortwh.getText().toString();										//tvpasswortwh in einen String umwandeln und in dem String passwortwh speichern
+        			if(name.equals("") || name.equals(null) || alias.equals("") || alias.equals(null) 
+        					|| passwort.equals("") || passwort.equals(null)){									//prüfen ob name, alias oder passwort leer sind
+        				Toast.makeText(RegistrationActivity.this, "Es werden alle Eingaben Benötigt", 
+        						Toast.LENGTH_LONG).show();
         			}else{
-        				if(passwortwh.equals(passwort)){
-        					
-        					
-        					DefaultHttpClient httpClient = new DefaultHttpClient();
-        			        HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName");
-        			 
+        				if(passwortwh.equals(passwort)){														//prüfen ob passwortwh passwort entspricht
+        					DefaultHttpClient httpClient = new DefaultHttpClient();								//Client erstellen
+        			        HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName");				//URL erstellen
         			        request.setHeader("Accept", "application/json");
         			        request.setHeader("Content-type", "application/json");
-        			 
         			        HttpResponse response;
 							try {
 								response = httpClient.execute(request);
-        			 
-        			        HttpEntity responseEntity = response.getEntity();
-        			 
+        			        HttpEntity responseEntity = response.getEntity();	
         			        // Read response data into buffer
-        			        char[] buffer = new char[(int)responseEntity.getContentLength()];
+        			        char[] buffer = new char[(int)responseEntity.getContentLength()];					//Daten im Array speichern
         			        InputStream stream = responseEntity.getContent();
-        			        InputStreamReader reader = new InputStreamReader(stream);
-        			        reader.read(buffer);
+        			        InputStreamReader reader = new InputStreamReader(stream);							//Reader deklarieren
+        			        reader.read(buffer);																//Reader liest Buffer ein
         			        stream.close();
         			 
-        			        user = new JSONObject(new String(buffer));
+        			        user = new JSONObject(new String(buffer));											//ein JSONObject erstellens
 
 							} catch (ClientProtocolException e) {
 								// TODO Auto-generated catch block
