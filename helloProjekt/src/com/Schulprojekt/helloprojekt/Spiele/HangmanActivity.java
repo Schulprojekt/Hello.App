@@ -1,8 +1,27 @@
 package com.Schulprojekt.helloprojekt.Spiele;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.util.Date;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONStringer;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +33,7 @@ import android.widget.Toast;
 import com.Schulprojekt.helloprojekt.R;
 
 public class HangmanActivity extends Activity {
+	private final static String SERVICE_URI = "http://hello-server/helloservice/messengerservice.svc";
 																										    //Deklaration
 	Button btn_beenden;
 	Button btn_senden;
@@ -113,5 +133,88 @@ public class HangmanActivity extends Activity {
 			return false;
 		}
 	}
+	
+	public void startConnection(){
+		
+		Bundle bundle = getIntent().getExtras();	
+		String loggedUsername = bundle.getString("loggedUsername");
+		JSONObject user = new JSONObject();
+		
+		DefaultHttpClient httpClient = new DefaultHttpClient();								      			//Client erstellen
+
+		
+		HttpGet request = new HttpGet(SERVICE_URI+ "/GetUserByAccountName/" +   							// auf die Felder AccountName + loginUsernamezugreifen
+				loggedUsername);
+		request.setHeader("Accept", "application/json");
+		request.setHeader("Content-type", "application/json");
+		HttpResponse response;
+		try {
+			response = httpClient.execute(request);
+			HttpEntity responseEntity = response.getEntity();
+			char[] buffer = new char[(int) responseEntity
+					.getContentLength()]; 																	// Daten im Array speichern
+			InputStream stream = responseEntity.getContent();
+			InputStreamReader reader = new InputStreamReader(stream); 										// Reader deklarieren
+			reader.read(buffer); 																			// Reader liest Buffer
+			stream.close();
+
+			user = new JSONObject(new String(buffer)); 														// ein JSONObject erstellens
+			
+		} catch (ClientProtocolException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		
+		HttpPost request2 = new HttpPost(SERVICE_URI + "/CreateMessage");
+        request2.setHeader("Accept", "application/json");
+        request2.setHeader("Content-type", "application/json");
+
+        // Build JSON string
+        JSONStringer message;
+		try {
+			message = new JSONStringer()
+			    .object()
+			        .key("message")
+			            .object()
+			                .key("id").value(null)
+			                .key("sender").value(user.getString("GUID"))
+			                .key("reciever").value("")
+			                .key("message").value("")
+			                .key("attchment").value(new byte[]{0})
+			                .key("timestamp").value(new Timestamp(System.currentTimeMillis()))
+			            .endObject()
+			        .endObject();
+        StringEntity entity = new StringEntity(message.toString());
+
+        request2.setEntity(entity);
+
+        // Send request to WCF service
+        DefaultHttpClient httpClient2 = new DefaultHttpClient();
+        HttpResponse response2 = httpClient2.execute(request2);
+        
+        Log.d("WebInvoke", "Saving : " + response2.getStatusLine().getStatusCode());
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	
+		}
+	
 }
 
