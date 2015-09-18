@@ -11,17 +11,17 @@ public class User {
 	private String 	Alias;
 	private String	Password;
 	private Boolean AccountState;
-	private Integer Experienced;
+//	private Integer Experienced;
 	private Bitmap	AccountPicture;	
 	
 	public User(UUID i, String accountName, String alias,
-			Boolean accountState, Integer experienced, Bitmap accountPicture) {
+			Boolean accountState, Bitmap accountPicture) {
 		super();
 		AccountID = i;
 		AccountName = accountName;
 		Alias = alias;
 		AccountState = accountState;
-		Experienced = experienced;
+//		Experienced = experienced;
 		AccountPicture = accountPicture;
 	}
 	public User(String accountName, String alias, String password,
@@ -64,12 +64,12 @@ public class User {
 	public void setAccountState(Boolean accountState) {
 		AccountState = accountState;
 	}
-	public Integer getExperienced() {
-		return Experienced;
-	}
-	public void setExperienced(Integer experienced) {
-		Experienced = experienced;
-	}
+//	public Integer getExperienced() {
+//		return Experienced;
+//	}
+//	public void setExperienced(Integer experienced) {
+//		Experienced = experienced;
+//	}
 	public Bitmap getAccountPicture() {
 		return AccountPicture;
 	}
