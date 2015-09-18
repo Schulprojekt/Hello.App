@@ -162,6 +162,7 @@ public class ContactListActivity extends Activity {
 		case R.id.act_ContactSearch:
 			startActivity(new Intent(ContactListActivity.this, ContactSearchActivity.class));
 		case R.id.act_AppExit:
+			finish();
 		default:
 			return super.onOptionsItemSelected(item);
 		}
