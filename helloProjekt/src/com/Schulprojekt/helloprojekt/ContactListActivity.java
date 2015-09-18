@@ -52,12 +52,14 @@ public class ContactListActivity extends Activity {
 		User u1 = new User(UUID.randomUUID(), "KnesKa", "KnesKa", true, icon);
 		User u2 = new User(UUID.randomUUID(), "RehdTi", "RehdTi", true, icon);
 		User u3 = new User(UUID.randomUUID(), "StehCh", "StehCh", true, icon);
+		User u4 = new User(UUID.randomUUID(), "PetzSa", "PetzSa", true, icon);
 		final LinearLayout linlayoutVertical = (LinearLayout) findViewById(R.id.linLayoutContactVertical);
 		findViewById(R.id.scrollViewContact);
 		findViewById(R.id.textViewContact);
 		userList.add(u1);
 		userList.add(u2);
 		userList.add(u3);
+		userList.add(u4);
 		int i = 0;
 		
 		ArrayList<ContactListEntry> contactList = new ArrayList<ContactListEntry>();
