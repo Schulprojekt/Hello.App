@@ -1,5 +1,6 @@
 package com.Schulprojekt.helloprojekt;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -17,26 +18,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Telephony.Sms.Conversations;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.Schulprojekt.helloprojekt.GUILogik.ContactListEntry;
-import com.Schulprojekt.helloprojekt.GUILogik.ContactListLogik;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 
 public class ContactListActivity extends Activity {
 
 	ArrayList<User> userList = new ArrayList<User>();
 	ArrayList<ContactListEntry> contactList;
-	User u1 = new User("test1", "test1", "test1",true);
-	User u2 = new User("test2", "test2", "test2",true);
-	ContactListLogik conlog = new ContactListLogik();
 	String userName;
 	private final static String SERVICE_URI = "http://lt0.studio.entail.ca:8080/VehicleService.svc";
 	 
@@ -48,23 +49,64 @@ public class ContactListActivity extends Activity {
 		//onLoadVehicle(userName);
 		setContentView(R.layout.activity_contact_list);
 		Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.dummycontact);
-		User u3 = new User(UUID.randomUUID(), "test3", "test3", true, 0, icon);
+		User u1 = new User(UUID.randomUUID(), "KnesKa", "KnesKa", true, icon);
+		User u2 = new User(UUID.randomUUID(), "RehdTi", "RehdTi", true, icon);
+		User u3 = new User(UUID.randomUUID(), "StehCh", "StehCh", true, icon);
 		final LinearLayout linlayoutVertical = (LinearLayout) findViewById(R.id.linLayoutContactVertical);
 		findViewById(R.id.scrollViewContact);
 		findViewById(R.id.textViewContact);
 		userList.add(u1);
 		userList.add(u2);
 		userList.add(u3);
-		contactList = conlog.fillList(userList, getApplicationContext());
+		int i = 0;
+		
+		ArrayList<ContactListEntry> contactList = new ArrayList<ContactListEntry>();
+		
+		for (User user : userList) {
+			LinearLayout linlay = new LinearLayout(getApplicationContext());
+			linlay.setOrientation(LinearLayout.HORIZONTAL);
+			ImageView img = new ImageView(getApplicationContext());
+			img.setImageBitmap(user.getAccountPicture());
+			img.setOnClickListener(getOnKlickListener(img));
+			img.setId(i);
+			TextView tv = new TextView(getApplicationContext());
+			tv.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
+			tv.setTextColor(Color.BLACK);
+			tv.setGravity(Gravity.CENTER_VERTICAL);
+			tv.setTextSize(24);
+			tv.setText(user.getAlias());
+			linlay.addView(img);
+			linlay.addView(tv);
+			ContactListEntry entry = new ContactListEntry(linlay, img, tv, user.getAccountName());
+			contactList.add(entry);
+			i = i+1;
+		}
+		
+//		contactList = fillList(userList, getApplicationContext());
+		
 		for (ContactListEntry contact : contactList) {
-			LinearLayout lilayout = contact.getLinlayout();
-			lilayout.setOrientation(LinearLayout.HORIZONTAL);
-			contact.getContactPicture().setOnClickListener(getOnKlickListener(contact.getContactPicture()));
-			lilayout.addView(contact.getContactPicture());
-			lilayout.addView(contact.getAlias());
-			linlayoutVertical.addView(lilayout);
+			LayoutParams layout = new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT);
+			contact.getLinlayout().setLayoutParams(layout);
+			linlayoutVertical.addView(contact.getLinlayout());
 		}
 	}
+	
+//	public ArrayList<ContactListEntry> fillList(ArrayList<User> userList, Context con){
+////		int i = 0;
+////		ArrayList<ContactListEntry> contactList = new ArrayList<ContactListEntry>();
+////		for (User user : userList) {
+////			LinearLayout linlay = new LinearLayout(con);
+////			ImageView img = new ImageView(con);
+////			img.setImageResource(R.drawable.dummycontact);
+////			img.setId(i);
+////			TextView tv = new TextView(con);
+////			tv.setText(user.getAlias());
+////			ContactListEntry entry = new ContactListEntry(linlay, img, tv, user.getAccountName());
+////			contactList.add(entry);
+////			i = i+1;
+////		}
+////		return contactList;
+//	}
 
 	public void onLoadVehicle(String userName) {
 	    try {
@@ -129,7 +171,11 @@ public class ContactListActivity extends Activity {
 	        	Intent in = new Intent(ContactListActivity.this, SimpleChatActivity.class);
 	        	Bundle b = new Bundle();
 				b.putString("username", userList.get(v.getId()).getAlias().toString());
-				b.putParcelable("picture", userList.get(v.getId()).getAccountPicture());
+				Bitmap bmp = userList.get(v.getId()).getAccountPicture();
+				ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+				byte[] byteArray = stream.toByteArray();
+				b.putByteArray("picture", byteArray);
 				in.putExtras(b);
 				startActivity(in);
 	        }
