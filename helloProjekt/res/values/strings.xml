@@ -14,7 +14,7 @@
     <string name="title_section3">Section 3</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
+    <string name="action_example">Profil anzeigen</string>
     <string name="title_activity_contact_search">Kontakt suchen</string>
     <string name="act_ContactSearch">Suchen</string>
     <string name="title_activity_hangman">Hangman</string>

@@ -29,7 +29,7 @@ import android.widget.TextView;
 
 public class SimpleChatActivity extends Activity {
 	
-	private final static String SERVICE_URI = "http://muss.noch.geaendert.werden";
+	private final static String SERVICE_URI = "http://hello-server/helloservice/messengerservice.svc";
 
 	public Bundle b;
 	public Intent in;

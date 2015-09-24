@@ -33,7 +33,7 @@ public class LoginActivity extends Activity {
 	public ImageView imageView;
 	public EditText loginUsername;
 	public EditText loginPassword;
-	private final static String SERVICE_URI = "http://muss.noch.geaendert.werden"; 				// URL zum WebService
+	private final static String SERVICE_URI = "http://hello-server/helloservice/messengerservice.svc"; 	// URL zum WebService
 	Drawable d;
 
 	@Override
