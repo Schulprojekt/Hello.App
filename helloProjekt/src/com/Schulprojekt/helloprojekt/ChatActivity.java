@@ -62,7 +62,7 @@ public class ChatActivity extends Activity implements
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 		
-		getActionBar().setIcon(R.drawable.dummycontact);
+		//getActionBar().setIcon(R.drawable.dummycontact);
 		imageViewGame = (ImageView) findViewById(R.id.imageViewGame);
 		imageViewGame.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {

@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Telephony.Sms.Conversations;
@@ -39,20 +40,30 @@ public class ContactListActivity extends Activity {
 	ArrayList<User> userList = new ArrayList<User>();
 	ArrayList<ContactListEntry> contactList;
 	String userName;
+	private User user;
 	private final static String SERVICE_URI = "http://lt0.studio.entail.ca:8080/VehicleService.svc";
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		User user =  (User) getIntent().getExtras().getParcelable("LoggedUser");
-//		userName = user.getAccountName();
 		//onLoadVehicle(userName);
+		Intent Data = new Intent();
+		Bundle b = Data.getExtras();
+		user.setAccountID((UUID) b.get("userId"));
+		user.setAccountName(b.getString("accountName"));
+		user.setAlias(b.getString("aliasName"));
+		user.setPassword(b.getString("password"));
+		user.setAccountState(b.getBoolean("accountState"));
+		user.setAccountPicture(b.getByteArray("picture"));
 		setContentView(R.layout.activity_contact_list);
 		Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.dummycontact);
-		User u1 = new User(UUID.randomUUID(), "KnesKa", "KnesKa", true, icon);
-		User u2 = new User(UUID.randomUUID(), "RehdTi", "RehdTi", true, icon);
-		User u3 = new User(UUID.randomUUID(), "StehCh", "StehCh", true, icon);
-		User u4 = new User(UUID.randomUUID(), "PetzSa", "PetzSa", true, icon);
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		byte[] byteArray = stream.toByteArray();
+		User u1 = new User(UUID.randomUUID(), "KnesKa", "KnesKa", true, byteArray);
+		User u2 = new User(UUID.randomUUID(), "RehdTi", "RehdTi", true, byteArray);
+		User u3 = new User(UUID.randomUUID(), "StehCh", "StehCh", true, byteArray);
+		User u4 = new User(UUID.randomUUID(), "PetzSa", "PetzSa", true, byteArray);
 		final LinearLayout linlayoutVertical = (LinearLayout) findViewById(R.id.linLayoutContactVertical);
 		findViewById(R.id.scrollViewContact);
 		findViewById(R.id.textViewContact);
@@ -68,7 +79,8 @@ public class ContactListActivity extends Activity {
 			LinearLayout linlay = new LinearLayout(getApplicationContext());
 			linlay.setOrientation(LinearLayout.HORIZONTAL);
 			ImageView img = new ImageView(getApplicationContext());
-			img.setImageBitmap(user.getAccountPicture());
+			BitmapDrawable bmp = new BitmapDrawable(BitmapFactory.decodeByteArray(user.getAccountPicture(), 0, user.getAccountPicture().length));
+			img.setImageDrawable(bmp);
 			img.setOnClickListener(getOnKlickListener(img));
 			img.setId(i);
 			TextView tv = new TextView(getApplicationContext());
@@ -157,8 +169,16 @@ public class ContactListActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
-		case R.id.action_settings:
-			return true;
+		case R.id.contact_profile:
+			Intent in = new Intent(ContactListActivity.this, UserSettingActivity.class);
+			Bundle b = new Bundle();
+			b.putString("userId", "");
+			b.putString("accountName", user.getAccountName());
+			b.putString("aliasName", user.getAlias());
+			b.putBoolean("accountState", user.getAccountState());
+			b.putByteArray("picture", user.getAccountPicture());
+			b.putString("password", user.getPassword());
+			startActivity(in);
 		case R.id.act_ContactSearch:
 			startActivity(new Intent(ContactListActivity.this, ContactSearchActivity.class));
 		case R.id.act_AppExit:
@@ -174,11 +194,11 @@ public class ContactListActivity extends Activity {
 	        	Intent in = new Intent(ContactListActivity.this, SimpleChatActivity.class);
 	        	Bundle b = new Bundle();
 				b.putString("username", userList.get(v.getId()).getAlias().toString());
-				Bitmap bmp = userList.get(v.getId()).getAccountPicture();
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-				byte[] byteArray = stream.toByteArray();
-				b.putByteArray("picture", byteArray);
+//				Bitmap bmp = userList.get(v.getId()).getAccountPicture();
+//				ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//				bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//				byte[] byteArray = stream.toByteArray();
+				b.putByteArray("picture", userList.get(v.getId()).getAccountPicture());
 				in.putExtras(b);
 				startActivity(in);
 	        }
