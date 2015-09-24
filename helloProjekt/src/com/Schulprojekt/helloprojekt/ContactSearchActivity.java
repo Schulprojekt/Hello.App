@@ -84,8 +84,6 @@ public class ContactSearchActivity extends Activity {
 			        	
 						i.putExtras(b);
 						startActivity(i);
-						finish();
-						System.exit(0);
 //			        }     
 				}catch (Exception e){
 					e.printStackTrace();

@@ -61,8 +61,26 @@ public class RegistrationActivity extends Activity {
         			}else{
         				if(passwortwh.equals(passwort)){														//prüfen ob passwortwh passwort entspricht
         					
-        					startActivity(new Intent(RegistrationActivity.this,
-									ContactListActivity.class));
+    			        	Bundle b = new Bundle();
+    			        	Intent i = new Intent(RegistrationActivity.this, UserProfileActivity.class);
+    			        	b.putString("userId", "");
+    			        	b.putString("accountName", "test");
+    			        	b.putString("aliasName", "test");
+    			        	b.putString("password", "test");
+    			        	b.putBoolean("accountState", true);
+//    			        	b.putString("expierencePoints", "...");
+    			        	b.putByteArray("picture", new byte[]{50});
+    			        	
+//    			        	b.putString("userId", user.getString("userId"));
+//    			        	b.putString("accountName", user.getString("accountName"));
+//    			        	b.putString("aliasName", user.getString("aliasName"));
+//    			        	b.putString("password", user.getString("password"));
+//    			        	b.putBoolean("accountState", user.getString("accountState"));
+//    			        	b.putString("expierencePoints", user.getString("expierencePoints"));
+//    			        	b.putByteArray("picture", user.getString("picture"));
+    			        	
+    						i.putExtras(b);
+    						startActivity(i);
 //        					
 //        					DefaultHttpClient httpClient = new DefaultHttpClient();								//Client erstellen
 //        			        HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/"+name);				//URL erstellen
