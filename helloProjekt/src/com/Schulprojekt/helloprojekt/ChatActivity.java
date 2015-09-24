@@ -1,35 +1,20 @@
 package com.Schulprojekt.helloprojekt;
 
-import com.Schulprojekt.helloprojekt.GUILogik.User;
-import com.Schulprojekt.helloprojekt.Spiele.HangmanActivity;
-import com.Schulprojekt.helloprojekt.Spiele.MainHangmanActivity;
-
-import android.app.Activity;
-
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
+
+import com.Schulprojekt.helloprojekt.GUILogik.User;
 
 public class ChatActivity extends Activity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -79,7 +64,69 @@ public class ChatActivity extends Activity implements
 //		@SuppressWarnings("deprecation")
 //		BitmapDrawable bmp = new BitmapDrawable(BitmapFactory.decodeByteArray(bundle.getByteArray("ContactImage"), 0, bundle.getByteArray("ContactImage").length));
 //		getActionBar().setIcon(bmp);
+		
+		
+		((View) getActionBar().getTitle()).setOnClickListener(new View.OnClickListener(){
+			public void onClick(View v) {
+				try{
+//					DefaultHttpClient httpClient = new DefaultHttpClient();
+//					HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/" + txtContactSearch);
+//					
+//					request.setHeader("Accept", "application/json");
+//			        request.setHeader("Content-type", "application/json");
+//
+//			        HttpResponse response = httpClient.execute(request);
+//			        
+//			        HttpEntity responseEntity = response.getEntity();
+//			        
+//			        // Read response data into buffer
+//			        char[] buffer = new char[(int)responseEntity.getContentLength()];
+//			        InputStream stream = responseEntity.getContent();
+//			        InputStreamReader reader = new InputStreamReader(stream);
+//			        reader.read(buffer);
+//			        stream.close();
+//
+//			        JSONObject user = new JSONObject(new String(buffer));
+//			        
+//			        // Populate text fields
+//			        txtContactSearch.setText(user.getString("accountName"));
+//			        
+//			        if(txtContactSearch == null){
+//			        	Toast.makeText(ContactSearchActivity.this, "Benutzer ist nicht vorhanden!", Toast.LENGTH_LONG).show();
+//			        }else{
+//			        	Intent i = new Intent(ContactSearchActivity.this, UserProfileActivity.class);
+//			        	
+//			        	Bundle b = new Bundle();
+//			        	b.putString("userId", user.getString("userId"));
+//			        	b.putString("accountName", user.getString("accountName"));
+//			        	b.putString("aliasName", user.getString("aliasName"));
+//			        	b.putString("password", user.getString("password"));
+//			        	b.putBoolean("accountState", user.getString("accountState"));
+//			        	b.putString("expierencePoints", user.getString("expierencePoints"));
+//			        	b.putByteArray("picture", user.getString("picture"));
+			       
+			        	Bundle b = new Bundle();
+			        	Intent i = new Intent(ChatActivity.this, UserProfileActivity.class);
+			        	b.putString("userId", "");
+			        	b.putString("accountName", "test");
+			        	b.putString("aliasName", "test");
+			        	b.putString("password", "test");
+			        	b.putBoolean("accountState", true);
+//			        	b.putString("expierencePoints", "...");
+			        	b.putByteArray("picture", new byte[]{50});
+			        	
+						i.putExtras(b);
+						startActivity(i);
+						finish();
+						System.exit(0);
+//			        }     
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+			}
+		});
 	}
+	
 	
 	
 	@Override
