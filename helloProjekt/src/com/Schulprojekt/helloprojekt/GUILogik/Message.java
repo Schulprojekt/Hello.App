@@ -3,6 +3,8 @@ package com.Schulprojekt.helloprojekt.GUILogik;
 import java.sql.Timestamp;
 import java.util.UUID;
 
+import android.text.Editable;
+
 public class Message {
 	
 	private int MessageID;
@@ -22,7 +24,16 @@ public class Message {
 		Attachement = attachement;
 		MessageTime = messageTime;
 	}
-	
+
+	public Message(UUID receiver, UUID sender, String messageText) {
+		super();
+		Receiver = receiver;
+		Sender = sender;
+		MessageText = messageText;
+	}
+
+
+
 	public int getMessageID() {
 		return MessageID;
 	}
