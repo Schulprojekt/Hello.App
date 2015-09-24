@@ -12,10 +12,10 @@ public class User {
 	private String	Password;
 	private Boolean AccountState;
 //	private Integer Experienced;
-	private Bitmap	AccountPicture;	
+	private byte[]	AccountPicture;	
 	
 	public User(UUID i, String accountName, String alias,
-			Boolean accountState, Bitmap accountPicture) {
+			Boolean accountState, byte[] accountPicture) {
 		super();
 		AccountID = i;
 		AccountName = accountName;
@@ -70,10 +70,10 @@ public class User {
 //	public void setExperienced(Integer experienced) {
 //		Experienced = experienced;
 //	}
-	public Bitmap getAccountPicture() {
+	public byte[] getAccountPicture() {
 		return AccountPicture;
 	}
-	public void setAccountPicture(Bitmap accountPicture) {
-		AccountPicture = accountPicture;
+	public void setAccountPicture(byte[] bs) {
+		AccountPicture = bs;
 	}
 }
