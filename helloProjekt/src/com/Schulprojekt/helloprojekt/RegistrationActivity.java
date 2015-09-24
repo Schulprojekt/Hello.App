@@ -19,6 +19,7 @@ import org.json.JSONStringer;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -60,86 +61,89 @@ public class RegistrationActivity extends Activity {
         			}else{
         				if(passwortwh.equals(passwort)){														//prüfen ob passwortwh passwort entspricht
         					
-        					DefaultHttpClient httpClient = new DefaultHttpClient();								//Client erstellen
-        			        HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/"+name);				//URL erstellen
-        			        request.setHeader("Accept", "application/json");
-        			        request.setHeader("Content-type", "application/json");
-        			        HttpResponse response = null;
-        			        
-							try {
-								response = httpClient.execute(request);
-        			        HttpEntity responseEntity = response.getEntity();	
-        			        // Read response data into buffer
-        			        char[] buffer = new char[(int)responseEntity.getContentLength()];					//Daten im Array speichern
-        			        InputStream stream = responseEntity.getContent();
-        			        InputStreamReader reader = new InputStreamReader(stream);							//Reader deklarieren
-        			        reader.read(buffer);																//Reader liest Buffer ein
-        			        stream.close();
-        			        user = new JSONObject(new String(buffer));											//ein JSONObject erstellens
-        			        tvname.setText(user.getString("accountName"));
-        			        
-							} catch (ClientProtocolException e) {
-								e.printStackTrace();
-							} catch (IOException e) {
-								e.printStackTrace();
-							} catch (JSONException e) {
-								e.printStackTrace();
-							}
-							
+        					startActivity(new Intent(RegistrationActivity.this,
+									ContactListActivity.class));
+//        					
+//        					DefaultHttpClient httpClient = new DefaultHttpClient();								//Client erstellen
+//        			        HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/"+name);				//URL erstellen
+//        			        request.setHeader("Accept", "application/json");
+//        			        request.setHeader("Content-type", "application/json");
+//        			        HttpResponse response = null;
+//        			        
+//							try {
+//								response = httpClient.execute(request);
+//        			        HttpEntity responseEntity = response.getEntity();	
+//        			        // Read response data into buffer
+//        			        char[] buffer = new char[(int)responseEntity.getContentLength()];					//Daten im Array speichern
+//        			        InputStream stream = responseEntity.getContent();
+//        			        InputStreamReader reader = new InputStreamReader(stream);							//Reader deklarieren
+//        			        reader.read(buffer);																//Reader liest Buffer ein
+//        			        stream.close();
+//        			        user = new JSONObject(new String(buffer));											//ein JSONObject erstellens
+//        			        tvname.setText(user.getString("accountName"));
+//        			        
+//							} catch (ClientProtocolException e) {
+//								e.printStackTrace();
+//							} catch (IOException e) {
+//								e.printStackTrace();
+//							} catch (JSONException e) {
+//								e.printStackTrace();
+//							}
 //							
-//        					if(tvname.getText() == null){
-        					if(!(response == null)){
-        						Toast.makeText(RegistrationActivity.this, "Name schon vergeben!", 
-        								Toast.LENGTH_LONG).show();
-        					}else{
-        				
-        					new User(name, alias, passwort, true);
-        					
-        					HttpPost request2 = new HttpPost(SERVICE_URI + "/CreateUser");
-        		            request2.setHeader("Accept", "application/json");
-        		            request2.setHeader("Content-type", "application/json");
-        		 
-        		            // Build JSON string
-        		            JSONStringer user;
-							try {
-								user = new JSONStringer()
-								    .object()
-								        .key("user")
-								            .object()
-								                .key("userId").value(null)
-								                .key("accountName").value(name)
-								                .key("accountState").value("")
-								                .key("expierencePoints").value(0)
-								                .key("picture").value(new byte[]{50})
-								                .key("password").value(passwort.getBytes())
-								            .endObject()
-								        .endObject();
-        		            StringEntity entity = new StringEntity(user.toString());
-        		 
-        		            request2.setEntity(entity);
-        		 
-        		            // Send request to WCF service
-        		            DefaultHttpClient httpClient2 = new DefaultHttpClient();
-        		            HttpResponse response2 = httpClient2.execute(request2);
-        		            
-        		            Log.d("WebInvoke", "Saving : " + response2.getStatusLine().getStatusCode());
+////							
+////        					if(tvname.getText() == null){
+//        					if(!(response == null)){
+//        						Toast.makeText(RegistrationActivity.this, "Name schon vergeben!", 
+//        								Toast.LENGTH_LONG).show();
+//        					}else{
+//        				
+//        					new User(name, alias, passwort, true);
+//        					
+//        					HttpPost request2 = new HttpPost(SERVICE_URI + "/CreateUser");
+//        		            request2.setHeader("Accept", "application/json");
+//        		            request2.setHeader("Content-type", "application/json");
+//        		 
+//        		            // Build JSON string
+//        		            JSONStringer user;
+//							try {
+//								user = new JSONStringer()
+//								    .object()
+//								        .key("user")
+//								            .object()
+//								                .key("userId").value(null)
+//								                .key("accountName").value(name)
+//								                .key("accountState").value("")
+//								                .key("expierencePoints").value(0)
+//								                .key("picture").value(new byte[]{50})
+//								                .key("password").value(passwort.getBytes())
+//								            .endObject()
+//								        .endObject();
+//        		            StringEntity entity = new StringEntity(user.toString());
+//        		 
+//        		            request2.setEntity(entity);
+//        		 
+//        		            // Send request to WCF service
+//        		            DefaultHttpClient httpClient2 = new DefaultHttpClient();
+//        		            HttpResponse response2 = httpClient2.execute(request2);
+//        		            
+//        		            Log.d("WebInvoke", "Saving : " + response2.getStatusLine().getStatusCode());
+//
+//							} catch (JSONException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							} catch (UnsupportedEncodingException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							} catch (ClientProtocolException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							} catch (IOException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
 
-							} catch (JSONException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (UnsupportedEncodingException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (ClientProtocolException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-
         				
-        					}
+//        					}
         				}
         				else{
         					Toast.makeText(RegistrationActivity.this, "Passwörter stimmen nicht ueberein", 		

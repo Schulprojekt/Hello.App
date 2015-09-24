@@ -36,33 +36,57 @@ public class ContactSearchActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				try{
-					DefaultHttpClient httpClient = new DefaultHttpClient();
-					HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/" + txtContactSearch);
-					
-					request.setHeader("Accept", "application/json");
-			        request.setHeader("Content-type", "application/json");
-
-			        HttpResponse response = httpClient.execute(request);
-			        
-			        HttpEntity responseEntity = response.getEntity();
-			        
-			        // Read response data into buffer
-			        char[] buffer = new char[(int)responseEntity.getContentLength()];
-			        InputStream stream = responseEntity.getContent();
-			        InputStreamReader reader = new InputStreamReader(stream);
-			        reader.read(buffer);
-			        stream.close();
-
-			        JSONObject user = new JSONObject(new String(buffer));
-			        
-			        // Populate text fields
-			        txtContactSearch.setText(user.getString("accountName"));
-			        
-			        if(txtContactSearch == null){
-			        	Toast.makeText(ContactSearchActivity.this, "Benutzer ist nicht vorhanden!", Toast.LENGTH_LONG).show();
-			        }else{
-			        	startActivity(new Intent(ContactSearchActivity.this, ContactListActivity.class));
-			        }     
+//					DefaultHttpClient httpClient = new DefaultHttpClient();
+//					HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/" + txtContactSearch);
+//					
+//					request.setHeader("Accept", "application/json");
+//			        request.setHeader("Content-type", "application/json");
+//
+//			        HttpResponse response = httpClient.execute(request);
+//			        
+//			        HttpEntity responseEntity = response.getEntity();
+//			        
+//			        // Read response data into buffer
+//			        char[] buffer = new char[(int)responseEntity.getContentLength()];
+//			        InputStream stream = responseEntity.getContent();
+//			        InputStreamReader reader = new InputStreamReader(stream);
+//			        reader.read(buffer);
+//			        stream.close();
+//
+//			        JSONObject user = new JSONObject(new String(buffer));
+//			        
+//			        // Populate text fields
+//			        txtContactSearch.setText(user.getString("accountName"));
+//			        
+//			        if(txtContactSearch == null){
+//			        	Toast.makeText(ContactSearchActivity.this, "Benutzer ist nicht vorhanden!", Toast.LENGTH_LONG).show();
+//			        }else{
+//			        	Intent i = new Intent(ContactSearchActivity.this, UserProfileActivity.class);
+//			        	
+//			        	Bundle b = new Bundle();
+//			        	b.putString("userId", user.getString("userId"));
+//			        	b.putString("accountName", user.getString("accountName"));
+//			        	b.putString("aliasName", user.getString("aliasName"));
+//			        	b.putString("password", user.getString("password"));
+//			        	b.putBoolean("accountState", user.getString("accountState"));
+//			        	b.putString("expierencePoints", user.getString("expierencePoints"));
+//			        	b.putByteArray("picture", user.getString("picture"));
+			       
+			        	Bundle b = new Bundle();
+			        	Intent i = new Intent(ContactSearchActivity.this, UserProfileActivity.class);
+			        	b.putString("userId", "");
+			        	b.putString("accountName", "test");
+			        	b.putString("aliasName", "test");
+			        	b.putString("password", "test");
+			        	b.putBoolean("accountState", true);
+//			        	b.putString("expierencePoints", "...");
+			        	b.putByteArray("picture", new byte[]{50});
+			        	
+						i.putExtras(b);
+						startActivity(i);
+						finish();
+						System.exit(0);
+//			        }     
 				}catch (Exception e){
 					e.printStackTrace();
 				}
