@@ -1,4 +1,5 @@
 package com.Schulprojekt.helloprojekt;
+import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.Schulprojekt.helloprojekt.Spiele.HangmanActivity;
 import com.Schulprojekt.helloprojekt.Spiele.TicTacToeActivity;
 
@@ -13,6 +14,9 @@ import android.widget.Button;
 
 public class SelectGameActivity extends Activity {
 	private Button buttonHangman, buttonTicTacToe, buttonBack;													//Deklaration 
+	private User loggedUser;
+	private User chatPartner;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {														//Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
@@ -23,8 +27,12 @@ public class SelectGameActivity extends Activity {
 		buttonHangman.setOnClickListener(new OnClickListener() {												//auf den Button Hangman einen OnClickListenener setzen
 			public void onClick(View view) {
 				Intent i = new Intent(SelectGameActivity.this,													//Aufbau des Pfades zur nächsten Activity
-		        		HangmanActivity.class);
-		        startActivity(i);																				//Activity wird gestartet
+		        		HangmanActivity.class);													
+				Bundle b = new Bundle();															//Erstellen eines Bundles
+				b.putString("loggedUser", loggedUser.getAccountName());							    //Füllen des Bundles mit Key und dem dazugehörigen Wert
+				b.putString("chatPartner", chatPartner.getAccountName());
+				i.putExtras(b);																		//Bundle ins Intent hinzufügen
+				startActivity(i);																				//Activity wird gestartet
 			}
 		});
 		buttonTicTacToe.setOnClickListener(new OnClickListener() {												//auf den Button TicTacToe einen OnClickListenener setzen

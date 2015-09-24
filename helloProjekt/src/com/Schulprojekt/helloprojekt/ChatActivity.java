@@ -1,5 +1,9 @@
 package com.Schulprojekt.helloprojekt;
 
+import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.Schulprojekt.helloprojekt.Spiele.HangmanActivity;
+import com.Schulprojekt.helloprojekt.Spiele.MainHangmanActivity;
+
 import android.app.Activity;
 
 import android.app.ActionBar;
@@ -42,6 +46,8 @@ public class ChatActivity extends Activity implements
 	 */
 	private CharSequence mTitle;
 	private ImageView imageViewGame;
+	private User loggedUser;
+	private User chatPartner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +66,13 @@ public class ChatActivity extends Activity implements
 		imageViewGame = (ImageView) findViewById(R.id.imageViewGame);
 		imageViewGame.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {
-			        Intent i = new Intent(ChatActivity.this,
-			        		SelectGameActivity.class);
-			        startActivity(i);
+				Intent i = new Intent(ChatActivity.this,
+		        		SelectGameActivity.class);													
+				Bundle b = new Bundle();															//Erstellen eines Bundles
+				b.putString("loggedUser", loggedUser.getAccountName());							    //Füllen des Bundles mit Key und dem dazugehörigen Wert
+				b.putString("chatPartner", chatPartner.getAccountName());
+				i.putExtras(b);																		//Bundle ins Intent hinzufügen
+				startActivity(i);
 			}
 		});
 //		Bundle bundle = getIntent().getExtras();		
