@@ -40,16 +40,15 @@ public class ContactListActivity extends Activity {
 	ArrayList<User> userList = new ArrayList<User>();
 	ArrayList<ContactListEntry> contactList;
 	String userName;
-	private User user;
+	User user;
 	private final static String SERVICE_URI = "http://lt0.studio.entail.ca:8080/VehicleService.svc";
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//onLoadVehicle(userName);
-		Intent Data = new Intent();
-		Bundle b = Data.getExtras();
-		user.setAccountID((UUID) b.get("userId"));
+		Bundle b = getIntent().getExtras();
+		user = new User();
+		user.setAccountID(UUID.randomUUID());
 		user.setAccountName(b.getString("accountName"));
 		user.setAlias(b.getString("aliasName"));
 		user.setPassword(b.getString("password"));

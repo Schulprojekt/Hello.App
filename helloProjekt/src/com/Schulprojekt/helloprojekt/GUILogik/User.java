@@ -14,6 +14,10 @@ public class User {
 //	private Integer Experienced;
 	private byte[]	AccountPicture;	
 	
+	public User(){
+		
+	}
+	
 	public User(UUID i, String accountName, String alias,
 			Boolean accountState, byte[] accountPicture) {
 		super();

@@ -1,5 +1,6 @@
 package com.Schulprojekt.helloprojekt;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -11,6 +12,9 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.StrictMode;
@@ -30,6 +34,7 @@ public class LoginActivity extends Activity {
 	public EditText loginUsername;
 	public EditText loginPassword;
 	private final static String SERVICE_URI = "http://muss.noch.geaendert.werden"; 				// URL zum WebService
+	Drawable d;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 										// Activity wird aufgebaut
@@ -92,7 +97,11 @@ public class LoginActivity extends Activity {
 								b.putString("accountName", "AccountTest");
 								b.putBoolean("accountState", true);
 //								b.putInt("experiencePoints", 0);
-								b.putByteArray("picture", new byte[0]);
+								Bitmap bmp = ((BitmapDrawable)d).getBitmap();
+								ByteArrayOutputStream baos = new ByteArrayOutputStream();
+								bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+								byte[] byteArray = baos.toByteArray();
+								b.putByteArray("picture", byteArray);
 								b.putString("password", "");
 								i.putExtras(b);
 								startActivity(i);
@@ -121,8 +130,8 @@ public class LoginActivity extends Activity {
 						b.putString("password", "");
 						i.putExtras(b);
 						startActivity(i);
-						finish();
-						System.exit(0);
+//						finish();
+//						System.exit(0);
 					} else {
 						Toast.makeText(LoginActivity.this,
 								"Benutzername oder Passwort falsch!",
