@@ -26,7 +26,13 @@ public class UserSettingActivity extends Activity {
 	public Button btnSave;
 	public EditText userSettingUsername;
 	public EditText userSettingAliasname;
-	public User LoggedUser;
+	String userId;
+	String aliasName;
+	String accountName;
+	boolean accountState;
+//	int experiencePoints;
+	byte[] picture;
+	String password;
 	
 	private final static String SERVICE_URI = "http:////hello-server//helloservice//messengerservice.svc";
 	
@@ -35,11 +41,18 @@ public class UserSettingActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_setting);
 		
-		LoggedUser =  (User) getIntent().getExtras().getParcelable("LoggedUser");
+		Bundle b = getIntent().getExtras();
+		String userId = b.getString("userId");
+		String aliasName = b.getString("aliasName");
+		String accountName = b.getString("accountName");
+		boolean accountState = b.getBoolean("accountState");
+//		int experiencePoints = b.getInt("experiencePoints");
+		byte[] picture = b.getByteArray("picture");
+		String password = b.getString("password");
 		
 		// Datenbankzugriff für Username
 		// TODO auf den user zugreifen um den usernamen zu bekommen
-		userSettingAliasname.setText(LoggedUser.getAlias());
+		userSettingAliasname.setText(aliasName);
 		
 		
 		// Datenbankzugriff für Aliasname
@@ -85,7 +98,7 @@ public class UserSettingActivity extends Activity {
 						DefaultHttpClient httpClient = new DefaultHttpClient();
 						
 						// TODO auf den user zugreifen um den usernamen zu bekommen
-						HttpGet request = new HttpGet(SERVICE_URI + "/DeleteUser/" + LoggedUser);
+						HttpGet request = new HttpGet(SERVICE_URI + "/DeleteUser/" + "");
 						
 						request.setHeader("Accept", "application/json");
 					    request.setHeader("Content-type", "application/json");
