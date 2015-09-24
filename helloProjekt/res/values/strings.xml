@@ -22,7 +22,7 @@
     <string name="title_activity_main_hangman">Hangman</string>
     <string name="title_activity_solution">Hangman</string>
     <string name="title_activity_select_game">Spielesammlung</string>
-    <string name="title_activity_user_setting">Benutzereinstellung</string>
+    <string name="title_activity_user_setting">Profileinstellungen</string>
     <string name="chat_AppExit">Zurück</string>
     <string name="act_AppExit">Beenden</string>
     <string name="title_activity_user_profile">Benutzerprofil</string>
