@@ -31,8 +31,6 @@ public class SimpleChatActivity extends Activity {
 	
 	private final static String SERVICE_URI = "http://hello-server/helloservice/messengerservice.svc";
 
-	public Bundle b;
-	public Intent in;
 	public ImageView imageViewGame;
 	public ImageView imgMessageSend;
 	public EditText txtChat;
@@ -44,15 +42,20 @@ public class SimpleChatActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_simple_chat);
-		in = getIntent();
-		b = in.getExtras();
+		Bundle bundle = getIntent().getExtras();
+		loggedUser = new User();
+		chatPartner = new User();
+		loggedUser.setAccountName(bundle.getString("loggedAccountName"));							
+		loggedUser.setAccountPicture(bundle.getByteArray("loggedPicture"));							//Füllen des Bundles mit Key und dem dazugehörigen Wert
+		chatPartner.setAccountName(bundle.getString("partnerAccountName"));
+		chatPartner.setAccountPicture(bundle.getByteArray("partnerPicture"));			
 		imageViewGame = (ImageView) findViewById(R.id.imageViewGameChat);
 		imageViewGame.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {
 				Intent i = new Intent(SimpleChatActivity.this,
 		        		SelectGameActivity.class);													
 				Bundle b = new Bundle();															//Erstellen eines Bundles
-				b.putString("loggedUser", loggedUser.getAccountName());							    //Füllen des Bundles mit Key und dem dazugehörigen Wert
+				b.putString("loggedUser", loggedUser.getAccountName());
 				b.putString("chatPartner", chatPartner.getAccountName());
 				i.putExtras(b);																		//Bundle ins Intent hinzufügen
 				startActivity(i);
@@ -78,11 +81,11 @@ public class SimpleChatActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.chat, menu);
-		byte[] bArray = b.getByteArray("picture");
+		byte[] bArray = chatPartner.getAccountPicture();
 		Bitmap bitmap = BitmapFactory.decodeByteArray(bArray , 0, bArray.length);
 		BitmapDrawable d = new BitmapDrawable(bitmap);
 		getActionBar().setIcon(d);
-		getActionBar().setTitle(b.getString("username"));
+		getActionBar().setTitle(chatPartner.getAlias());
 		return true;
 	}
 
@@ -150,8 +153,6 @@ public class SimpleChatActivity extends Activity {
 					e.printStackTrace();
 				}
 
-		case R.id.action_settings:
-			return true;
 		case R.id.chat_AppExit:
 			finish();
 		default:

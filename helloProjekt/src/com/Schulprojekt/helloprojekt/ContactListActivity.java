@@ -95,8 +95,6 @@ public class ContactListActivity extends Activity {
 			i = i+1;
 		}
 		
-//		contactList = fillList(userList, getApplicationContext());
-		
 		for (ContactListEntry contact : contactList) {
 			LayoutParams layout = new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT);
 			contact.getLinlayout().setLayoutParams(layout);
@@ -104,23 +102,6 @@ public class ContactListActivity extends Activity {
 		}
 	}
 	
-//	public ArrayList<ContactListEntry> fillList(ArrayList<User> userList, Context con){
-////		int i = 0;
-////		ArrayList<ContactListEntry> contactList = new ArrayList<ContactListEntry>();
-////		for (User user : userList) {
-////			LinearLayout linlay = new LinearLayout(con);
-////			ImageView img = new ImageView(con);
-////			img.setImageResource(R.drawable.dummycontact);
-////			img.setId(i);
-////			TextView tv = new TextView(con);
-////			tv.setText(user.getAlias());
-////			ContactListEntry entry = new ContactListEntry(linlay, img, tv, user.getAccountName());
-////			contactList.add(entry);
-////			i = i+1;
-////		}
-////		return contactList;
-//	}
-
 	public void onLoadVehicle(String userName) {
 	    try {
 	        // Send GET request to <service>/GetVehicle/<plate>
@@ -164,9 +145,6 @@ public class ContactListActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		switch (item.getItemId()) {
 		case R.id.contact_profile:
 			Intent in = new Intent(ContactListActivity.this, UserSettingActivity.class);
@@ -196,8 +174,10 @@ public class ContactListActivity extends Activity {
 	        public void onClick(View v) {
 	        	Intent in = new Intent(ContactListActivity.this, SimpleChatActivity.class);
 	        	Bundle b = new Bundle();
-				b.putString("username", userList.get(v.getId()).getAlias().toString());
-				b.putByteArray("picture", userList.get(v.getId()).getAccountPicture());
+	        	b.putString("loggedAccountName", user.getAccountName());
+	        	b.putByteArray("loggedPicture", user.getAccountPicture());
+				b.putString("partnerAccountName", userList.get(v.getId()).getAlias().toString());
+				b.putByteArray("partnerPicture", userList.get(v.getId()).getAccountPicture());
 				in.putExtras(b);
 				startActivity(in);
 	        }
