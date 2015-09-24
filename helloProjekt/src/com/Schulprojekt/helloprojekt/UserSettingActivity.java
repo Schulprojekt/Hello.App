@@ -52,6 +52,7 @@ public class UserSettingActivity extends Activity {
 		
 		// Datenbankzugriff für Username
 		// TODO auf den user zugreifen um den usernamen zu bekommen
+		userSettingAliasname = (EditText) findViewById(R.id.UserSettingAliasname);	
 		userSettingAliasname.setText(aliasName);
 		
 		

@@ -171,20 +171,24 @@ public class ContactListActivity extends Activity {
 		case R.id.contact_profile:
 			Intent in = new Intent(ContactListActivity.this, UserSettingActivity.class);
 			Bundle b = new Bundle();
-			b.putString("userId", "");
+			b.putString("userId", "Test");
 			b.putString("accountName", user.getAccountName());
 			b.putString("aliasName", user.getAlias());
 			b.putBoolean("accountState", user.getAccountState());
 			b.putByteArray("picture", user.getAccountPicture());
 			b.putString("password", user.getPassword());
+			in.putExtras(b);
 			startActivity(in);
+			break;
 		case R.id.act_ContactSearch:
 			startActivity(new Intent(ContactListActivity.this, ContactSearchActivity.class));
+			break;
 		case R.id.act_AppExit:
 			finish();
-		default:
-			return super.onOptionsItemSelected(item);
+			break;
+			default:	
 		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	public View.OnClickListener getOnKlickListener(ImageView img){
