@@ -193,10 +193,6 @@ public class ContactListActivity extends Activity {
 	        	Intent in = new Intent(ContactListActivity.this, SimpleChatActivity.class);
 	        	Bundle b = new Bundle();
 				b.putString("username", userList.get(v.getId()).getAlias().toString());
-//				Bitmap bmp = userList.get(v.getId()).getAccountPicture();
-//				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//				bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//				byte[] byteArray = stream.toByteArray();
 				b.putByteArray("picture", userList.get(v.getId()).getAccountPicture());
 				in.putExtras(b);
 				startActivity(in);

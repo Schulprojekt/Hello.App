@@ -69,9 +69,31 @@ public class SimpleChatActivity extends Activity {
 		});
 		txtChat = (EditText) findViewById(R.id.editTextChat);
 		layoutMessages = (LinearLayout) findViewById(R.id.layoutMessages);
+	}
 		
-		((View) getActionBar().getTitle()).setOnClickListener(new View.OnClickListener(){
-			public void onClick(View v) {
+
+	
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.chat, menu);
+		byte[] bArray = b.getByteArray("picture");
+		Bitmap bitmap = BitmapFactory.decodeByteArray(bArray , 0, bArray.length);
+		BitmapDrawable d = new BitmapDrawable(bitmap);
+		getActionBar().setIcon(d);
+		getActionBar().setTitle(b.getString("username"));
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		switch(item.getItemId())
+		{
+		case R.id.action_example:
 				try{
 //					DefaultHttpClient httpClient = new DefaultHttpClient();
 //					HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/" + txtContactSearch);
@@ -127,30 +149,7 @@ public class SimpleChatActivity extends Activity {
 				}catch (Exception e){
 					e.printStackTrace();
 				}
-			}
-		});
-	}
-	
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.chat, menu);
-		byte[] bArray = b.getByteArray("picture");
-		Bitmap bitmap = BitmapFactory.decodeByteArray(bArray , 0, bArray.length);
-		BitmapDrawable d = new BitmapDrawable(bitmap);
-		getActionBar().setIcon(d);
-		getActionBar().setTitle(b.getString("username"));
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		switch(item.getItemId())
-		{
 		case R.id.action_settings:
 			return true;
 		case R.id.chat_AppExit:
