@@ -187,7 +187,7 @@ public class HangmanActivity extends Activity {
 			reader.read(buffer); 																			// Reader liest Buffer
 			stream.close();
 
-			user2 = new JSONObject(new String(buffer)); 														// ein JSONObject erstellens
+			user2 = new JSONObject(new String(buffer)); 													// ein JSONObject erstellens
 			
 		} catch (ClientProtocolException e1) {
 			e1.printStackTrace();

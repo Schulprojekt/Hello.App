@@ -9,6 +9,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
 import com.Schulprojekt.helloprojekt.GUILogik.Message;
+import com.Schulprojekt.helloprojekt.GUILogik.User;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -36,6 +37,8 @@ public class SimpleChatActivity extends Activity {
 	public ImageView imgMessageSend;
 	public EditText txtChat;
 	public LinearLayout layoutMessages;
+	private User loggedUser;
+	private User chatPartner;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +49,13 @@ public class SimpleChatActivity extends Activity {
 		imageViewGame = (ImageView) findViewById(R.id.imageViewGameChat);
 		imageViewGame.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {
-			        Intent i = new Intent(SimpleChatActivity.this,
-			        		SelectGameActivity.class);
-			        startActivity(i);
+				Intent i = new Intent(SimpleChatActivity.this,
+		        		SelectGameActivity.class);													
+				Bundle b = new Bundle();															//Erstellen eines Bundles
+				b.putString("loggedUser", loggedUser.getAccountName());							    //Füllen des Bundles mit Key und dem dazugehörigen Wert
+				b.putString("chatPartner", chatPartner.getAccountName());
+				i.putExtras(b);																		//Bundle ins Intent hinzufügen
+				startActivity(i);
 			}
 		});
 		imgMessageSend = (ImageView) findViewById(R.id.imageViewMessageSend);
@@ -62,6 +69,66 @@ public class SimpleChatActivity extends Activity {
 		});
 		txtChat = (EditText) findViewById(R.id.editTextChat);
 		layoutMessages = (LinearLayout) findViewById(R.id.layoutMessages);
+		
+		((View) getActionBar().getTitle()).setOnClickListener(new View.OnClickListener(){
+			public void onClick(View v) {
+				try{
+//					DefaultHttpClient httpClient = new DefaultHttpClient();
+//					HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/" + txtContactSearch);
+//					
+//					request.setHeader("Accept", "application/json");
+//			        request.setHeader("Content-type", "application/json");
+//
+//			        HttpResponse response = httpClient.execute(request);
+//			        
+//			        HttpEntity responseEntity = response.getEntity();
+//			        
+//			        // Read response data into buffer
+//			        char[] buffer = new char[(int)responseEntity.getContentLength()];
+//			        InputStream stream = responseEntity.getContent();
+//			        InputStreamReader reader = new InputStreamReader(stream);
+//			        reader.read(buffer);
+//			        stream.close();
+//
+//			        JSONObject user = new JSONObject(new String(buffer));
+//			        
+//			        // Populate text fields
+//			        txtContactSearch.setText(user.getString("accountName"));
+//			        
+//			        if(txtContactSearch == null){
+//			        	Toast.makeText(ContactSearchActivity.this, "Benutzer ist nicht vorhanden!", Toast.LENGTH_LONG).show();
+//			        }else{
+//			        	Intent i = new Intent(ContactSearchActivity.this, UserProfileActivity.class);
+//			        	
+//			        	Bundle b = new Bundle();
+//			        	b.putString("userId", user.getString("userId"));
+//			        	b.putString("accountName", user.getString("accountName"));
+//			        	b.putString("aliasName", user.getString("aliasName"));
+//			        	b.putString("password", user.getString("password"));
+//			        	b.putBoolean("accountState", user.getString("accountState"));
+//			        	b.putString("expierencePoints", user.getString("expierencePoints"));
+//			        	b.putByteArray("picture", user.getString("picture"));
+			       
+			        	Bundle b = new Bundle();
+			        	Intent i = new Intent(SimpleChatActivity.this, UserProfileActivity.class);
+			        	b.putString("userId", "");
+			        	b.putString("accountName", "test");
+			        	b.putString("aliasName", "test");
+			        	b.putString("password", "test");
+			        	b.putBoolean("accountState", true);
+//			        	b.putString("expierencePoints", "...");
+			        	b.putByteArray("picture", new byte[]{50});
+			        	
+						i.putExtras(b);
+						startActivity(i);
+						finish();
+						System.exit(0);
+//			        }     
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 
