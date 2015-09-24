@@ -165,7 +165,7 @@ public class SimpleChatActivity extends Activity {
 	public void sendMessage(){
 		TextView sentText = new TextView(getApplicationContext());
 		sentText.setText(txtChat.getText());
-		sentText.setBackgroundColor(Color.GRAY);
+		sentText.setBackgroundColor(Color.WHITE);
 		sentText.setTextColor(Color.BLACK);
 		sentText.setGravity(Gravity.RIGHT);
 		layoutMessages.addView(sentText);
@@ -200,6 +200,18 @@ public class SimpleChatActivity extends Activity {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+		receiveMessage(txtChat.getText().toString());
+		txtChat.setText("");
+	}
+	
+	public void receiveMessage(String text){
+		TextView receivedText = new TextView(getApplicationContext());
+		receivedText.setText(text);
+		receivedText.setBackgroundColor(Color.GRAY);
+		receivedText.setTextColor(Color.WHITE);
+		receivedText.setGravity(Gravity.LEFT);
+		layoutMessages.addView(receivedText);
+		
 	}
 	
 }
