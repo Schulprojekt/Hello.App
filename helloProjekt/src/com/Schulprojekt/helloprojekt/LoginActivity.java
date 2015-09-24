@@ -87,7 +87,13 @@ public class LoginActivity extends Activity {
 								Intent i = new Intent(LoginActivity.this, 						// sonst wird die nächste Activity ContactListActivity gestartet
 										ContactListActivity.class);
 								Bundle b = new Bundle();
-								b.putParcelable("LoggedUser", (Parcelable) user);
+								b.putString("userId", "");
+								b.putString("aliasName", "AliasTest");
+								b.putString("accountName", "AccountTest");
+								b.putBoolean("accountState", true);
+//								b.putInt("experiencePoints", 0);
+								b.putByteArray("picture", new byte[0]);
+								b.putString("password", "");
 								i.putExtras(b);
 								startActivity(i);
 								finish();
@@ -106,7 +112,13 @@ public class LoginActivity extends Activity {
 						Intent i = new Intent(LoginActivity.this,
 								ContactListActivity.class);
 						Bundle b = new Bundle();
-						b.putString("username", loginUsername.toString());
+						b.putString("userId", "");
+						b.putString("aliasName", "AliasTest");
+						b.putString("accountName", "AccountTest");
+						b.putBoolean("accountState", true);
+//						b.putInt("experiencePoints", 0);
+						b.putByteArray("picture", new byte[0]);
+						b.putString("password", "");
 						i.putExtras(b);
 						startActivity(i);
 						finish();
