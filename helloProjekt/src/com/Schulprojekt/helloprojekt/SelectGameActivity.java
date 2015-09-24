@@ -14,8 +14,7 @@ import android.widget.Button;
 
 public class SelectGameActivity extends Activity {
 	private Button buttonHangman, buttonTicTacToe, buttonBack;													//Deklaration 
-	private User loggedUser;
-	private User chatPartner;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {														//Activity wird aufgebaut
@@ -24,17 +23,22 @@ public class SelectGameActivity extends Activity {
 		buttonHangman = (Button) findViewById(R.id.buttonHangman);												//auf den Button buttonHangman zugreifen
 		buttonTicTacToe = (Button) findViewById(R.id.buttonTicTacToe);											//auf den Button buttonTicTacToe zugreifen
 		buttonBack = (Button) findViewById(R.id.buttonBack);													//auf den Button buttonBack zugreifen
+		
 		buttonHangman.setOnClickListener(new OnClickListener() {												//auf den Button Hangman einen OnClickListenener setzen
 			public void onClick(View view) {
+				Bundle bundle = getIntent().getExtras();	
+				String loggedUser = bundle.getString("loggedUser");
+				String chatPartner = bundle.getString("chatPartner");
 				Intent i = new Intent(SelectGameActivity.this,													//Aufbau des Pfades zur nächsten Activity
 		        		HangmanActivity.class);													
-				Bundle b = new Bundle();															//Erstellen eines Bundles
-				b.putString("loggedUser", loggedUser.getAccountName());							    //Füllen des Bundles mit Key und dem dazugehörigen Wert
-				b.putString("chatPartner", chatPartner.getAccountName());
-				i.putExtras(b);																		//Bundle ins Intent hinzufügen
+				Bundle b = new Bundle();																		//Erstellen eines Bundles
+				b.putString("loggedUser", loggedUser);							    			//Füllen des Bundles mit Key und dem dazugehörigen Wert
+				b.putString("chatPartner", chatPartner);
+				i.putExtras(b);																					//Bundle ins Intent hinzufügen
 				startActivity(i);																				//Activity wird gestartet
 			}
 		});
+		
 		buttonTicTacToe.setOnClickListener(new OnClickListener() {												//auf den Button TicTacToe einen OnClickListenener setzen
 			public void onClick(View view) {
 				Intent i = new Intent(SelectGameActivity.this,													//Aufbau des Pfades zur nächsten Activity
@@ -42,6 +46,7 @@ public class SelectGameActivity extends Activity {
 		        startActivity(i);																				//Activity wird gestartet
 			}
 		});
+		
 		buttonBack.setOnClickListener(new OnClickListener() {													//auf den Button Zurück einen OnClickListenener setzen
 			public void onClick(View view) {
 				finish();																						//Methode finish() aufrufen

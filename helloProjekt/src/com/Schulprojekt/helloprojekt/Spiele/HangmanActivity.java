@@ -137,14 +137,16 @@ public class HangmanActivity extends Activity {
 	public void startConnection(){
 		
 		Bundle bundle = getIntent().getExtras();	
-		String loggedUsername = bundle.getString("loggedUsername");
+		String loggedUser = bundle.getString("loggedUser");
+		String chatPartner = bundle.getString("chatPartner");
 		JSONObject user = new JSONObject();
+		JSONObject user2 = new JSONObject();
 		
 		DefaultHttpClient httpClient = new DefaultHttpClient();								      			//Client erstellen
 
 		
 		HttpGet request = new HttpGet(SERVICE_URI+ "/GetUserByAccountName/" +   							// auf die Felder AccountName + loginUsernamezugreifen
-				loggedUsername);
+				loggedUser);
 		request.setHeader("Accept", "application/json");
 		request.setHeader("Content-type", "application/json");
 		HttpResponse response;
@@ -168,11 +170,38 @@ public class HangmanActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+
+		HttpGet request2 = new HttpGet(SERVICE_URI+ "/GetUserByAccountName/" +   							// auf die Felder AccountName + loginUsernamezugreifen
+				chatPartner);
+		request2.setHeader("Accept", "application/json");
+		request2.setHeader("Content-type", "application/json");
+		HttpResponse response2;
+		try {
+			response2 = httpClient.execute(request2);
+			HttpEntity responseEntity = response2.getEntity();
+			char[] buffer = new char[(int) responseEntity
+					.getContentLength()]; 																	// Daten im Array speichern
+			InputStream stream = responseEntity.getContent();
+			InputStreamReader reader = new InputStreamReader(stream); 										// Reader deklarieren
+			reader.read(buffer); 																			// Reader liest Buffer
+			stream.close();
+
+			user2 = new JSONObject(new String(buffer)); 														// ein JSONObject erstellens
+			
+		} catch (ClientProtocolException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 		
-		HttpPost request2 = new HttpPost(SERVICE_URI + "/CreateMessage");
-        request2.setHeader("Accept", "application/json");
-        request2.setHeader("Content-type", "application/json");
+		HttpPost request3 = new HttpPost(SERVICE_URI + "/CreateMessage");
+        request3.setHeader("Accept", "application/json");
+        request3.setHeader("Content-type", "application/json");
 
         // Build JSON string
         JSONStringer message;
@@ -183,7 +212,7 @@ public class HangmanActivity extends Activity {
 			            .object()
 			                .key("id").value(null)
 			                .key("sender").value(user.getString("GUID"))
-			                .key("reciever").value("")
+			                .key("reciever").value(user2.getString("GUID"))
 			                .key("message").value("")
 			                .key("attchment").value(new byte[]{0})
 			                .key("timestamp").value(new Timestamp(System.currentTimeMillis()))
@@ -191,13 +220,13 @@ public class HangmanActivity extends Activity {
 			        .endObject();
         StringEntity entity = new StringEntity(message.toString());
 
-        request2.setEntity(entity);
+        request3.setEntity(entity);
 
         // Send request to WCF service
         DefaultHttpClient httpClient2 = new DefaultHttpClient();
-        HttpResponse response2 = httpClient2.execute(request2);
+        HttpResponse response3 = httpClient2.execute(request3);
         
-        Log.d("WebInvoke", "Saving : " + response2.getStatusLine().getStatusCode());
+        Log.d("WebInvoke", "Saving : " + response3.getStatusLine().getStatusCode());
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
