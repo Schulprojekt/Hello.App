@@ -123,7 +123,7 @@
         android:layout_below="@+id/titleText"
         android:layout_centerHorizontal="true"
         android:minHeight="30dip"
-        android:text="New Game" />
+        android:text="Neues Spiel" />
 
     <Button
         android:id="@+id/buttonExit"
@@ -133,6 +133,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="17dp"
         android:minHeight="30dp"
-        android:text="Exit" />
+        android:text="Beenden" />
 
 </RelativeLayout>

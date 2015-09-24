@@ -157,7 +157,7 @@ public class TicTacToeActivity extends Activity {
 	            return false;
 	        } else {																						//sonst lasse den Gewinner im Textfeld erscheinen 
 	            TextView textView = (TextView) findViewById(R.id.titleText);
-	            textView.setText(winner + " wins");
+	            textView.setText(winner + " hat gewonnen");
 	            return true;
 	        }
 	    }
@@ -177,7 +177,7 @@ public class TicTacToeActivity extends Activity {
 	            }
 	            if (checkWin() == false){																	//überprüfe, ob checkWin() false zurück gibt
 	            	TextView textView = (TextView) findViewById(R.id.titleText);							//lasse in Textfeld 'No winner!' für unentscheiden erscheinen
-	            	textView.setText("No winner!");
+	            	textView.setText("Kein Gewinner!");
 	            }
 	        }
 	    }
