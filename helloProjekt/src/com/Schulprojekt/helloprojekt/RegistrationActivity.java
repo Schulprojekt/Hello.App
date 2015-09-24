@@ -162,6 +162,7 @@ public class RegistrationActivity extends Activity {
 
         				
 //        					}
+    						finish();
         				}
         				else{
         					Toast.makeText(RegistrationActivity.this, "Passwörter stimmen nicht ueberein", 		
@@ -176,7 +177,7 @@ public class RegistrationActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {																//Menü wird aufgebaut
-        getMenuInflater().inflate(R.menu.registration, menu);
+        //getMenuInflater().inflate(R.menu.registration, menu);
         return true;																							//wenn Menü aufgebaut ist, gibt die Methode true zurück
     }
     @Override

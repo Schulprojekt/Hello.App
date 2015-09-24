@@ -164,7 +164,7 @@ public class LoginActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) { 											// Menü wird aufgebaut
-		getMenuInflater().inflate(R.menu.login, menu);
+		//getMenuInflater().inflate(R.menu.login, menu);
 		return true; 																			// wenn Menü aufgebaut ist, gibt die Methode true zurück
 	}
 

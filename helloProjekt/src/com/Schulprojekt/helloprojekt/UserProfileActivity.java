@@ -61,7 +61,7 @@ public class UserProfileActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
-			return true;
+			finish();
 		}
 		return super.onOptionsItemSelected(item);
 	}

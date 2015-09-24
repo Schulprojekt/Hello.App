@@ -63,7 +63,7 @@ public class SelectGameActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {														//wird ein Item im Menüe ausgewählt, gibt die Methode true zurück
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
-			return true;
+			finish();
 		}
 		return super.onOptionsItemSelected(item);
 	}

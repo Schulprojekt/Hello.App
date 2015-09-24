@@ -47,7 +47,7 @@ public class SimpleChatActivity extends Activity {
 		chatPartner = new User();
 		loggedUser.setAccountName(bundle.getString("loggedAccountName"));							
 		loggedUser.setAccountPicture(bundle.getByteArray("loggedPicture"));							//Füllen des Bundles mit Key und dem dazugehörigen Wert
-		chatPartner.setAccountName(bundle.getString("partnerAccountName"));
+		chatPartner.setAlias(bundle.getString("partnerAccountName"));
 		chatPartner.setAccountPicture(bundle.getByteArray("partnerPicture"));			
 		imageViewGame = (ImageView) findViewById(R.id.imageViewGameChat);
 		imageViewGame.setOnClickListener(new View.OnClickListener(){
@@ -146,18 +146,20 @@ public class SimpleChatActivity extends Activity {
 			        	
 						i.putExtras(b);
 						startActivity(i);
-						finish();
-						System.exit(0);
+//						finish();
+//						System.exit(0);
 //			        }     
 				}catch (Exception e){
 					e.printStackTrace();
 				}
-
+				break;
 		case R.id.chat_AppExit:
 			finish();
+			break;
 		default:
-			return super.onOptionsItemSelected(item);
+			;
 		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	public void sendMessage(){
