@@ -7,8 +7,13 @@ import java.io.InputStreamReader;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
+
+import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -35,17 +40,16 @@ public class LoginActivity extends Activity {
 	public EditText loginPassword;
 	private final static String SERVICE_URI = "http://hello-server/helloservice/messengerservice.svc"; 	// URL zum WebService
 	Drawable d;
+	User user;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 										// Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
-
 		if (android.os.Build.VERSION.SDK_INT > 9) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
 					.permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 		}
-
 		setContentView(R.layout.activity_login);
 		loginUsername = (EditText) findViewById(R.id.loginUsername); 							// auf Textfeld loginUsername zurgreifen
 		loginPassword = (EditText) findViewById(R.id.loginPassword);							// auf Textfeld loginPassword zurgreifen
@@ -67,35 +71,37 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 				if (v == btnLogin) { 															// wird der Button geklickt, wird die Verbindung zur Datenbank aufgebaut
 					try {
+						User user = new User();
+						Gson gs = new Gson();
+						String jsonString = "";
+						jsonString = gs.toJson(loginUsername.getText());
+						StringEntity se = new StringEntity(jsonString);
 						DefaultHttpClient httpClient = new DefaultHttpClient();
-						HttpGet request = new HttpGet(SERVICE_URI+ "/GetUserByAccountName/" +   // auf die Felder AccountName + loginUsernamezugreifen
-								loginUsername);
+						HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");    // auf die Felder AccountName + loginUsernamezugreifen
+						request.setEntity(se);
 						request.setHeader("Accept", "application/json");
 						request.setHeader("Content-type", "application/json");
 						HttpResponse response = httpClient.execute(request);
 						HttpEntity responseEntity = response.getEntity();
-						char[] buffer = new char[(int) responseEntity
-								.getContentLength()]; 											// Daten im Array speichern
 						InputStream stream = responseEntity.getContent();
-						InputStreamReader reader = new InputStreamReader(stream); 				// Reader deklarieren
-						reader.read(buffer); 													// Reader liest Buffer
-						stream.close();
-
-						JSONObject user = new JSONObject(new String(buffer)); 					// ein JSONObject erstellens
-						loginUsername.setText(user.getString("accountName")); 					// in das Feld loginUsername die Eingabe accountName setzen
-						if (loginUsername == null) { 											// ist loginUsername null, kommt die Fehlermeldung
+						user = gs.fromJson(stream.toString(), User.class);
+//						JSONObject user = new JSONObject(new String(buffer)); 					// ein JSONObject erstellens
+//						loginUsername.setText(user.getString("accountName")); 					// in das Feld loginUsername die Eingabe accountName setzen
+						if (user.getAccountName() == null) { 											// ist loginUsername null, kommt die Fehlermeldung
 							Toast.makeText(LoginActivity.this,
 									"Benutzername oder Passwort falsch!",
 									Toast.LENGTH_LONG).show();
 						} else {
-							if (loginPassword.equals(user.getString("password"))) {
+							if (user.getPassword().equals(loginPassword)) {
 								Intent i = new Intent(LoginActivity.this, 						// sonst wird die nächste Activity ContactListActivity gestartet
 										ContactListActivity.class);
 								Bundle b = new Bundle();
+								
 								b.putString("userId", "");
-								b.putString("aliasName", "AliasTest");
-								b.putString("accountName", "AccountTest");
-								b.putBoolean("accountState", true);
+								b.putString("aliasName", user.getAlias());
+								b.putString("accountName", user.getAccountName());
+								b.putBoolean("accountState", user.getAccountState());
+//								b.putString("", value)
 //								b.putInt("experiencePoints", 0);
 								Bitmap bmp = ((BitmapDrawable)d).getBitmap();
 								ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -116,27 +122,27 @@ public class LoginActivity extends Activity {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					Boolean methode = true;
-					if (methode) {
-						Intent i = new Intent(LoginActivity.this,
-								ContactListActivity.class);
-						Bundle b = new Bundle();
-						b.putString("userId", "");
-						b.putString("aliasName", "AliasTest");
-						b.putString("accountName", "AccountTest");
-						b.putBoolean("accountState", true);
-//						b.putInt("experiencePoints", 0);
-						b.putByteArray("picture", new byte[0]);
-						b.putString("password", "");
-						i.putExtras(b);
-						startActivity(i);
-//						finish();
-//						System.exit(0);
-					} else {
-						Toast.makeText(LoginActivity.this,
-								"Benutzername oder Passwort falsch!",
-								Toast.LENGTH_LONG).show();
-					}
+//					Boolean methode = true;
+//					if (methode) {
+//						Intent i = new Intent(LoginActivity.this,
+//								ContactListActivity.class);
+//						Bundle b = new Bundle();
+//						b.putString("userId", "");
+//						b.putString("aliasName", "AliasTest");
+//						b.putString("accountName", "AccountTest");
+//						b.putBoolean("accountState", true);
+////						b.putInt("experiencePoints", 0);
+//						b.putByteArray("picture", new byte[0]);
+//						b.putString("password", "");
+//						i.putExtras(b);
+//						startActivity(i);
+////						finish();
+////						System.exit(0);
+//					} else {
+//						Toast.makeText(LoginActivity.this,
+//								"Benutzername oder Passwort falsch!",
+//								Toast.LENGTH_LONG).show();
+//					}
 				}
 
 			}

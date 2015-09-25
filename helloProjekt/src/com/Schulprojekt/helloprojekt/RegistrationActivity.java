@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import org.json.JSONStringer;
 
 import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -81,7 +82,41 @@ public class RegistrationActivity extends Activity {
     			        	
     						i.putExtras(b);
     						startActivity(i);
-//        					
+    						User user = new User();
+    						Gson gs = new Gson();
+    						StringEntity se;
+    						DefaultHttpClient httpClient = new DefaultHttpClient();
+    						HttpResponse response;
+    						InputStream stream;
+        					try{
+    						String jsonString = "";
+    						jsonString = gs.toJson(tvname.getText());
+    						se = new StringEntity(jsonString);
+    						httpClient = new DefaultHttpClient();
+    						HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");    // auf die Felder AccountName + loginUsernamezugreifen
+    						request.setEntity(se);
+    						request.setHeader("Accept", "application/json");
+    						request.setHeader("Content-type", "application/json");
+    						response = httpClient.execute(request);
+    						HttpEntity responseEntity = response.getEntity();
+    						stream = responseEntity.getContent();
+    						user = gs.fromJson(stream.toString(), User.class);
+    						if (user.getAccountName() == null) { 
+    							Toast.makeText(RegistrationActivity.this, "Name schon vergeben!", Toast.LENGTH_LONG).show();
+        					}else{
+        				
+        					user = new User(tvname.getText().toString(), tvname.getText().toString(), tvpasswort.getText().toString(), true);
+        					jsonString = gs.toJson(user, User.class);
+        					se = new StringEntity(jsonString);
+        					HttpPost request2 = new HttpPost(SERVICE_URI + "/CreateUser");
+        		            request2.setHeader("Accept", "application/json");
+        		            request2.setHeader("Content-type", "application/json");
+        		            request2.setEntity(se);
+        		            response = httpClient.execute(request);
+        		            stream = responseEntity.getContent();
+    						user = gs.fromJson(stream.toString(), User.class);
+    						}
+    						
 //        					DefaultHttpClient httpClient = new DefaultHttpClient();								//Client erstellen
 //        			        HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/"+name);				//URL erstellen
 //        			        request.setHeader("Accept", "application/json");
@@ -100,13 +135,11 @@ public class RegistrationActivity extends Activity {
 //        			        user = new JSONObject(new String(buffer));											//ein JSONObject erstellens
 //        			        tvname.setText(user.getString("accountName"));
 //        			        
-//							} catch (ClientProtocolException e) {
-//								e.printStackTrace();
-//							} catch (IOException e) {
-//								e.printStackTrace();
-//							} catch (JSONException e) {
-//								e.printStackTrace();
-//							}
+							} catch (ClientProtocolException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 //							
 ////							
 ////        					if(tvname.getText() == null){
