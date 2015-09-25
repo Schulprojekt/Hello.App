@@ -5,17 +5,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
-import java.util.Date;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.json.JSONStringer;
 
 import android.app.Activity;
@@ -31,6 +28,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.Schulprojekt.helloprojekt.R;
+import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.google.gson.Gson;
+
 
 public class HangmanActivity extends Activity {
 	private final static String SERVICE_URI = "http://hello-server/helloservice/messengerservice.svc";
@@ -89,7 +89,6 @@ public class HangmanActivity extends Activity {
 					 Toast.makeText(HangmanActivity.this, "Das Eingabefeld darf nicht leer sein", 			//Wenn die Eingabe leer ist, Fehlermeldung anzeigen
 							 Toast.LENGTH_LONG).show();
 				 }
-
 			}
 		});
 		
@@ -123,7 +122,6 @@ public class HangmanActivity extends Activity {
 		txt_eingabe = (EditText) findViewById(R.id.txt_eingabe);											//Zugriff auf den Textfeld "Eingabe"
 		wort = txt_eingabe.getText().toString();															//Füllen der Variable "Wort"
 		return wort;																						//Rückgabewert
-
 	}
 
 	public boolean isAlpha(String text) {																	//Methode zur Prüfung ob die Eingabe nur Buchstaben enthält
@@ -139,66 +137,70 @@ public class HangmanActivity extends Activity {
 		Bundle bundle = getIntent().getExtras();	
 		String loggedUser = bundle.getString("loggedUser");
 		String chatPartner = bundle.getString("chatPartner");
-		JSONObject user = new JSONObject();
-		JSONObject user2 = new JSONObject();
+		User user = new User();
+		User user2 = new User();
 		
 		DefaultHttpClient httpClient = new DefaultHttpClient();								      			//Client erstellen
-
 		
-		HttpGet request = new HttpGet(SERVICE_URI+ "/GetUserByAccountName/" +   							// auf die Felder AccountName + loginUsernamezugreifen
-				loggedUser);
+		Gson gson = new Gson();
+		String jsonString = "";
+		jsonString = gson.toJson(loggedUser);
+		StringEntity se;
+		try {
+			se = new StringEntity(jsonString);
+	
+		HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");   							//Auf die Felder AccountName 
+		request.setEntity(se);
 		request.setHeader("Accept", "application/json");
 		request.setHeader("Content-type", "application/json");
 		HttpResponse response;
-		try {
+		
 			response = httpClient.execute(request);
 			HttpEntity responseEntity = response.getEntity();
 			char[] buffer = new char[(int) responseEntity
-					.getContentLength()]; 																	// Daten im Array speichern
+					.getContentLength()]; 																	//Daten im Array speichern
 			InputStream stream = responseEntity.getContent();
-			InputStreamReader reader = new InputStreamReader(stream); 										// Reader deklarieren
-			reader.read(buffer); 																			// Reader liest Buffer
+			user = gson.fromJson(stream.toString(), User.class);
+			InputStreamReader reader = new InputStreamReader(stream); 										//Reader deklarieren
+			reader.read(buffer); 																			//Reader liest Buffer
 			stream.close();
 
-			user = new JSONObject(new String(buffer)); 														// ein JSONObject erstellens
 			
 		} catch (ClientProtocolException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
 
-		HttpGet request2 = new HttpGet(SERVICE_URI+ "/GetUserByAccountName/" +   							// auf die Felder AccountName + loginUsernamezugreifen
-				chatPartner);
+		Gson gson2 = new Gson();
+		String jsonString2 = "";
+		jsonString = gson.toJson(chatPartner);
+		StringEntity se2;
+		try {
+			se2 = new StringEntity(jsonString);
+	
+		HttpPost request2 = new HttpPost(SERVICE_URI+ "/GetUserByAccountName" );  							//Auf die Felder AccountName 
+		request2.setEntity(se2);
 		request2.setHeader("Accept", "application/json");
 		request2.setHeader("Content-type", "application/json");
 		HttpResponse response2;
-		try {
 			response2 = httpClient.execute(request2);
 			HttpEntity responseEntity = response2.getEntity();
 			char[] buffer = new char[(int) responseEntity
-					.getContentLength()]; 																	// Daten im Array speichern
-			InputStream stream = responseEntity.getContent();
-			InputStreamReader reader = new InputStreamReader(stream); 										// Reader deklarieren
-			reader.read(buffer); 																			// Reader liest Buffer
-			stream.close();
+					.getContentLength()]; 																	//Daten im Array speichern
+			InputStream stream2 = responseEntity.getContent();
+			user2= gson2.fromJson(stream2.toString(), User.class);
+			InputStreamReader reader = new InputStreamReader(stream2); 										//Reader deklarieren
+			reader.read(buffer); 																			//Reader liest Buffer
+			stream2.close();
 
-			user2 = new JSONObject(new String(buffer)); 													// ein JSONObject erstellens
 			
 		} catch (ClientProtocolException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	
-		
 		HttpPost request3 = new HttpPost(SERVICE_URI + "/CreateMessage");
         request3.setHeader("Accept", "application/json");
         request3.setHeader("Content-type", "application/json");
@@ -211,8 +213,8 @@ public class HangmanActivity extends Activity {
 			        .key("message")
 			            .object()
 			                .key("id").value(null)
-			                .key("sender").value(user.getString("GUID"))
-			                .key("reciever").value(user2.getString("GUID"))
+			                .key("sender").value(user)
+			                .key("reciever").value(user2)
 			                .key("message").value("")
 			                .key("attchment").value(new byte[]{0})
 			                .key("timestamp").value(new Timestamp(System.currentTimeMillis()))
@@ -229,21 +231,15 @@ public class HangmanActivity extends Activity {
         Log.d("WebInvoke", "Saving : " + response3.getStatusLine().getStatusCode());
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-	
 		}
-	
 }
 
