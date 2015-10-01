@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
@@ -132,23 +134,25 @@ public class SimpleChatActivity extends Activity {
 	}
 	
 	public void sendMessage(){
-		TextView sentText = new TextView(getApplicationContext());
-		sentText.setText(txtChat.getText());
-		sentText.setBackgroundColor(Color.WHITE);
-		sentText.setTextColor(Color.BLACK);
-		sentText.setGravity(Gravity.RIGHT);
-		layoutMessages.addView(sentText);
-		Gson gs = new Gson();
-		String JsonString;
 		try{
+			Gson gs = new Gson();
+			String JsonString;
 			Message message = new Message(UUID.randomUUID(), UUID.randomUUID(), txtChat.getText().toString());
 			JsonString = gs.toJson(message);
 			DefaultHttpClient httpClient = new DefaultHttpClient();
-			HttpGet request = new HttpGet(SERVICE_URI + "/CreateMessage");
+			HttpPost request = new HttpPost(SERVICE_URI + "/CreateMessage");
 			request.setHeader("Accept", "application/json");
 	        request.setHeader("Content-type", "application/json");
+	        StringEntity se = new StringEntity(JsonString);
+	        request.setEntity(se);
 	        HttpResponse response = httpClient.execute(request);
-	        HttpEntity responseEntity = response.getEntity();	        
+//	        HttpEntity responseEntity = response.getEntity();
+	        TextView sentText = new TextView(getApplicationContext());
+			sentText.setText(txtChat.getText());
+			sentText.setBackgroundColor(Color.WHITE);
+			sentText.setTextColor(Color.BLACK);
+			sentText.setGravity(Gravity.RIGHT);
+			layoutMessages.addView(sentText);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
