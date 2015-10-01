@@ -21,8 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class UserSettingActivity extends Activity {
-
-	public Button btnDeleteAccount;
+	public Button btnDeleteAccount;																			//Deklaration
 	public Button btnSave;
 	public EditText userSettingUsername;
 	public EditText userSettingAliasname;
@@ -33,32 +32,25 @@ public class UserSettingActivity extends Activity {
 //	int experiencePoints;
 	byte[] picture;
 	String password;
-	
-	private final static String SERVICE_URI = "http:////hello-server//helloservice//messengerservice.svc";
-	
+	private final static String SERVICE_URI = "http:////hello-server//helloservice" +						//Pfad zum Server
+			"//messengerservice.svc";
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {													//Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_setting);
 		
-		Bundle b = getIntent().getExtras();
-		String userId = b.getString("userId");
-		String aliasName = b.getString("aliasName");
-		String accountName = b.getString("accountName");
-		boolean accountState = b.getBoolean("accountState");
+		Bundle b = getIntent().getExtras();																	//Erstellen eines Bundles
+		String userId = b.getString("userId");																//den String userId abrufen
+		String aliasName = b.getString("aliasName");														//den String aliasName abrufen
+		String accountName = b.getString("accountName");													//den String accountName abrufen
+		boolean accountState = b.getBoolean("accountState");												//den Boolean accountState abrufen
 //		int experiencePoints = b.getInt("experiencePoints");
-		byte[] picture = b.getByteArray("picture");
-		String password = b.getString("password");
-		
-		// Datenbankzugriff für Username
-		// TODO auf den user zugreifen um den usernamen zu bekommen
-		userSettingAliasname = (EditText) findViewById(R.id.UserSettingAliasname);	
-		userSettingAliasname.setText(aliasName);
-
-		userSettingUsername = (EditText) findViewById(R.id.UserSettingUsername);	
-		userSettingUsername.setText(accountName);
-		
-		
+		byte[] picture = b.getByteArray("picture");															//das Array picture abrufen
+		String password = b.getString("password");															//den String password abrufen
+		userSettingAliasname = (EditText) findViewById(R.id.UserSettingAliasname);							//Datenbankzugriff auf den Aliasname
+		userSettingAliasname.setText(aliasName);															//aliasName setzen/ändern
+		userSettingUsername = (EditText) findViewById(R.id.UserSettingUsername);							//Datenbankzugriff auf den Username
+		userSettingUsername.setText(accountName);															//accountName setzen/ändern
 		
 		// Datenbankzugriff für Aliasname
 		try{
@@ -148,17 +140,13 @@ public class UserSettingActivity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu) {																//Menü wird aufgebaut
 		getMenuInflater().inflate(R.menu.user_setting, menu);
-		return true;
+		return true;																							//wenn Menü aufgebaut ist, gibt die Methode true zurück
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+	public boolean onOptionsItemSelected(MenuItem item) {														//wird ein Item im Menüe ausgewählt, gibt die Methode true zurück
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			finish();
