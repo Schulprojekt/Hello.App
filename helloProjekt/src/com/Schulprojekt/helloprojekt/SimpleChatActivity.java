@@ -1,5 +1,12 @@
 package com.Schulprojekt.helloprojekt;
 
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -73,6 +80,8 @@ public class SimpleChatActivity extends Activity {
 		});
 		txtChat = (EditText) findViewById(R.id.editTextChat);
 		layoutMessages = (LinearLayout) findViewById(R.id.layoutMessages);
+		
+		receiveMessage();
 	}
 		
 
@@ -143,6 +152,17 @@ public class SimpleChatActivity extends Activity {
 	        request.setEntity(se);
 	        HttpResponse response = httpClient.execute(request);
 //	        HttpEntity responseEntity = response.getEntity();
+	        
+    		try {
+    			FileOutputStream fileout = new FileOutputStream("/"+chatPartner.getAccountID());
+    			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
+    			outputWriter.write(txtChat.getText().toString());
+    			outputWriter.close();
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}	
+	        
+	        
 	        TextView sentText = new TextView(getApplicationContext());
 			sentText.setText(txtChat.getText());
 			sentText.setBackgroundColor(Color.WHITE);
@@ -152,17 +172,53 @@ public class SimpleChatActivity extends Activity {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		receiveMessage(txtChat.getText().toString());
 		txtChat.setText("");
 	}
 	
-	public void receiveMessage(String text){
-		TextView receivedText = new TextView(getApplicationContext());
-		receivedText.setText(text);
-		receivedText.setBackgroundColor(Color.GRAY);
-		receivedText.setTextColor(Color.WHITE);
-		receivedText.setGravity(Gravity.LEFT);
-		layoutMessages.addView(receivedText);
+	public void receiveMessage(){
+		
+	    try
+	    {
+	        InputStream instream = openFileInput("/"+chatPartner.getAccountID()); 
+	        if (instream != null)
+	        {
+	            InputStreamReader inputreader = new InputStreamReader(instream); 
+	            BufferedReader buffreader = new BufferedReader(inputreader); 
+	            String line = "";
+	            try
+	            {
+	                while ((line = buffreader.readLine()) != null)
+	                    if(line.substring(0,11).equals("#123454321#")){
+	                		TextView receivedText = new TextView(getApplicationContext());
+	                		receivedText.setText(line);
+	                		receivedText.setBackgroundColor(Color.GRAY);
+	                		receivedText.setTextColor(Color.WHITE);
+	                		receivedText.setGravity(Gravity.LEFT);
+	                		layoutMessages.addView(receivedText);
+	                    }
+	                    else{
+	                		TextView receivedText = new TextView(getApplicationContext());
+	                		receivedText.setText(line);
+	                		receivedText.setBackgroundColor(Color.WHITE);
+	                		receivedText.setTextColor(Color.BLACK);
+	                		receivedText.setGravity(Gravity.RIGHT);
+	                		layoutMessages.addView(receivedText);
+	                    }
+	            }catch (Exception e) 
+	            {
+	                e.printStackTrace();
+	            }
+	         }
+	    }
+	    catch (Exception e) 
+	    {
+	        String error="";
+	        error=e.getMessage();
+	    }
+		
+		
+		
+
 		
 	}
 	

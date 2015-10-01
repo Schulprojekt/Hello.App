@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -28,10 +27,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.Schulprojekt.helloprojekt.GUILogik.ContactListEntry;
-//import com.Schulprojekt.helloprojekt.GUILogik.SimpleThreads;
+import com.Schulprojekt.helloprojekt.GUILogik.MessageLoop;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+//import com.Schulprojekt.helloprojekt.GUILogik.SimpleThreads;
 
 public class ContactListActivity extends Activity {
 
@@ -53,7 +53,8 @@ public class ContactListActivity extends Activity {
 		user.setPassword(b.getString("password"));															//Füllen des Passwortes
 		user.setAccountPicture(b.getByteArray("picture"));													//Füllen des Profilbildes
 		setContentView(R.layout.activity_contact_list);
-		
+		Thread t = new Thread(new MessageLoop(user.getAccountID()));
+		t.start();
 //		//Test
 //		Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.dummycontact);				
 //		ByteArrayOutputStream stream = new ByteArrayOutputStream();
