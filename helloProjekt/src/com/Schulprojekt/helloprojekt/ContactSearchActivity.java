@@ -76,8 +76,6 @@ public class ContactSearchActivity extends Activity {
 			        	b.putString("accountName", user.getAccountName());
 			        	b.putString("aliasName", user.getAlias());
 			        	b.putString("password", user.getPassword());
-			        	b.putBoolean("accountState", user.getAccountState());
-//			        	b.putString("expierencePoints", user.getString("expierencePoints"));
 			        	b.putByteArray("picture", user.getAccountPicture());
 			       
 //			        	Bundle b = new Bundle();

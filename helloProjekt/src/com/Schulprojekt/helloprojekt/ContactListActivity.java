@@ -60,7 +60,6 @@ public class ContactListActivity extends Activity {
 		user.setAccountName(b.getString("accountName"));
 		user.setAlias(b.getString("aliasName"));
 		user.setPassword(b.getString("password"));
-		user.setAccountState(b.getBoolean("accountState"));
 		user.setAccountPicture(b.getByteArray("picture"));
 		setContentView(R.layout.activity_contact_list);
 		//Test
@@ -68,10 +67,10 @@ public class ContactListActivity extends Activity {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
 		byte[] byteArray = stream.toByteArray();
-		User u1 = new User(UUID.randomUUID(), "KnesKa", "KnesKa", true, byteArray);
-		User u2 = new User(UUID.randomUUID(), "RehdTi", "RehdTi", true, byteArray);
-		User u3 = new User(UUID.randomUUID(), "StehCh", "StehCh", true, byteArray);
-		User u4 = new User(UUID.randomUUID(), "PetzSa", "PetzSa", true, byteArray);
+		User u1 = new User(UUID.randomUUID(), "KnesKa", "KnesKa", byteArray);
+		User u2 = new User(UUID.randomUUID(), "RehdTi", "RehdTi", byteArray);
+		User u3 = new User(UUID.randomUUID(), "StehCh", "StehCh", byteArray);
+		User u4 = new User(UUID.randomUUID(), "PetzSa", "PetzSa", byteArray);
 		//Test END
 		final LinearLayout linlayoutVertical = (LinearLayout) findViewById(R.id.linLayoutContactVertical);
 		findViewById(R.id.scrollViewContact);
@@ -132,7 +131,6 @@ public class ContactListActivity extends Activity {
 			b.putString("userId", "Test");
 			b.putString("accountName", user.getAccountName());
 			b.putString("aliasName", user.getAlias());
-			b.putBoolean("accountState", user.getAccountState());
 			b.putByteArray("picture", user.getAccountPicture());
 			b.putString("password", user.getPassword());
 			in.putExtras(b);

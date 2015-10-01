@@ -1,5 +1,6 @@
 package com.Schulprojekt.helloprojekt;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,6 +22,8 @@ import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -61,16 +64,17 @@ public class RegistrationActivity extends Activity {
         						Toast.LENGTH_LONG).show();
         			}else{
         				if(passwortwh.equals(passwort)){														//prüfen ob passwortwh passwort entspricht
-        					
+        					Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.dummycontact);
+        					ByteArrayOutputStream picStream = new ByteArrayOutputStream();
+        					icon.compress(Bitmap.CompressFormat.PNG, 100, picStream);
+        					byte[] byteArray = picStream.toByteArray();
     			        	Bundle b = new Bundle();
     			        	Intent i = new Intent(RegistrationActivity.this, UserProfileActivity.class);
     			        	b.putString("userId", "");
     			        	b.putString("accountName", "test");
     			        	b.putString("aliasName", "test");
     			        	b.putString("password", "test");
-    			        	b.putBoolean("accountState", true);
-//    			        	b.putString("expierencePoints", "...");
-    			        	b.putByteArray("picture", new byte[]{50});
+    			        	b.putByteArray("picture", byteArray);
     			        	
 //    			        	b.putString("userId", user.getString("userId"));
 //    			        	b.putString("accountName", user.getString("accountName"));
@@ -105,14 +109,14 @@ public class RegistrationActivity extends Activity {
     							Toast.makeText(RegistrationActivity.this, "Name schon vergeben!", Toast.LENGTH_LONG).show();
         					}else{
         				
-        					user = new User(tvname.getText().toString(), tvname.getText().toString(), tvpasswort.getText().toString(), true);
+        					user = new User(tvname.getText().toString(), tvname.getText().toString(), tvpasswort.getText().toString());
         					jsonString = gs.toJson(user, User.class);
         					se = new StringEntity(jsonString);
         					HttpPost request2 = new HttpPost(SERVICE_URI + "/CreateUser");
         		            request2.setHeader("Accept", "application/json");
         		            request2.setHeader("Content-type", "application/json");
         		            request2.setEntity(se);
-        		            response = httpClient.execute(request);
+        		            response = httpClient.execute(request2);
         		            stream = responseEntity.getContent();
     						user = gs.fromJson(stream.toString(), User.class);
     						}

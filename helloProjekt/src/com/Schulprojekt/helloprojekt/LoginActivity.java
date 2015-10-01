@@ -101,9 +101,6 @@ public class LoginActivity extends Activity {
 								b.putString("userId", "");
 								b.putString("aliasName", user.getAlias());
 								b.putString("accountName", user.getAccountName());
-								b.putBoolean("accountState", user.getAccountState());
-//								b.putString("", value)
-//								b.putInt("experiencePoints", 0);
 								Bitmap bmp = ((BitmapDrawable)d).getBitmap();
 								ByteArrayOutputStream baos = new ByteArrayOutputStream();
 								bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
