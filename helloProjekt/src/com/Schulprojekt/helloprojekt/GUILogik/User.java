@@ -17,6 +17,14 @@ public class User {																							//hier wird ein Objekt erstellt, dass 
 		Alias = alias;
 		AccountPicture = accountPicture;
 	}
+	public User(int i, String accountName, String alias, String password, byte[] accountPicture) {
+		super();
+		AccountID = i;
+		AccountName = accountName;
+		Alias = alias;
+		Password = password;
+		AccountPicture = accountPicture;
+	}
 	public User(String accountName, String alias, String password) {
 		super();
 		AccountName = accountName;

@@ -28,7 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.Schulprojekt.helloprojekt.GUILogik.ContactListEntry;
-import com.Schulprojekt.helloprojekt.GUILogik.SimpleThreads;
+//import com.Schulprojekt.helloprojekt.GUILogik.SimpleThreads;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -44,7 +44,7 @@ public class ContactListActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {													//Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
-		SimpleThreads st = new SimpleThreads();
+//		SimpleThreads st = new SimpleThreads();
 		Bundle b = getIntent().getExtras();																	//Erstellen eines Bundles
 		user = new User();																					//Erstellen eines neuen Users
 		user.setAccountID(b.getInt("accountID"));															//Füllen der Accountid

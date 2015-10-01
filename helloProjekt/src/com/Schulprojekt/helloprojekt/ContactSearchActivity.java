@@ -71,13 +71,30 @@ public class ContactSearchActivity extends Activity {
 			        }else{
 			        	Intent i = new Intent(ContactSearchActivity.this, UserProfileActivity.class);				//Erstellen des Intent
 			        	
+			        	Bundle bundle = getIntent().getExtras();																	//Erstellen eines Bundles
+			    		User userLogged = new User();																					//Erstellen eines neuen Users
+			    		userLogged.setAccountID(bundle.getInt("accountID"));															//Füllen der Accountid
+			    		userLogged.setAccountName(bundle.getString("accountName"));													//Füllen des Accountnamens
+			    		userLogged.setAlias(bundle.getString("aliasName"));															//Füllen des Aliasnamens
+			    		userLogged.setPassword(bundle.getString("password"));															//Füllen des Passwortes
+			    		userLogged.setAccountPicture(bundle.getByteArray("picture"));													//Füllen des Profilbildes
+			    		
+			    		
+			    		
 			        	Bundle b = new Bundle();																	//Erstellen des Bundles
-			        	b.putString("userId", "");																	//Füllen des Bundles
+			        	b.putInt("userId", user.getAccountID());																	//Füllen des Bundles
 			        	b.putString("accountName", user.getAccountName());
 			        	b.putString("aliasName", user.getAlias());
 			        	b.putString("password", user.getPassword());
 			        	b.putByteArray("picture", user.getAccountPicture());
+			        	b.putInt("userIdLogged", userLogged.getAccountID());																	//Füllen des Bundles
+			        	b.putString("accountNameLogged", userLogged.getAccountName());
+			        	b.putString("aliasNameLogged", userLogged.getAlias());
+			        	b.putString("passwordLogged", userLogged.getPassword());
+			        	b.putByteArray("pictureLogged", userLogged.getAccountPicture());
 			       
+			        	
+			        	
 //			        	Bundle b = new Bundle();
 //			        	Intent i = new Intent(ContactSearchActivity.this, UserProfileActivity.class);
 //			        	b.putString("userId", "");
