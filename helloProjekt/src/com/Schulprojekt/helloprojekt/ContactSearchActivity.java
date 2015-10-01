@@ -6,8 +6,13 @@ import java.io.InputStreamReader;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
+
+import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -34,27 +39,34 @@ public class ContactSearchActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
+				User user = new User();
+				
+				DefaultHttpClient httpClient = new DefaultHttpClient();								      			//Client erstellen
+				
+				Gson gson = new Gson();
+				String jsonString = "";
+				jsonString = gson.toJson(txtContactSearch);
+				StringEntity se;
 				try{
-//					DefaultHttpClient httpClient = new DefaultHttpClient();
-//					HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/" + txtContactSearch);
-//					
-//					request.setHeader("Accept", "application/json");
-//			        request.setHeader("Content-type", "application/json");
-//
-//			        HttpResponse response = httpClient.execute(request);
-//			        
-//			        HttpEntity responseEntity = response.getEntity();
-//			        
-//			        // Read response data into buffer
-//			        char[] buffer = new char[(int)responseEntity.getContentLength()];
-//			        InputStream stream = responseEntity.getContent();
-//			        InputStreamReader reader = new InputStreamReader(stream);
-//			        reader.read(buffer);
-//			        stream.close();
-//
-//			        JSONObject user = new JSONObject(new String(buffer));
-//			        
+					se = new StringEntity(jsonString);
+					
+					HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");   							//Auf die Felder AccountName 
+					request.setEntity(se);
+					request.setHeader("Accept", "application/json");
+					request.setHeader("Content-type", "application/json");
+					HttpResponse response;
+					
+						response = httpClient.execute(request);
+						HttpEntity responseEntity = response.getEntity();
+						char[] buffer = new char[(int) responseEntity
+								.getContentLength()]; 																	//Daten im Array speichern
+						InputStream stream = responseEntity.getContent();
+						user = gson.fromJson(stream.toString(), User.class);
+						InputStreamReader reader = new InputStreamReader(stream); 										//Reader deklarieren
+						reader.read(buffer); 																			//Reader liest Buffer
+						stream.close();
+		        
 //			        // Populate text fields
 //			        txtContactSearch.setText(user.getString("accountName"));
 //			        
@@ -100,16 +112,11 @@ public class ContactSearchActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.contact_search, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			finish();
