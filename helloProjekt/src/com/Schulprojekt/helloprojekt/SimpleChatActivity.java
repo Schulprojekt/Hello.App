@@ -43,8 +43,10 @@ public class SimpleChatActivity extends Activity {
 		Bundle bundle = getIntent().getExtras();
 		loggedUser = new User();
 		chatPartner = new User();
+		loggedUser.setAccountID(bundle.getInt("loggedAccountId"));
 		loggedUser.setAccountName(bundle.getString("loggedAccountName"));							
 		loggedUser.setAccountPicture(bundle.getByteArray("loggedPicture"));							//Füllen des Bundles mit Key und dem dazugehörigen Wert
+		chatPartner.setAccountID(bundle.getInt("partnerAccountId"));
 		chatPartner.setAlias(bundle.getString("partnerAliasName"));
 		chatPartner.setAccountName(bundle.getString("partnerAccountName"));
 		chatPartner.setAccountPicture(bundle.getByteArray("partnerPicture"));			

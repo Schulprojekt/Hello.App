@@ -94,7 +94,7 @@ public class LoginActivity extends Activity {
 										ContactListActivity.class);
 								Bundle b = new Bundle();
 								
-								b.putString("userId", "");
+								b.putInt("userId", user.getAccountID());
 								b.putString("aliasName", user.getAlias());
 								b.putString("accountName", user.getAccountName());
 								Bitmap bmp = ((BitmapDrawable)d).getBitmap();

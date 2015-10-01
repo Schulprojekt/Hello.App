@@ -32,7 +32,7 @@ import com.google.gson.Gson;
 public class RegistrationActivity extends Activity {
 	private final static String SERVICE_URI = "http://hello-server/helloservice/messengerservice.svc";														//URL zum WebService
 	Button bregistrieren;																						//Deklaration
-	JSONObject user;
+	User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {														//Activity wird aufgebaut
         super.onCreate(savedInstanceState);
@@ -63,23 +63,14 @@ public class RegistrationActivity extends Activity {
         					icon.compress(Bitmap.CompressFormat.PNG, 100, picStream);
         					byte[] byteArray = picStream.toByteArray();
     			        	Bundle b = new Bundle();
-    			        	Intent i = new Intent(RegistrationActivity.this, UserProfileActivity.class);
-    			        	b.putString("userId", "");
-    			        	b.putString("accountName", "test");
-    			        	b.putString("aliasName", "test");
-    			        	b.putString("password", "test");
-    			        	b.putByteArray("picture", byteArray);
-    			        	
-//    			        	b.putString("userId", user.getString("userId"));
-//    			        	b.putString("accountName", user.getString("accountName"));
-//    			        	b.putString("aliasName", user.getString("aliasName"));
-//    			        	b.putString("password", user.getString("password"));
-//    			        	b.putBoolean("accountState", user.getString("accountState"));
-//    			        	b.putString("expierencePoints", user.getString("expierencePoints"));
-//    			        	b.putByteArray("picture", user.getString("picture"));
-    			        	
-    						i.putExtras(b);
-    						startActivity(i);
+    			        	Intent i = new Intent(RegistrationActivity.this, ContactListActivity.class);
+////    			        	b.putString("userId", "");
+////    			        	b.putString("accountName", "test");
+////    			        	b.putString("aliasName", "test");
+////    			        	b.putString("password", "test");
+////    			        	b.putByteArray("picture", byteArray);
+//    			        	
+//    			        	
     						User user = new User();
     						Gson gs = new Gson();
     						StringEntity se;
@@ -193,6 +184,13 @@ public class RegistrationActivity extends Activity {
 
         				
 //        					}
+        					b.putInt("userId", user.getAccountID());
+        					b.putString("accountName", user.getAccountName());
+        					b.putString("aliasName", user.getAlias());
+        					b.putString("password", user.getPassword());
+        					b.putByteArray("picture", user.getAccountPicture());
+        					i.putExtras(b);
+        					startActivity(i);
     						finish();
         				}
         				else{

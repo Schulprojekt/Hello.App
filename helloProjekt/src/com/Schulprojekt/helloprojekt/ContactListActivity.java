@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -27,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.Schulprojekt.helloprojekt.GUILogik.ContactListEntry;
+import com.Schulprojekt.helloprojekt.GUILogik.SimpleThreads;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,6 +44,7 @@ public class ContactListActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {													//Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
+		SimpleThreads st = new SimpleThreads();
 		Bundle b = getIntent().getExtras();																	//Erstellen eines Bundles
 		user = new User();																					//Erstellen eines neuen Users
 		user.setAccountID(b.getInt("accountID"));															//Füllen der Accountid
@@ -119,7 +122,7 @@ public class ContactListActivity extends Activity {
 		case R.id.contact_profile:
 			Intent in = new Intent(ContactListActivity.this, UserSettingActivity.class);					//Erstellen des Intent
 			Bundle b = new Bundle();																		//Erstellen des Bundles
-			b.putString("userId", "Test");																	//Füllen des Bundles
+			b.putInt("userId", user.getAccountID());																	//Füllen des Bundles
 			b.putString("accountName", user.getAccountName());
 			b.putString("aliasName", user.getAlias());
 			b.putByteArray("picture", user.getAccountPicture());
@@ -128,7 +131,15 @@ public class ContactListActivity extends Activity {
 			startActivity(in);																				//Starten der Activity
 			break;
 		case R.id.act_ContactSearch:
-			startActivity(new Intent(ContactListActivity.this, ContactSearchActivity.class));				//Starten der Activity
+			Intent intent = new Intent(ContactListActivity.this, ContactSearchActivity.class);					//Erstellen des Intent
+			Bundle bundle = new Bundle();																		//Erstellen des Bundles
+			bundle.putInt("userId", user.getAccountID());																	//Füllen des Bundles
+			bundle.putString("accountName", user.getAccountName());
+			bundle.putString("aliasName", user.getAlias());
+			bundle.putByteArray("picture", user.getAccountPicture());
+			bundle.putString("password", user.getPassword());
+			intent.putExtras(bundle);
+			startActivity(intent);												
 			break;
 		case R.id.act_AppExit:
 			finish();
@@ -143,8 +154,10 @@ public class ContactListActivity extends Activity {
 	        public void onClick(View v) {
 	        	Intent in = new Intent(ContactListActivity.this, SimpleChatActivity.class);					//Erstellen des Intent
 	        	Bundle b = new Bundle();																	//Erstellen des Bundles
+	        	b.putInt("loggedAccountId", user.getAccountID());
 	        	b.putString("loggedAccountName", user.getAccountName());									//Füllen des Bundles
 	        	b.putByteArray("loggedPicture", user.getAccountPicture());
+	        	b.putInt("partnerAccountId", userList.get(v.getId()).getAccountID());
 				b.putString("partnerAliasName", userList.get(v.getId()).getAlias().toString());
 				b.putString("partnerAccountName", userList.get(v.getId()).getAccountName().toString());
 				b.putByteArray("partnerPicture", userList.get(v.getId()).getAccountPicture());
