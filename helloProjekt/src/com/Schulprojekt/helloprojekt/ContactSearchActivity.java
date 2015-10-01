@@ -28,7 +28,7 @@ public class ContactSearchActivity extends Activity {
 	private final static String SERVICE_URI = "http://muss.noch.geaendert.werden";
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {															//Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_search);
 		Button btnContactSearch = (Button) findViewById(R.id.btnContactSearch);
@@ -38,19 +38,19 @@ public class ContactSearchActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				User user = new User();
+				User user = new User();																				//Erstellen eines Userobjektes
 				
 				DefaultHttpClient httpClient = new DefaultHttpClient();								      			//Client erstellen
 				
-				Gson gson = new Gson();
-				String jsonString = "";
-				jsonString = gson.toJson(txtContactSearch);
-				StringEntity se;
+				Gson gson = new Gson();																				//Erstellen eines Gsonobjektes
+				String jsonString = "";																				//Erstellen eines JsonStrings
+				jsonString = gson.toJson(txtContactSearch);															//Füllen des JsonStrings
+				StringEntity se;																					//Erstellen eines StringEntitys
 				try{
-					se = new StringEntity(jsonString);
+					se = new StringEntity(jsonString);															    //Füllen des StringEntitys
 					
-					HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");   							//Auf die Felder AccountName 
-					request.setEntity(se);
+					HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");   						//Auf die Felder AccountName 
+					request.setEntity(se);	
 					request.setHeader("Accept", "application/json");
 					request.setHeader("Content-type", "application/json");
 					HttpResponse response;
@@ -58,21 +58,21 @@ public class ContactSearchActivity extends Activity {
 						response = httpClient.execute(request);
 						HttpEntity responseEntity = response.getEntity();
 						char[] buffer = new char[(int) responseEntity
-								.getContentLength()]; 																	//Daten im Array speichern
+								.getContentLength()]; 																//Daten im Array speichern
 						InputStream stream = responseEntity.getContent();
 						user = gson.fromJson(stream.toString(), User.class);
-						InputStreamReader reader = new InputStreamReader(stream); 										//Reader deklarieren
-						reader.read(buffer); 																			//Reader liest Buffer
+						InputStreamReader reader = new InputStreamReader(stream); 									//Reader deklarieren
+						reader.read(buffer); 																		//Reader liest Buffer
 						stream.close();
 		        
 			        
 			        if(user == null){
 			        	Toast.makeText(ContactSearchActivity.this, "Benutzer ist nicht vorhanden!", Toast.LENGTH_LONG).show();
 			        }else{
-			        	Intent i = new Intent(ContactSearchActivity.this, UserProfileActivity.class);
+			        	Intent i = new Intent(ContactSearchActivity.this, UserProfileActivity.class);				//Erstellen des Intent
 			        	
-			        	Bundle b = new Bundle();
-			        	b.putString("userId", "");
+			        	Bundle b = new Bundle();																	//Erstellen des Bundles
+			        	b.putString("userId", "");																	//Füllen des Bundles
 			        	b.putString("accountName", user.getAccountName());
 			        	b.putString("aliasName", user.getAlias());
 			        	b.putString("password", user.getPassword());
@@ -89,14 +89,14 @@ public class ContactSearchActivity extends Activity {
 //			        	b.putByteArray("picture", new byte[]{50});
 			        	
 						i.putExtras(b);
-						startActivity(i);
+						startActivity(i);																			//Starten der neuen Activity
 			        }     
 				}catch (Exception e){
 					e.printStackTrace();
 				}
 				Boolean methode = true;
 				if(methode){
-					startActivity(new Intent(ContactSearchActivity.this, ContactListActivity.class));					
+					startActivity(new Intent(ContactSearchActivity.this, ContactListActivity.class));				//Starten der Activity		
 				}else{
 					Toast.makeText(ContactSearchActivity.this, "Benutzer ist nicht vorhanden!", Toast.LENGTH_LONG).show();
 				}
@@ -105,12 +105,12 @@ public class ContactSearchActivity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) {																	//Aufbau eines Menüs
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {															//Wird ein Item im Menü ausgewählt, wirft die Methode true zurück
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			finish();
