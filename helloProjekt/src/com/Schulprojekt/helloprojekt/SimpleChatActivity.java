@@ -1,19 +1,9 @@
 package com.Schulprojekt.helloprojekt;
 
-import java.io.InputStream;
-import java.util.UUID;
-
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
-
-import com.Schulprojekt.helloprojekt.GUILogik.Message;
-import com.Schulprojekt.helloprojekt.GUILogik.User;
-import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -30,6 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.Schulprojekt.helloprojekt.GUILogik.Message;
+import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.google.gson.Gson;
 
 public class SimpleChatActivity extends Activity {
 	
@@ -137,7 +131,7 @@ public class SimpleChatActivity extends Activity {
 		try{
 			Gson gs = new Gson();
 			String JsonString;
-			Message message = new Message(UUID.randomUUID(), UUID.randomUUID(), txtChat.getText().toString());
+			Message message = new Message(chatPartner.getAccountID(), loggedUser.getAccountID(), txtChat.getText().toString());
 			JsonString = gs.toJson(message);
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpPost request = new HttpPost(SERVICE_URI + "/CreateMessage");

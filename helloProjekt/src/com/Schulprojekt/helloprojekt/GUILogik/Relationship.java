@@ -1,26 +1,25 @@
 package com.Schulprojekt.helloprojekt.GUILogik;
 
-import java.util.UUID;
 
 public class Relationship {																					//hier wird ein Objekt erstellt, dass dem Server übergeben werden soll
-	private UUID friendsId;																					//Deklaration
-	private UUID userId;
+	private int friendsId;																					//Deklaration
+	private int userId;
 	
-	public Relationship(UUID friendsId, UUID userId) {
+	public Relationship(int friendsId, int userId) {
 		super();
 		this.friendsId = friendsId;
 		this.userId = userId;
 	}
-	public UUID getFriendsId() {
+	public int getFriendsId() {
 		return friendsId;
 	}
-	public void setFriendsId(UUID friendsId) {
+	public void setFriendsId(int friendsId) {
 		this.friendsId = friendsId;
 	}
-	public UUID getUserId() {
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(UUID userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	

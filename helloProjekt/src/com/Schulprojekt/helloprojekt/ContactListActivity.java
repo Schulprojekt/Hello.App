@@ -1,11 +1,9 @@
 package com.Schulprojekt.helloprojekt;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -15,7 +13,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -47,34 +44,34 @@ public class ContactListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Bundle b = getIntent().getExtras();																	//Erstellen eines Bundles
 		user = new User();																					//Erstellen eines neuen Users
-		user.setAccountID(UUID.randomUUID());																//Füllen der Accountid
+		user.setAccountID(b.getInt("accountID"));															//Füllen der Accountid
 		user.setAccountName(b.getString("accountName"));													//Füllen des Accountnamens
 		user.setAlias(b.getString("aliasName"));															//Füllen des Aliasnamens
 		user.setPassword(b.getString("password"));															//Füllen des Passwortes
 		user.setAccountPicture(b.getByteArray("picture"));													//Füllen des Profilbildes
 		setContentView(R.layout.activity_contact_list);
 		
-		//Test
-		Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.dummycontact);				
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
-		byte[] byteArray = stream.toByteArray();
-		User u1 = new User(UUID.randomUUID(), "KnesKa", "KnesKa", byteArray);
-		User u2 = new User(UUID.randomUUID(), "RehdTi", "RehdTi", byteArray);
-		User u3 = new User(UUID.randomUUID(), "StehCh", "StehCh", byteArray);
-		User u4 = new User(UUID.randomUUID(), "PetzSa", "PetzSa", byteArray);
-		//Test END
+//		//Test
+//		Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.dummycontact);				
+//		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//		icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//		byte[] byteArray = stream.toByteArray();
+//		User u1 = new User(UUID.randomUUID(), "KnesKa", "KnesKa", byteArray);
+//		User u2 = new User(UUID.randomUUID(), "RehdTi", "RehdTi", byteArray);
+//		User u3 = new User(UUID.randomUUID(), "StehCh", "StehCh", byteArray);
+//		User u4 = new User(UUID.randomUUID(), "PetzSa", "PetzSa", byteArray);
+//		//Test END
 		
 		final LinearLayout linlayoutVertical = (LinearLayout) findViewById(R.id.linLayoutContactVertical);
 		findViewById(R.id.scrollViewContact);
 		findViewById(R.id.textViewContact);
 		
-		//Test
-		userList.add(u1);
-		userList.add(u2);
-		userList.add(u3);
-		userList.add(u4);
-		//Test END
+//		//Test
+//		userList.add(u1);
+//		userList.add(u2);
+//		userList.add(u3);
+//		userList.add(u4);
+//		//Test END
 		
 		ArrayList<User> friends = new ArrayList<User>();													//Erstellen einer UserArrayList
 		friends = getFriends();																				//Füllen der ArrayList

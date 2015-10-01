@@ -1,9 +1,8 @@
 package com.Schulprojekt.helloprojekt.GUILogik;
 
-import java.util.UUID;
 
 public class User {																							//hier wird ein Objekt erstellt, dass dem Server übergeben werden soll
-	private UUID 	AccountID;																				//Deklaration
+	private int 	AccountID;																				//Deklaration
 	private String 	AccountName;
 	private String 	Alias;
 	private String	Password;
@@ -11,7 +10,7 @@ public class User {																							//hier wird ein Objekt erstellt, dass 
 	public User(){
 		
 	}
-	public User(UUID i, String accountName, String alias, byte[] accountPicture) {
+	public User(int i, String accountName, String alias, byte[] accountPicture) {
 		super();
 		AccountID = i;
 		AccountName = accountName;
@@ -24,10 +23,10 @@ public class User {																							//hier wird ein Objekt erstellt, dass 
 		Alias = alias;
 		Password = password;
 	}
-	public UUID getAccountID() {
+	public int getAccountID() {
 		return AccountID;
 	}
-	public void setAccountID(UUID accountID) {
+	public void setAccountID(int accountID) {
 		AccountID = accountID;
 	}
 	public String getAccountName() {

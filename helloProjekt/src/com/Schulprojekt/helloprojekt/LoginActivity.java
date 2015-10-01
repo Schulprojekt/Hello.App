@@ -2,18 +2,12 @@ package com.Schulprojekt.helloprojekt;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
-
-import com.Schulprojekt.helloprojekt.GUILogik.User;
-import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,7 +15,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +24,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.google.gson.Gson;
 
 public class LoginActivity extends Activity {
 	public Button btnRegistration; 																// Deklaration
