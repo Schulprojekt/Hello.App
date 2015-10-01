@@ -213,7 +213,7 @@ public class TicTacToeActivity extends Activity {
 		buttonTicTacToe8.setEnabled(false);
 		buttonTicTacToe9.setEnabled(false);	
 	}
-public void startConnection(){
+	public void startConnection(){
 		
 		Bundle bundle = getIntent().getExtras();	
 		String loggedUser = bundle.getString("loggedUser");
@@ -285,7 +285,7 @@ public void startConnection(){
 		try {
 		Gson gson3 = new Gson();
 		String JsonString3;
-		Message message = new Message(user2.getAccountID(), user.getAccountID(), "");
+		Message message = new Message(user2.getAccountID(), user.getAccountID(), "tictactoe123:"+buttonId);
 		JsonString3 = gson3.toJson(message);
 		DefaultHttpClient httpClient3 = new DefaultHttpClient();
 		HttpPost request3 = new HttpPost(SERVICE_URI + "/CreateMessage");									//Aufruf der Methode CreateMessage
