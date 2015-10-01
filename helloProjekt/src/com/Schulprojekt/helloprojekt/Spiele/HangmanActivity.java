@@ -34,6 +34,7 @@ public class HangmanActivity extends Activity {
 	Button btn_beenden;
 	Button btn_senden;
 	EditText txt_eingabe;
+	String eingabe;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {                                                    //Activity wird aufgebaut
@@ -55,13 +56,14 @@ public class HangmanActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {																	//Beim Klick auf den Button Aktion ausführen
-				String eingabe = gibWort();																	//Aufruf der Methode gibWort()
+				eingabe = gibWort();																	//Aufruf der Methode gibWort()
 				eingabe.trim();																				//Leerstrings entfernen
 				if (!eingabe.equalsIgnoreCase("")															//Prüfung ob das Feld Eingabe leer ist
 						&& !eingabe.equalsIgnoreCase(null)) {
 					if (eingabe.length() <= 12){															//Prüfung ob das Feld mehr als 12 Zeichen hat
 						
 					if (isAlpha(eingabe) == true) {															//Prüfung ob das Feld nur Buchstaben enthält
+//						startConnection();
 						Intent i = new Intent(HangmanActivity.this,											//Aufbau des Pfades zur nächsten Activity
 								MainHangmanActivity.class);													
 						Bundle b = new Bundle();															//Erstellen eines Bundles
@@ -200,7 +202,7 @@ public class HangmanActivity extends Activity {
 		try {
 		Gson gson3 = new Gson();
 		String JsonString3;
-		Message message = new Message(user2.getAccountID(), user.getAccountID(), "");
+		Message message = new Message(user2.getAccountID(), user.getAccountID(), "hangman123:"+eingabe);
 		JsonString3 = gson3.toJson(message);
 		DefaultHttpClient httpClient3 = new DefaultHttpClient();
 		HttpPost request3 = new HttpPost(SERVICE_URI + "/CreateMessage");									//Aufruf der Methode CreateMessage
