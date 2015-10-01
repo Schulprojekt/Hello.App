@@ -156,7 +156,8 @@ public class ContactListActivity extends Activity {
 	        	Bundle b = new Bundle();
 	        	b.putString("loggedAccountName", user.getAccountName());
 	        	b.putByteArray("loggedPicture", user.getAccountPicture());
-				b.putString("partnerAccountName", userList.get(v.getId()).getAlias().toString());
+				b.putString("partnerAliasName", userList.get(v.getId()).getAlias().toString());
+				b.putString("partnerAccountName", userList.get(v.getId()).getAccountName().toString());
 				b.putByteArray("partnerPicture", userList.get(v.getId()).getAccountPicture());
 				in.putExtras(b);
 				startActivity(in);

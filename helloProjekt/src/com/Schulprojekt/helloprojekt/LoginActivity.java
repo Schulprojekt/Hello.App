@@ -74,7 +74,8 @@ public class LoginActivity extends Activity {
 						User user = new User();
 						Gson gs = new Gson();
 						String jsonString = "";
-						jsonString = gs.toJson(loginUsername.getText());
+						user.setAccountName(loginUsername.getText().toString());
+						jsonString = gs.toJson(user);
 						StringEntity se = new StringEntity(jsonString);
 						DefaultHttpClient httpClient = new DefaultHttpClient();
 						HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");    // auf die Felder AccountName + loginUsernamezugreifen

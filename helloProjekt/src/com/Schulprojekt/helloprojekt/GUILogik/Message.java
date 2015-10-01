@@ -3,7 +3,9 @@ package com.Schulprojekt.helloprojekt.GUILogik;
 import java.sql.Timestamp;
 import java.util.UUID;
 
+import android.os.SystemClock;
 import android.text.Editable;
+import android.text.format.Time;
 
 public class Message {
 	
@@ -11,11 +13,11 @@ public class Message {
 	private UUID Receiver;
 	private UUID Sender;
 	private String MessageText;
-	private Byte[] Attachement;
+	private byte[] Attachement;
 	private Timestamp MessageTime;
 	
 	public Message(int messageID, UUID receiver, UUID sender,
-			String messageText, Byte[] attachement, Timestamp messageTime) {
+			String messageText, byte[] attachement, Timestamp messageTime) {
 		super();
 		MessageID = messageID;
 		Receiver = receiver;
@@ -30,6 +32,8 @@ public class Message {
 		Receiver = receiver;
 		Sender = sender;
 		MessageText = messageText;
+		Attachement = null;
+		MessageTime = new Timestamp(System.currentTimeMillis());
 	}
 
 
@@ -66,11 +70,11 @@ public class Message {
 		MessageText = messageText;
 	}
 	
-	public Byte[] getAttachement() {
+	public byte[] getAttachement() {
 		return Attachement;
 	}
 	
-	public void setAttachement(Byte[] attachement) {
+	public void setAttachement(byte[] attachement) {
 		Attachement = attachement;
 	}
 	

@@ -1,5 +1,6 @@
 package com.Schulprojekt.helloprojekt;
 
+import java.io.InputStream;
 import java.util.UUID;
 
 import org.apache.http.HttpEntity;
@@ -10,6 +11,7 @@ import org.json.JSONObject;
 
 import com.Schulprojekt.helloprojekt.GUILogik.Message;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -47,7 +49,8 @@ public class SimpleChatActivity extends Activity {
 		chatPartner = new User();
 		loggedUser.setAccountName(bundle.getString("loggedAccountName"));							
 		loggedUser.setAccountPicture(bundle.getByteArray("loggedPicture"));							//Füllen des Bundles mit Key und dem dazugehörigen Wert
-		chatPartner.setAlias(bundle.getString("partnerAccountName"));
+		chatPartner.setAlias(bundle.getString("partnerAliasName"));
+		chatPartner.setAccountName(bundle.getString("partnerAccountName"));
 		chatPartner.setAccountPicture(bundle.getByteArray("partnerPicture"));			
 		imageViewGame = (ImageView) findViewById(R.id.imageViewGameChat);
 		imageViewGame.setOnClickListener(new View.OnClickListener(){
@@ -97,52 +100,18 @@ public class SimpleChatActivity extends Activity {
 		switch(item.getItemId())
 		{
 		case R.id.action_example:
-				try{
-//					DefaultHttpClient httpClient = new DefaultHttpClient();
-//					HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/" + txtContactSearch);
-//					
-//					request.setHeader("Accept", "application/json");
-//			        request.setHeader("Content-type", "application/json");
-//
-//			        HttpResponse response = httpClient.execute(request);
-//			        
-//			        HttpEntity responseEntity = response.getEntity();
-//			        
-//			        // Read response data into buffer
-//			        char[] buffer = new char[(int)responseEntity.getContentLength()];
-//			        InputStream stream = responseEntity.getContent();
-//			        InputStreamReader reader = new InputStreamReader(stream);
-//			        reader.read(buffer);
-//			        stream.close();
-//
-//			        JSONObject user = new JSONObject(new String(buffer));
-//			        
-//			        // Populate text fields
-//			        txtContactSearch.setText(user.getString("accountName"));
-//			        
-//			        if(txtContactSearch == null){
-//			        	Toast.makeText(ContactSearchActivity.this, "Benutzer ist nicht vorhanden!", Toast.LENGTH_LONG).show();
-//			        }else{
-//			        	Intent i = new Intent(ContactSearchActivity.this, UserProfileActivity.class);
-//			        	
-//			        	Bundle b = new Bundle();
-//			        	b.putString("userId", user.getString("userId"));
-//			        	b.putString("accountName", user.getString("accountName"));
-//			        	b.putString("aliasName", user.getString("aliasName"));
-//			        	b.putString("password", user.getString("password"));
-//			        	b.putBoolean("accountState", user.getString("accountState"));
-//			        	b.putString("expierencePoints", user.getString("expierencePoints"));
-//			        	b.putByteArray("picture", user.getString("picture"));
-			       
+				try{			       
 			        	Bundle b = new Bundle();
 			        	Intent i = new Intent(SimpleChatActivity.this, UserProfileActivity.class);
-			        	b.putString("userId", "");
-			        	b.putString("accountName", "test");
-			        	b.putString("aliasName", "test");
-			        	b.putString("password", "test");
-			        	b.putBoolean("accountState", true);
-//			        	b.putString("expierencePoints", "...");
-			        	b.putByteArray("picture", new byte[]{50});
+			        	b.putString("userAccountName", loggedUser.getAccountName());
+			        	b.putString("partnerAccountName", chatPartner.getAccountName());
+//			        	b.putString("userId", "");
+//			        	b.putString("accountName", chatPartner.getAccountName());
+//			        	b.putString("aliasName", chatPartner.getAlias());
+//			        	b.putString("password", "test");
+//			        	b.putBoolean("accountState", true);
+////			        	b.putString("expierencePoints", "...");
+//			        	b.putByteArray("picture", new byte[]{50});
 			        	
 						i.putExtras(b);
 						startActivity(i);
@@ -169,34 +138,17 @@ public class SimpleChatActivity extends Activity {
 		sentText.setTextColor(Color.BLACK);
 		sentText.setGravity(Gravity.RIGHT);
 		layoutMessages.addView(sentText);
+		Gson gs = new Gson();
+		String JsonString;
 		try{
 			Message message = new Message(UUID.randomUUID(), UUID.randomUUID(), txtChat.getText().toString());
-			JSONObject messa = new JSONObject();
-			messa.put("id", message.getMessageID());
-			messa.put("sender", message.getSender());
-			messa.put("receiver", message.getReceiver());
-			messa.put("message", message.getMessageText());
-			messa.put("attchment", message.getAttachement());
-			messa.put("timestamp", message.getMessageTime());
+			JsonString = gs.toJson(message);
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpGet request = new HttpGet(SERVICE_URI + "/CreateMessage");
-			
 			request.setHeader("Accept", "application/json");
 	        request.setHeader("Content-type", "application/json");
-
 	        HttpResponse response = httpClient.execute(request);
-	        
-	        HttpEntity responseEntity = response.getEntity();
-	        
-//	        // Read response data into buffer
-//	        char[] buffer = new char[(int)responseEntity.getContentLength()];
-//	        InputStream stream = responseEntity.getContent();
-//	        InputStreamReader reader = new InputStreamReader(stream);
-//	        reader.read(buffer);
-//	        stream.close();
-//
-//	        JSONObject user = new JSONObject(new String(buffer));
-	        
+	        HttpEntity responseEntity = response.getEntity();	        
 		}catch (Exception e){
 			e.printStackTrace();
 		}
