@@ -26,6 +26,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.Schulprojekt.helloprojekt.GUILogik.Message;
@@ -84,7 +87,7 @@ public class SimpleChatActivity extends Activity {
 		receiveMessage();
 	}
 		
-
+	ScrollView scv = (ScrollView) findViewById(R.id.scrollViewChat);
 	
 
 	@Override
@@ -188,14 +191,25 @@ public class SimpleChatActivity extends Activity {
 	            try
 	            {
 	                while ((line = buffreader.readLine()) != null)
-	                    if(line.substring(0,11).equals("#123454321#")){
+	                    if(line.substring(0,10).equals("#123454321#")){
+	                    	
+	                    	if(line.substring(11,21).equalsIgnoreCase("hangman123:")){
+	                    		
+	                    		PopupWindow pop = new PopupWindow();
+	                    		PopupMenu popm = new PopupMenu(getApplicationContext(), scv, Gravity.CENTER);
+	                    		
+	                    	}else{
+	                    	
 	                		TextView receivedText = new TextView(getApplicationContext());
-	                		receivedText.setText(line);
+	                		receivedText.setText(line.substring(11));
 	                		receivedText.setBackgroundColor(Color.GRAY);
 	                		receivedText.setTextColor(Color.WHITE);
 	                		receivedText.setGravity(Gravity.LEFT);
 	                		layoutMessages.addView(receivedText);
+	                    	
+	                    	}
 	                    }
+
 	                    else{
 	                		TextView receivedText = new TextView(getApplicationContext());
 	                		receivedText.setText(line);

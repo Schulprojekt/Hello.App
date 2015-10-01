@@ -75,6 +75,7 @@ import com.google.gson.reflect.TypeToken;
         			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
         			outputWriter.write("#123454321#"+m.getMessageText());
         			outputWriter.close();
+        			
         		} catch (Exception e) {
         			e.printStackTrace();
         		}	
