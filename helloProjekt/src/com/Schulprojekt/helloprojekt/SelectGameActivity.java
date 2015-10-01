@@ -41,8 +41,15 @@ public class SelectGameActivity extends Activity {
 		
 		buttonTicTacToe.setOnClickListener(new OnClickListener() {												//auf den Button TicTacToe einen OnClickListenener setzen
 			public void onClick(View view) {
+				Bundle bundle = getIntent().getExtras();	
+				String loggedUser = bundle.getString("loggedUser");
+				String chatPartner = bundle.getString("chatPartner");
 				Intent i = new Intent(SelectGameActivity.this,													//Aufbau des Pfades zur nächsten Activity
 		        		TicTacToeActivity.class);
+				Bundle b = new Bundle();																		//Erstellen eines Bundles
+				b.putString("loggedUser", loggedUser);							    							//Füllen des Bundles mit Key und dem dazugehörigen Wert
+				b.putString("chatPartner", chatPartner);
+				i.putExtras(b);	
 		        startActivity(i);																				//Activity wird gestartet
 			}
 		});
