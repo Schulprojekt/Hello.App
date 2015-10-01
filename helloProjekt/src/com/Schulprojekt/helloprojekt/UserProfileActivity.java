@@ -297,7 +297,7 @@ public class UserProfileActivity extends Activity {
 				try {
 					se = new StringEntity(jsonString);															//Füllen des StringEntitys
 				DefaultHttpClient httpClient = new DefaultHttpClient();											//Erstellen des HttpClients
-				HttpPost request = new HttpPost(SERVICE_URI+ "/GetRelationship");    							//Aufrufen der Mothe GetRelationship
+				HttpPost request = new HttpPost(SERVICE_URI+ "/GetRelationship");    							//Aufrufen der Methode GetRelationship
 				request.setEntity(se);
 				request.setHeader("Accept", "application/json");
 				request.setHeader("Content-type", "application/json");
