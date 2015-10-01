@@ -27,7 +27,6 @@ public class UserSettingActivity extends Activity {
 	String aliasName;
 	String accountName;
 	boolean accountState;
-//	int experiencePoints;
 	byte[] picture;
 	String password;
 	private final static String SERVICE_URI = "http:////hello-server//helloservice" +						//Pfad zum Server
@@ -42,7 +41,6 @@ public class UserSettingActivity extends Activity {
 		String aliasName = b.getString("aliasName");														//den String aliasName abrufen
 		String accountName = b.getString("accountName");													//den String accountName abrufen
 		boolean accountState = b.getBoolean("accountState");												//den Boolean accountState abrufen
-//		int experiencePoints = b.getInt("experiencePoints");
 		byte[] picture = b.getByteArray("picture");															//das Array picture abrufen
 		String password = b.getString("password");															//den String password abrufen
 		userSettingAliasname = (EditText) findViewById(R.id.UserSettingAliasname);							//Datenbankzugriff auf den Aliasname
@@ -54,7 +52,6 @@ public class UserSettingActivity extends Activity {
 		try{
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			
-			// TODO auf den user zugreifen um den usernamen zu bekommen
 			HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/" + userSettingUsername);
 			
 			request.setHeader("Accept", "application/json");
@@ -64,7 +61,6 @@ public class UserSettingActivity extends Activity {
 		    
 		    HttpEntity responseEntity = response.getEntity();
 		    
-		    // Read response data into buffer
 		    char[] buffer = new char[(int)responseEntity.getContentLength()];
 		    InputStream stream = responseEntity.getContent();
 		    InputStreamReader reader = new InputStreamReader(stream);
@@ -73,7 +69,6 @@ public class UserSettingActivity extends Activity {
 		
 		    JSONObject user = new JSONObject(new String(buffer));
 		    
-		    // Populate text fields
 		    userSettingAliasname.setText(user.getString("aliasName"));
 		    
 		}catch (Exception e){
@@ -87,12 +82,10 @@ public class UserSettingActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				if (v == btnDeleteAccount){
 					try{
 						DefaultHttpClient httpClient = new DefaultHttpClient();
 						
-						// TODO auf den user zugreifen um den usernamen zu bekommen
 						HttpGet request = new HttpGet(SERVICE_URI + "/DeleteUser/" + "");
 						
 						request.setHeader("Accept", "application/json");
@@ -102,7 +95,6 @@ public class UserSettingActivity extends Activity {
 					    
 					    HttpEntity responseEntity = response.getEntity();
 					    
-					    // Read response data into buffer
 					    char[] buffer = new char[(int)responseEntity.getContentLength()];
 					    InputStream stream = responseEntity.getContent();
 					    InputStreamReader reader = new InputStreamReader(stream);
@@ -111,7 +103,6 @@ public class UserSettingActivity extends Activity {
 					
 					    JSONObject user = new JSONObject(new String(buffer));
 					    
-					    // Populate text fields
 					    userSettingAliasname.setText(user.getString("aliasName"));
 					}catch (Exception e){
 						e.printStackTrace();
@@ -128,7 +119,6 @@ public class UserSettingActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				if (v == btnSave){
 					
 				}
