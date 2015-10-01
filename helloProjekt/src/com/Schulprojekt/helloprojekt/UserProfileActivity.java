@@ -31,18 +31,18 @@ import android.widget.TextView;
 
 public class UserProfileActivity extends Activity {
 	
-	private final static String SERVICE_URI = "http://lt0.studio.entail.ca:8080/VehicleService.svc";
+	private final static String SERVICE_URI = "http://lt0.studio.entail.ca:8080/VehicleService.svc";		//Pfad zum server
 	
-	Button btn_hinzufuegen;
+	Button btn_hinzufuegen;																					//Deklaration
 	TextView aliasname;
 	ImageView picture;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {													//Aufbau der Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_profile);
 		
-		Bundle b = getIntent().getExtras();																	//Zugriff auf den Übergabewert von HangmanActivity
+		Bundle b = getIntent().getExtras();																	//Füllen des Bundles
 		String userId = b.getString("userId");
 		String accountName = b.getString("accountName");
 		String aliasName = b.getString("aliasName");
@@ -160,8 +160,8 @@ public class UserProfileActivity extends Activity {
 		}
 	
 		try {
-		Gson gson3 = new Gson();
-		String JsonString3;
+		Gson gson3 = new Gson();																			//Erstellen eines GsonObjektes
+		String JsonString3;																					//Erstellen eines JsonStrings
 		Relationship relationship = new Relationship(user2.getAccountID(),user.getAccountID());
 		JsonString3 = gson3.toJson(relationship);
 		DefaultHttpClient httpClient3 = new DefaultHttpClient();
