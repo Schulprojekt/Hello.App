@@ -9,6 +9,8 @@ import java.util.UUID;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
@@ -34,6 +36,7 @@ import android.widget.TextView;
 
 import com.Schulprojekt.helloprojekt.GUILogik.ContactListEntry;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.google.gson.Gson;
 
 public class ContactListActivity extends Activity {
 
@@ -55,6 +58,7 @@ public class ContactListActivity extends Activity {
 		user.setAccountState(b.getBoolean("accountState"));
 		user.setAccountPicture(b.getByteArray("picture"));
 		setContentView(R.layout.activity_contact_list);
+		//Test
 		Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.dummycontact);
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -63,13 +67,20 @@ public class ContactListActivity extends Activity {
 		User u2 = new User(UUID.randomUUID(), "RehdTi", "RehdTi", true, byteArray);
 		User u3 = new User(UUID.randomUUID(), "StehCh", "StehCh", true, byteArray);
 		User u4 = new User(UUID.randomUUID(), "PetzSa", "PetzSa", true, byteArray);
+		//Test END
 		final LinearLayout linlayoutVertical = (LinearLayout) findViewById(R.id.linLayoutContactVertical);
 		findViewById(R.id.scrollViewContact);
 		findViewById(R.id.textViewContact);
+		//Test
 		userList.add(u1);
 		userList.add(u2);
 		userList.add(u3);
 		userList.add(u4);
+		//Test END
+		
+		ArrayList<User> friends = new ArrayList<User>();
+		friends = getFriends();
+		
 		int i = 0;
 		
 		ArrayList<ContactListEntry> contactList = new ArrayList<ContactListEntry>();
@@ -183,4 +194,27 @@ public class ContactListActivity extends Activity {
 	        }
 	    };
 }
+    public ArrayList<User> getFriends(){
+    	ArrayList<User> friends = new ArrayList<User>();
+    	Gson gs = new Gson();
+    	String jsonString = "";
+//    	try {
+//			jsonString = gs.toJson(user.getAccountName());
+//			StringEntity se = new StringEntity(jsonString);
+//			DefaultHttpClient httpClient = new DefaultHttpClient();
+//			HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");    // auf die Felder AccountName + loginUsernamezugreifen
+//			request.setEntity(se);
+//			request.setHeader("Accept", "application/json");
+//			request.setHeader("Content-type", "application/json");
+//			HttpResponse response = httpClient.execute(request);
+//			HttpEntity responseEntity = response.getEntity();
+//			InputStream stream = responseEntity.getContent();
+//			user = gs.fromJson(stream.toString(), User.class);
+//    	}
+//    	catch {
+//			
+//		}
+    	
+    	return friends;
+    }
 }
