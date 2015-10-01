@@ -3,13 +3,8 @@ package com.Schulprojekt.helloprojekt.GUILogik;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-import android.os.SystemClock;
-import android.text.Editable;
-import android.text.format.Time;
-
-public class Message {
-	
-	private int MessageID;
+public class Message {																						//hier wird ein Objekt erstellt, dass dem Server übergeben werden soll
+	private int MessageID;																					//Deklaration
 	private UUID Receiver;
 	private UUID Sender;
 	private String MessageText;
@@ -46,7 +41,7 @@ public class Message {
 		MessageID = messageID;
 	}
 	
-	public UUID getReceiver() {
+	public UUID getReceiver() {				
 		return Receiver;
 	}
 	

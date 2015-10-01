@@ -1,19 +1,17 @@
 package com.Schulprojekt.helloprojekt.GUILogik;
 
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class ContactListEntry {
-
-	LinearLayout linlayout;
+public class ContactListEntry {																				//hier wird ein Objekt erstellt, dass dem Server übergeben werden soll
+	LinearLayout linlayout;																					//Deklaration
 	ImageView ContactPicture;
 	private TextView alias;
 	private String accountName;
 		
 	public ContactListEntry(LinearLayout linlayout, ImageView contactPicture,
-			TextView alias, String accountName) {
+			TextView alias, String accountName) {															
 		super();
 		this.linlayout = linlayout;
 		ContactPicture = contactPicture;

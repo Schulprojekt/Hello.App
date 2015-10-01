@@ -2,20 +2,15 @@ package com.Schulprojekt.helloprojekt.GUILogik;
 
 import java.util.UUID;
 
-import android.graphics.Bitmap;
-
-public class User {
-
-	private UUID 	AccountID;
+public class User {																							//hier wird ein Objekt erstellt, dass dem Server übergeben werden soll
+	private UUID 	AccountID;																				//Deklaration
 	private String 	AccountName;
 	private String 	Alias;
 	private String	Password;
 	private byte[]	AccountPicture;	
-	
 	public User(){
 		
 	}
-	
 	public User(UUID i, String accountName, String alias, byte[] accountPicture) {
 		super();
 		AccountID = i;

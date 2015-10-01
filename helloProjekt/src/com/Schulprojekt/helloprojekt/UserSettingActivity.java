@@ -9,8 +9,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
-import com.Schulprojekt.helloprojekt.GUILogik.User;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,7 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class UserSettingActivity extends Activity {
+public class UserSettingActivity extends Activity {															
 	public Button btnDeleteAccount;																			//Deklaration
 	public Button btnSave;
 	public EditText userSettingUsername;
