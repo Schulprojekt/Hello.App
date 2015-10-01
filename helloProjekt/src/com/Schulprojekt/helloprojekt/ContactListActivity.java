@@ -1,13 +1,17 @@
 package com.Schulprojekt.helloprojekt;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -37,6 +41,7 @@ import android.widget.TextView;
 import com.Schulprojekt.helloprojekt.GUILogik.ContactListEntry;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class ContactListActivity extends Activity {
 
@@ -85,7 +90,7 @@ public class ContactListActivity extends Activity {
 		
 		ArrayList<ContactListEntry> contactList = new ArrayList<ContactListEntry>();
 		
-		for (User user : userList) {
+		for (User user : friends) {
 			LinearLayout linlay = new LinearLayout(getApplicationContext());
 			linlay.setOrientation(LinearLayout.HORIZONTAL);
 			ImageView img = new ImageView(getApplicationContext());
@@ -105,50 +110,14 @@ public class ContactListActivity extends Activity {
 			contactList.add(entry);
 			i = i+1;
 		}
-		
 		for (ContactListEntry contact : contactList) {
 			LayoutParams layout = new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT);
 			contact.getLinlayout().setLayoutParams(layout);
 			linlayoutVertical.addView(contact.getLinlayout());
 		}
 	}
-	
-	public void onLoadVehicle(String userName) {
-	    try {
-	        // Send GET request to <service>/GetVehicle/<plate>
-	        DefaultHttpClient httpClient = new DefaultHttpClient();
-	        HttpGet request = new HttpGet(SERVICE_URI + "/GetRelationship/" + userName);
-	 
-	        request.setHeader("Accept", "application/json");
-	        request.setHeader("Content-type", "application/json");
-	 
-	        HttpResponse response = httpClient.execute(request);
-	 
-	        HttpEntity responseEntity = response.getEntity();
-	 
-	        // Read response data into buffer
-	        char[] buffer = new char[(int)responseEntity.getContentLength()];
-	        InputStream stream = responseEntity.getContent();
-	        InputStreamReader reader = new InputStreamReader(stream);
-	        reader.read(buffer);
-	        stream.close();
-	 
-	        JSONObject vehicle = new JSONObject(new String(buffer));
-	 
-	        // Populate text fields
-//	        makeEdit.setText(vehicle.getString("make"));
-//	        plateEdit.setText(vehicle.getString("plate"));
-//	        modelEdit.setText(vehicle.getString("model"));
-//	        yearEdit.setText(vehicle.getString("year"));
-	 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.contact_list, menu);
 		getActionBar().setIcon(R.drawable.dummycontact);
 		return true;
@@ -198,23 +167,26 @@ public class ContactListActivity extends Activity {
     	ArrayList<User> friends = new ArrayList<User>();
     	Gson gs = new Gson();
     	String jsonString = "";
-//    	try {
-//			jsonString = gs.toJson(user.getAccountName());
-//			StringEntity se = new StringEntity(jsonString);
-//			DefaultHttpClient httpClient = new DefaultHttpClient();
-//			HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");    // auf die Felder AccountName + loginUsernamezugreifen
-//			request.setEntity(se);
-//			request.setHeader("Accept", "application/json");
-//			request.setHeader("Content-type", "application/json");
-//			HttpResponse response = httpClient.execute(request);
-//			HttpEntity responseEntity = response.getEntity();
-//			InputStream stream = responseEntity.getContent();
-//			user = gs.fromJson(stream.toString(), User.class);
-//    	}
-//    	catch {
-//			
-//		}
-    	
-    	return friends;
+			jsonString = gs.toJson(user.getAccountID());
+			StringEntity se;
+			try {
+				se = new StringEntity(jsonString);
+			DefaultHttpClient httpClient = new DefaultHttpClient();
+			HttpPost request = new HttpPost(SERVICE_URI+ "/GetRelationship");    // auf die Felder AccountName + loginUsernamezugreifen
+			request.setEntity(se);
+			request.setHeader("Accept", "application/json");
+			request.setHeader("Content-type", "application/json");
+			HttpResponse response = null;
+			response = httpClient.execute(request);
+			HttpEntity responseEntity = response.getEntity();
+			InputStream stream = null;
+			stream = responseEntity.getContent();
+			friends = gs.fromJson(stream.toString(), new TypeToken<List<User>>(){}.getType());
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return friends;
     }
 }
