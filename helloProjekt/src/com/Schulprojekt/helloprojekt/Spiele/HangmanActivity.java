@@ -151,7 +151,7 @@ public class HangmanActivity extends Activity {
 		try {
 			se = new StringEntity(jsonString);
 	
-		HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");   							//Auf die Felder AccountName 
+		HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");   							//Aufruf der Methode GetUserByAccountName
 		request.setEntity(se);
 		request.setHeader("Accept", "application/json");
 		request.setHeader("Content-type", "application/json");
@@ -181,7 +181,7 @@ public class HangmanActivity extends Activity {
 		try {
 			se2 = new StringEntity(jsonString);
 	
-		HttpPost request2 = new HttpPost(SERVICE_URI+ "/GetUserByAccountName" );  							//Auf die Felder AccountName 
+		HttpPost request2 = new HttpPost(SERVICE_URI+ "/GetUserByAccountName" );  							//Aufruf der Methode GetUserByAccountName
 		request2.setEntity(se2);
 		request2.setHeader("Accept", "application/json");
 		request2.setHeader("Content-type", "application/json");
@@ -209,7 +209,7 @@ public class HangmanActivity extends Activity {
 		Message message = new Message(user2.getAccountID(), user.getAccountID(), "");
 		JsonString3 = gson3.toJson(message);
 		DefaultHttpClient httpClient3 = new DefaultHttpClient();
-		HttpPost request3 = new HttpPost(SERVICE_URI + "/CreateMessage");
+		HttpPost request3 = new HttpPost(SERVICE_URI + "/CreateMessage");									//Aufruf der Methode CreateMessage
 		request3.setHeader("Accept", "application/json");
         request3.setHeader("Content-type", "application/json");
         StringEntity se3 = new StringEntity(JsonString3);
