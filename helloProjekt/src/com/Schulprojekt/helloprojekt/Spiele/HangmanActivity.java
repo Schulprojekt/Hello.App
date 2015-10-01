@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -28,6 +29,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.Schulprojekt.helloprojekt.R;
+import com.Schulprojekt.helloprojekt.GUILogik.Message;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.google.gson.Gson;
 
@@ -201,44 +203,27 @@ public class HangmanActivity extends Activity {
 			e1.printStackTrace();
 		}
 	
-		HttpPost request3 = new HttpPost(SERVICE_URI + "/CreateMessage");
-        request3.setHeader("Accept", "application/json");
-        request3.setHeader("Content-type", "application/json");
-
-        // Build JSON string
-        JSONStringer message;
 		try {
-			message = new JSONStringer()
-			    .object()
-			        .key("message")
-			            .object()
-			                .key("id").value(null)
-			                .key("sender").value(user)
-			                .key("reciever").value(user2)
-			                .key("message").value("")
-			                .key("attchment").value(new byte[]{0})
-			                .key("timestamp").value(new Timestamp(System.currentTimeMillis()))
-			            .endObject()
-			        .endObject();
-        StringEntity entity = new StringEntity(message.toString());
-
-        request3.setEntity(entity);
-
-        // Send request to WCF service
-        DefaultHttpClient httpClient2 = new DefaultHttpClient();
-        HttpResponse response3 = httpClient2.execute(request3);
+		Gson gson3 = new Gson();
+		String JsonString3;
+		Message message = new Message(user2.getAccountID(), user.getAccountID(), "");
+		JsonString3 = gson3.toJson(message);
+		DefaultHttpClient httpClient3 = new DefaultHttpClient();
+		HttpPost request3 = new HttpPost(SERVICE_URI + "/CreateMessage");
+		request3.setHeader("Accept", "application/json");
+        request3.setHeader("Content-type", "application/json");
+        StringEntity se3 = new StringEntity(JsonString3);
+        request3.setEntity(se3);
+        HttpResponse response3 = httpClient3.execute(request3);
         
-        Log.d("WebInvoke", "Saving : " + response3.getStatusLine().getStatusCode());
-
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+
+		
 
 		}
 }
