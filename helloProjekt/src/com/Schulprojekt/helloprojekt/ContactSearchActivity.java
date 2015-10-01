@@ -5,14 +5,9 @@ import java.io.InputStreamReader;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
-
-import com.Schulprojekt.helloprojekt.GUILogik.User;
-import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -24,6 +19,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.google.gson.Gson;
 
 public class ContactSearchActivity extends Activity {
 	
@@ -67,36 +65,34 @@ public class ContactSearchActivity extends Activity {
 						reader.read(buffer); 																			//Reader liest Buffer
 						stream.close();
 		        
-//			        // Populate text fields
-//			        txtContactSearch.setText(user.getString("accountName"));
-//			        
-//			        if(txtContactSearch == null){
-//			        	Toast.makeText(ContactSearchActivity.this, "Benutzer ist nicht vorhanden!", Toast.LENGTH_LONG).show();
-//			        }else{
-//			        	Intent i = new Intent(ContactSearchActivity.this, UserProfileActivity.class);
-//			        	
-//			        	Bundle b = new Bundle();
-//			        	b.putString("userId", user.getString("userId"));
-//			        	b.putString("accountName", user.getString("accountName"));
-//			        	b.putString("aliasName", user.getString("aliasName"));
-//			        	b.putString("password", user.getString("password"));
-//			        	b.putBoolean("accountState", user.getString("accountState"));
-//			        	b.putString("expierencePoints", user.getString("expierencePoints"));
-//			        	b.putByteArray("picture", user.getString("picture"));
-			       
-			        	Bundle b = new Bundle();
+			        
+			        if(user == null){
+			        	Toast.makeText(ContactSearchActivity.this, "Benutzer ist nicht vorhanden!", Toast.LENGTH_LONG).show();
+			        }else{
 			        	Intent i = new Intent(ContactSearchActivity.this, UserProfileActivity.class);
+			        	
+			        	Bundle b = new Bundle();
 			        	b.putString("userId", "");
-			        	b.putString("accountName", "test");
-			        	b.putString("aliasName", "test");
-			        	b.putString("password", "test");
-			        	b.putBoolean("accountState", true);
+			        	b.putString("accountName", user.getAccountName());
+			        	b.putString("aliasName", user.getAlias());
+			        	b.putString("password", user.getPassword());
+			        	b.putBoolean("accountState", user.getAccountState());
+//			        	b.putString("expierencePoints", user.getString("expierencePoints"));
+			        	b.putByteArray("picture", user.getAccountPicture());
+			       
+//			        	Bundle b = new Bundle();
+//			        	Intent i = new Intent(ContactSearchActivity.this, UserProfileActivity.class);
+//			        	b.putString("userId", "");
+//			        	b.putString("accountName", "test");
+//			        	b.putString("aliasName", "test");
+//			        	b.putString("password", "test");
+//			        	b.putBoolean("accountState", true);
 //			        	b.putString("expierencePoints", "...");
-			        	b.putByteArray("picture", new byte[]{50});
+//			        	b.putByteArray("picture", new byte[]{50});
 			        	
 						i.putExtras(b);
 						startActivity(i);
-//			        }     
+			        }     
 				}catch (Exception e){
 					e.printStackTrace();
 				}
