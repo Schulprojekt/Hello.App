@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONStringer;
 
 import com.Schulprojekt.helloprojekt.R;
+import com.Schulprojekt.helloprojekt.GUILogik.Message;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.Schulprojekt.helloprojekt.R.id;
 import com.Schulprojekt.helloprojekt.R.layout;
@@ -229,7 +230,7 @@ public void startConnection(){
 		try {
 			se = new StringEntity(jsonString);
 	
-		HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");   							//Auf die Felder AccountName 
+		HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");   							//Aufruf der Methode GetUserByAccountName
 		request.setEntity(se);
 		request.setHeader("Accept", "application/json");
 		request.setHeader("Content-type", "application/json");
@@ -259,7 +260,7 @@ public void startConnection(){
 		try {
 			se2 = new StringEntity(jsonString);
 	
-		HttpPost request2 = new HttpPost(SERVICE_URI+ "/GetUserByAccountName" );  							//Auf die Felder AccountName 
+		HttpPost request2 = new HttpPost(SERVICE_URI+ "/GetUserByAccountName" );  							//Aufruf der Methode GetUserByAccountName
 		request2.setEntity(se2);
 		request2.setHeader("Accept", "application/json");
 		request2.setHeader("Content-type", "application/json");
@@ -281,44 +282,27 @@ public void startConnection(){
 			e1.printStackTrace();
 		}
 	
-		HttpPost request3 = new HttpPost(SERVICE_URI + "/CreateMessage");
-        request3.setHeader("Accept", "application/json");
-        request3.setHeader("Content-type", "application/json");
-
-        // Build JSON string
-        JSONStringer message;
 		try {
-			message = new JSONStringer()
-			    .object()
-			        .key("message")
-			            .object()
-			                .key("id").value(null)
-			                .key("sender").value(user)
-			                .key("reciever").value(user2)
-			                .key("message").value("")
-			                .key("attchment").value(new byte[]{0})
-			                .key("timestamp").value(new Timestamp(System.currentTimeMillis()))
-			            .endObject()
-			        .endObject();
-        StringEntity entity = new StringEntity(message.toString());
-
-        request3.setEntity(entity);
-
-        // Send request to WCF service
-        DefaultHttpClient httpClient2 = new DefaultHttpClient();
-        HttpResponse response3 = httpClient2.execute(request3);
+		Gson gson3 = new Gson();
+		String JsonString3;
+		Message message = new Message(user2.getAccountID(), user.getAccountID(), "");
+		JsonString3 = gson3.toJson(message);
+		DefaultHttpClient httpClient3 = new DefaultHttpClient();
+		HttpPost request3 = new HttpPost(SERVICE_URI + "/CreateMessage");									//Aufruf der Methode CreateMessage
+		request3.setHeader("Accept", "application/json");
+        request3.setHeader("Content-type", "application/json");
+        StringEntity se3 = new StringEntity(JsonString3);
+        request3.setEntity(se3);
+        HttpResponse response3 = httpClient3.execute(request3);
         
-        Log.d("WebInvoke", "Saving : " + response3.getStatusLine().getStatusCode());
-
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+
+		
 
 		}
 }
