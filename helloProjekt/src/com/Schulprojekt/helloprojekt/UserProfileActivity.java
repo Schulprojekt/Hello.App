@@ -1,5 +1,6 @@
 package com.Schulprojekt.helloprojekt;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -82,6 +83,8 @@ public class UserProfileActivity extends Activity {
 				public void onClick(View v) {
 					fuegeBenutzerHinzu(loggedUser, chatPartner);
 					
+					File chat = new File("/"+userId);
+					chat.mkdirs();
 				}
 			});
 		} else {
