@@ -174,7 +174,7 @@ public class HangmanActivity extends Activity {
 
 		Gson gson2 = new Gson();
 		String jsonString2 = "";
-		jsonString = gson.toJson(chatPartner);
+		jsonString2 = gson.toJson(chatPartner);
 		StringEntity se2;
 		try {
 			se2 = new StringEntity(jsonString);
