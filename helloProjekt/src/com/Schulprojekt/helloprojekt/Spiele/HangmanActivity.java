@@ -63,13 +63,13 @@ public class HangmanActivity extends Activity {
 					if (eingabe.length() <= 12){															//Prüfung ob das Feld mehr als 12 Zeichen hat
 						
 					if (isAlpha(eingabe) == true) {															//Prüfung ob das Feld nur Buchstaben enthält
-//						startConnection();
-						Intent i = new Intent(HangmanActivity.this,											//Aufbau des Pfades zur nächsten Activity
-								MainHangmanActivity.class);													
-						Bundle b = new Bundle();															//Erstellen eines Bundles
-						b.putString("wort", eingabe.toUpperCase());											//Füllen des Bundles mit Key und dem dazugehörigen Wert
-						i.putExtras(b);																		//Bundle ins Intent hinzufügen
-						startActivity(i);																	//Nächste Activity starten
+						startConnection();
+//						Intent i = new Intent(HangmanActivity.this,											//Aufbau des Pfades zur nächsten Activity
+//								MainHangmanActivity.class);													
+//						Bundle b = new Bundle();															//Erstellen eines Bundles
+//						b.putString("wort", eingabe.toUpperCase());											//Füllen des Bundles mit Key und dem dazugehörigen Wert
+//						i.putExtras(b);																		//Bundle ins Intent hinzufügen
+//						startActivity(i);																	//Nächste Activity starten
 						finish();																			//Activity beenden	
 						System.exit(0);																		//Activity schliessen
 					}
