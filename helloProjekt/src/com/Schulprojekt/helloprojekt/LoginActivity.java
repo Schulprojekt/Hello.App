@@ -34,7 +34,7 @@ public class LoginActivity extends Activity {
 	public ImageView imageView;
 	public EditText loginUsername;
 	public EditText loginPassword;
-	private final static String SERVICE_URI = "http://hello-server/helloservice/messengerservice.svc"; 	// URL zum WebService
+	private final static String SERVICE_URI = "http://10.18.208.31:8080/hello-webservice/api/user"; 	// URL zum WebService
 	Drawable d;
 	User user;
 
