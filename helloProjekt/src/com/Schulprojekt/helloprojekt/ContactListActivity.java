@@ -53,8 +53,6 @@ public class ContactListActivity extends Activity {
 		user.setPassword(b.getString("password"));															//Füllen des Passwortes
 		user.setAccountPicture(b.getByteArray("picture"));													//Füllen des Profilbildes
 		setContentView(R.layout.activity_contact_list);
-		Thread t = new Thread(new MessageLoop(user.getAccountID()));
-		t.start();
 //		//Test
 //		Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.dummycontact);				
 //		ByteArrayOutputStream stream = new ByteArrayOutputStream();

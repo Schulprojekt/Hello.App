@@ -28,6 +28,7 @@ import com.google.gson.reflect.TypeToken;
     	private final static String SERVICE_URI = "http://lt0.studio.entail.ca:8080/VehicleService.svc";
     	private boolean running = true;
     	private int userId = 0;
+    	public boolean state;
     	
     	public MessageLoop(int userId){
     		this.userId = userId;
@@ -37,12 +38,10 @@ import com.google.gson.reflect.TypeToken;
         	Gson gs = new Gson();
 			String JsonString;
 			ArrayList<Message> messages = new ArrayList<Message>();
-
+			
                 while(running) {
                 	try{
-                    // Pause für 4 Sekunden
-						Thread.sleep(4000);
-	
+                		state = true;
         			JsonString = gs.toJson(userId);
         			DefaultHttpClient httpClient = new DefaultHttpClient();
         			HttpPost request = new HttpPost(SERVICE_URI + "/CreateMessage");
@@ -62,10 +61,9 @@ import com.google.gson.reflect.TypeToken;
         				e.printStackTrace();
         			} catch (IOException e) {
         				e.printStackTrace();
-        			} catch (InterruptedException e) {
-						e.printStackTrace();	
-					}
+        			}
                 }
+                state = false;
         }
         
         public void log(ArrayList<Message> message){

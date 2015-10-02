@@ -2,7 +2,6 @@ package com.Schulprojekt.helloprojekt;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -28,14 +27,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.Schulprojekt.helloprojekt.GUILogik.Message;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
-import com.Schulprojekt.helloprojekt.Spiele.HangmanActivity;
 import com.Schulprojekt.helloprojekt.Spiele.MainHangmanActivity;
 import com.google.gson.Gson;
 
@@ -164,7 +160,7 @@ public class SimpleChatActivity extends Activity {
     		try {
     			FileOutputStream fileout = new FileOutputStream("/"+chatPartner.getAccountID());
     			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-    			outputWriter.write(txtChat.getText().toString());
+    			outputWriter.write("123gelesen"+txtChat.getText().toString());
     			outputWriter.close();
     		} catch (Exception e) {
     			e.printStackTrace();
@@ -195,6 +191,7 @@ public class SimpleChatActivity extends Activity {
 	            try
 	            {
 	                while ((line = buffreader.readLine()) != null)
+	                	
 	                    if(line.substring(0,10).equals("#123454321#")){
 	                    	
 	                    	if(line.substring(11,21).equalsIgnoreCase("hangman123:")){
@@ -252,9 +249,10 @@ public class SimpleChatActivity extends Activity {
 	        error=e.getMessage();
 	    }
 		
-		
-		
+	}
 
+	public void refresh(String message){
+		
 		
 	}
 	
