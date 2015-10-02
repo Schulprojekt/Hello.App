@@ -13,6 +13,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,6 +35,8 @@ import android.widget.TextView;
 
 import com.Schulprojekt.helloprojekt.GUILogik.Message;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.Schulprojekt.helloprojekt.Spiele.HangmanActivity;
+import com.Schulprojekt.helloprojekt.Spiele.MainHangmanActivity;
 import com.google.gson.Gson;
 
 public class SimpleChatActivity extends Activity {
@@ -44,7 +48,8 @@ public class SimpleChatActivity extends Activity {
 	public EditText txtChat;
 	public LinearLayout layoutMessages;
 	private User loggedUser;
-	private User chatPartner;
+	public User chatPartner;
+	public String line;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -187,7 +192,6 @@ public class SimpleChatActivity extends Activity {
 	        {
 	            InputStreamReader inputreader = new InputStreamReader(instream); 
 	            BufferedReader buffreader = new BufferedReader(inputreader); 
-	            String line = "";
 	            try
 	            {
 	                while ((line = buffreader.readLine()) != null)
@@ -195,10 +199,28 @@ public class SimpleChatActivity extends Activity {
 	                    	
 	                    	if(line.substring(11,21).equalsIgnoreCase("hangman123:")){
 	                    		
-	                    		PopupWindow pop = new PopupWindow();
-	                    		PopupMenu popm = new PopupMenu(getApplicationContext(), scv, Gravity.CENTER);
+	                    		AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
+	                    		ad.setMessage("Sie wurden zu einem Spiel Hangman herausgefordert");
+	                    		ad.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface v, int id) {
+										Intent i = new Intent(SimpleChatActivity.this, MainHangmanActivity.class);
+										Bundle b = new Bundle();
+										b.putString("wort", line.substring(22));
+										i.putExtras(b);
+										startActivity(i);
+									}
+								});
+								ad.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										
+									}
+								});
 	                    		
-	                    	}else{
+	                    	}else if(line.substring(11,21).equalsIgnoreCase("hangman123:")){
 	                    	
 	                		TextView receivedText = new TextView(getApplicationContext());
 	                		receivedText.setText(line.substring(11));

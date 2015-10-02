@@ -19,6 +19,7 @@ import android.content.Context;
 import android.graphics.AvoidXfermode.Mode;
 
 import com.Schulprojekt.helloprojekt.ContactListActivity;
+import com.Schulprojekt.helloprojekt.SimpleChatActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
