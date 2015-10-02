@@ -34,7 +34,7 @@ public class LoginActivity extends Activity {
 	public ImageView imageView;
 	public EditText loginUsername;
 	public EditText loginPassword;
-	private final static String SERVICE_URI = "http://10.18.208.31:8080/hello-webservice/api/user"; 	// URL zum WebService
+	private final static String SERVICE_URI_USER = "http://10.18.208.31:8080/hello-webservice/api/user"; 	// URL zum WebService
 	Drawable d;
 	User user;
 
@@ -74,7 +74,7 @@ public class LoginActivity extends Activity {
 						jsonString = gs.toJson(user);
 						StringEntity se = new StringEntity(jsonString);
 						DefaultHttpClient httpClient = new DefaultHttpClient();
-						HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");    // auf die Felder AccountName + loginUsernamezugreifen
+						HttpPost request = new HttpPost(SERVICE_URI_USER+ "/GetUserByAccountName");    // auf die Felder AccountName + loginUsernamezugreifen
 						request.setEntity(se);
 						request.setHeader("Accept", "application/json");
 						request.setHeader("Content-type", "application/json");

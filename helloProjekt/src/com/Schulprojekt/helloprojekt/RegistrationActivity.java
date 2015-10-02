@@ -30,7 +30,7 @@ import com.google.gson.Gson;
 
 
 public class RegistrationActivity extends Activity {
-	private final static String SERVICE_URI = "http://hello-server/helloservice/messengerservice.svc";														//URL zum WebService
+	private final static String SERVICE_URI_USER = "http://10.18.208.31:8080/hello-webservice/api/user"; 	// URL zum WebService
 	Button bregistrieren;																						//Deklaration
 	User user;
     @Override
@@ -82,7 +82,7 @@ public class RegistrationActivity extends Activity {
     						jsonString = gs.toJson(tvname.getText());
     						se = new StringEntity(jsonString);
     						httpClient = new DefaultHttpClient();
-    						HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");    // auf die Felder AccountName + loginUsernamezugreifen
+    						HttpPost request = new HttpPost(SERVICE_URI_USER+ "/GetUserByAccountName");    // auf die Felder AccountName + loginUsernamezugreifen
     						request.setEntity(se);
     						request.setHeader("Accept", "application/json");
     						request.setHeader("Content-type", "application/json");
@@ -97,7 +97,7 @@ public class RegistrationActivity extends Activity {
         					user = new User(tvname.getText().toString(), tvname.getText().toString(), tvpasswort.getText().toString());
         					jsonString = gs.toJson(user, User.class);
         					se = new StringEntity(jsonString);
-        					HttpPost request2 = new HttpPost(SERVICE_URI + "/CreateUser");
+        					HttpPost request2 = new HttpPost(SERVICE_URI_USER + "/CreateUser");
         		            request2.setHeader("Accept", "application/json");
         		            request2.setHeader("Content-type", "application/json");
         		            request2.setEntity(se);
