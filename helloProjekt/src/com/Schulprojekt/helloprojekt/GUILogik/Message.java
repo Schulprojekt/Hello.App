@@ -2,9 +2,8 @@ package com.Schulprojekt.helloprojekt.GUILogik;
 
 import java.sql.Timestamp;
 
-public class Message { // hier wird ein Objekt erstellt, dass dem Server
-						// übergeben werden soll
-	private int MessageID; // Deklaration
+public class Message { 																						//hier wird ein Objekt erstellt, dass dem Server übergeben werden soll
+	private int MessageID; 																					//Deklaration
 	private int Receiver;
 	private int Sender;
 	private String MessageText;
