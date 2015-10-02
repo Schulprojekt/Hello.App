@@ -1,7 +1,6 @@
 package com.Schulprojekt.helloprojekt.GUILogik;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,8 +8,6 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.Context;
-import android.provider.OpenableColumns;
 
 import com.Schulprojekt.helloprojekt.SimpleChatActivity;
 

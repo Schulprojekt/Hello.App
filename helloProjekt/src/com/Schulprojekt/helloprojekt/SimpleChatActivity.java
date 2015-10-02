@@ -30,9 +30,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.Schulprojekt.helloprojekt.GUILogik.GetMessage;
 import com.Schulprojekt.helloprojekt.GUILogik.Message;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.Schulprojekt.helloprojekt.Spiele.MainHangmanActivity;
+import com.Schulprojekt.helloprojekt.Spiele.TicTacToeActivity;
 import com.google.gson.Gson;
 
 public class SimpleChatActivity extends Activity {
@@ -86,6 +88,8 @@ public class SimpleChatActivity extends Activity {
 		layoutMessages = (LinearLayout) findViewById(R.id.layoutMessages);
 		
 		receiveMessage();
+		Thread t = new Thread(new GetMessage(this, loggedUser.getAccountID(), chatPartner.getAccountID()));
+		t.start();
 	}
 		
 	ScrollView scv = (ScrollView) findViewById(R.id.scrollViewChat);
@@ -194,42 +198,16 @@ public class SimpleChatActivity extends Activity {
 	                	
 	                    if(line.substring(0,10).equals("#123454321#")){
 	                    	
-	                    	if(line.substring(11,21).equalsIgnoreCase("hangman123:")){
-	                    		
-	                    		AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
-	                    		ad.setMessage("Sie wurden zu einem Spiel Hangman herausgefordert");
-	                    		ad.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-									
-									@Override
-									public void onClick(DialogInterface v, int id) {
-										Intent i = new Intent(SimpleChatActivity.this, MainHangmanActivity.class);
-										Bundle b = new Bundle();
-										b.putString("wort", line.substring(22));
-										i.putExtras(b);
-										startActivity(i);
-									}
-								});
-								ad.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
-									
-									@Override
-									public void onClick(DialogInterface dialog, int which) {
-										
-									}
-								});
-	                    		
-	                    	}else if(line.substring(11,21).equalsIgnoreCase("hangman123:")){
-	                    	
-	                		TextView receivedText = new TextView(getApplicationContext());
-	                		receivedText.setText(line.substring(11));
-	                		receivedText.setBackgroundColor(Color.GRAY);
-	                		receivedText.setTextColor(Color.WHITE);
-	                		receivedText.setGravity(Gravity.LEFT);
-	                		layoutMessages.addView(receivedText);
-	                    	
+	                    	if(line.substring(11,21).equalsIgnoreCase("hangman123:") || line.substring(11,23).equalsIgnoreCase("tictactoe123:")){
+	                    	}else{
+	                    		TextView receivedText = new TextView(getApplicationContext());
+		                		receivedText.setText(line.substring(11));
+		                		receivedText.setBackgroundColor(Color.GRAY);
+		                		receivedText.setTextColor(Color.WHITE);
+		                		receivedText.setGravity(Gravity.LEFT);
+		                		layoutMessages.addView(receivedText);
 	                    	}
-	                    }
-
-	                    else{
+	                    }else{
 	                		TextView receivedText = new TextView(getApplicationContext());
 	                		receivedText.setText(line);
 	                		receivedText.setBackgroundColor(Color.WHITE);
@@ -248,12 +226,65 @@ public class SimpleChatActivity extends Activity {
 	        String error="";
 	        error=e.getMessage();
 	    }
-		
 	}
 
 	public void refresh(String message){
-		
-		
-	}
-	
-}
+		 if(line.substring(0,10).equals("#123454321#")){
+         	
+         	if(line.substring(11,21).equalsIgnoreCase("hangman123:")){
+         		
+         		AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
+         		ad.setMessage("Sie wurden zu einem Spiel Hangman herausgefordert");
+         		ad.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface v, int id) {
+							Intent i = new Intent(SimpleChatActivity.this, MainHangmanActivity.class);
+							Bundle b = new Bundle();
+							b.putString("wort", line.substring(22));
+							i.putExtras(b);
+							startActivity(i);
+						}
+					});
+					ad.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							
+						}
+					});
+         		
+         	}else if(line.substring(11,21).equalsIgnoreCase("tictactoe123:")){
+         		AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
+         		ad.setMessage("Sie wurden zu einem Spiel TicTacToe herausgefordert");
+         		ad.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface v, int id) {
+							Intent i = new Intent(SimpleChatActivity.this, TicTacToeActivity.class);
+							Bundle b = new Bundle();
+							b.putString("loggedUser", loggedUser.getAccountName());
+							b.putString("chatPartner", chatPartner.getAccountName());
+							i.putExtras(b);
+							startActivity(i);
+						}
+					});
+					ad.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							
+						}
+					});
+         	}else{
+        		TextView receivedText = new TextView(getApplicationContext());
+        		receivedText.setText(message.substring(11));
+        		receivedText.setBackgroundColor(Color.GRAY);
+        		receivedText.setTextColor(Color.WHITE);
+        		receivedText.setGravity(Gravity.LEFT);
+        		layoutMessages.addView(receivedText);
+         		
+         	}
+		 }
+	}}
+		 
