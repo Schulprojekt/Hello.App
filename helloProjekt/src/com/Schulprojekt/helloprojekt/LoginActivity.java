@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,17 +27,18 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.Schulprojekt.helloprojekt.GUILogik.UserServices;
 import com.google.gson.Gson;
 
 public class LoginActivity extends Activity {
+	// TODO private statt public?
 	public Button btnRegistration; 																// Deklaration
 	public Button btnLogin;
 	public ImageView imageView;
 	public EditText loginUsername;
 	public EditText loginPassword;
-	private final static String SERVICE_URI_USER = "http://10.18.208.31:8080/hello-webservice/api/user"; 	// URL zum WebService
-	Drawable d;
-	User user;
+	public Drawable d;
+	public User user;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 										// Activity wird aufgebaut
@@ -67,42 +69,29 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 				if (v == btnLogin) { 															// wird der Button geklickt, wird die Verbindung zur Datenbank aufgebaut
 					try {
-						User user = new User();
-						Gson gs = new Gson();
-						String jsonString = "";
-						user.setAccountName(loginUsername.getText().toString());
-						jsonString = gs.toJson(user);
-						StringEntity se = new StringEntity(jsonString);
-						DefaultHttpClient httpClient = new DefaultHttpClient();
-						HttpPost request = new HttpPost(SERVICE_URI_USER+ "/GetUserByAccountName");    // auf die Felder AccountName + loginUsernamezugreifen
-						request.setEntity(se);
-						request.setHeader("Accept", "application/json");
-						request.setHeader("Content-type", "application/json");
-						HttpResponse response = httpClient.execute(request);
-						HttpEntity responseEntity = response.getEntity();
-						InputStream stream = responseEntity.getContent();
-						user = gs.fromJson(stream.toString(), User.class);
-//						JSONObject user = new JSONObject(new String(buffer)); 					// ein JSONObject erstellens
-//						loginUsername.setText(user.getString("accountName")); 					// in das Feld loginUsername die Eingabe accountName setzen
+						user = UserServices.getUserByAccountName(loginUsername.getText().toString());
+						
 						if (user.getAccountName() == null) { 											// ist loginUsername null, kommt die Fehlermeldung
 							Toast.makeText(LoginActivity.this,
 									"Benutzername oder Passwort falsch!",
 									Toast.LENGTH_LONG).show();
 						} else {
+							// TODO md5 passwort -> user.getPassword().equals(loginPassword.md5)
 							if (user.getPassword().equals(loginPassword)) {
 								Intent i = new Intent(LoginActivity.this, 						// sonst wird die nächste Activity ContactListActivity gestartet
 										ContactListActivity.class);
 								Bundle b = new Bundle();
-								
 								b.putInt("userId", user.getAccountID());
 								b.putString("aliasName", user.getAlias());
 								b.putString("accountName", user.getAccountName());
+								
 								Bitmap bmp = ((BitmapDrawable)d).getBitmap();
 								ByteArrayOutputStream baos = new ByteArrayOutputStream();
 								bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
 								byte[] byteArray = baos.toByteArray();
+								
 								b.putByteArray("picture", byteArray);
-								b.putString("password", "");
+								b.putString("password", user.getPassword());
 								i.putExtras(b);
 								startActivity(i);
 								finish();
@@ -112,35 +101,16 @@ public class LoginActivity extends Activity {
 										"Benutzername oder Passwort falsch!",
 										Toast.LENGTH_LONG).show();
 							}
-						}
+						}	
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-//					Boolean methode = true;
-//					if (methode) {
-//						Intent i = new Intent(LoginActivity.this,
-//								ContactListActivity.class);
-//						Bundle b = new Bundle();
-//						b.putString("userId", "");
-//						b.putString("aliasName", "AliasTest");
-//						b.putString("accountName", "AccountTest");
-//						b.putBoolean("accountState", true);
-////						b.putInt("experiencePoints", 0);
-//						b.putByteArray("picture", new byte[0]);
-//						b.putString("password", "");
-//						i.putExtras(b);
-//						startActivity(i);
-////						finish();
-////						System.exit(0);
-//					} else {
-//						Toast.makeText(LoginActivity.this,
-//								"Benutzername oder Passwort falsch!",
-//								Toast.LENGTH_LONG).show();
-//					}
 				}
 
 			}
 		});
+		
+		// TODO muss das überhaupt noch?
 		imageView.setOnClickListener(new OnClickListener() { 									// auf das ImageView imageView einen OnClickListener setzen
 					@Override
 					public void onClick(View v) {

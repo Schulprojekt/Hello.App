@@ -2,64 +2,64 @@ package com.Schulprojekt.helloprojekt.GUILogik;
 
 
 public class User {																							//hier wird ein Objekt erstellt, dass dem Server übergeben werden soll
-	private int 	AccountID;																				//Deklaration
-	private String 	AccountName;
-	private String 	Alias;
-	private String	Password;
-	private byte[]	AccountPicture;	
+	private int 	accountID;																				//Deklaration
+	private String 	accountName;
+	private String 	alias;
+	private String	password;
+	private byte[]	accountPicture;
 	public User(){
 		
 	}
 	public User(int i, String accountName, String alias, byte[] accountPicture) {
 		super();
-		AccountID = i;
-		AccountName = accountName;
-		Alias = alias;
-		AccountPicture = accountPicture;
+		this.accountID = i;
+		this.accountName = accountName;
+		this.alias = alias;
+		this.accountPicture = accountPicture;
 	}
 	public User(int i, String accountName, String alias, String password, byte[] accountPicture) {
 		super();
-		AccountID = i;
-		AccountName = accountName;
-		Alias = alias;
-		Password = password;
-		AccountPicture = accountPicture;
+		this.accountID = i;
+		this.accountName = accountName;
+		this.alias = alias;
+		this.password = password;
+		this.accountPicture = accountPicture;
 	}
 	public User(String accountName, String alias, String password) {
 		super();
-		AccountName = accountName;
-		Alias = alias;
-		Password = password;
+		this.accountName = accountName;
+		this.alias = alias;
+		this.password = password;
 	}
 	public int getAccountID() {
-		return AccountID;
+		return accountID;
 	}
 	public void setAccountID(int accountID) {
-		AccountID = accountID;
+		this.accountID = accountID;
 	}
 	public String getAccountName() {
-		return AccountName;
+		return accountName;
 	}
 	public void setAccountName(String accountName) {
-		AccountName = accountName;
+		this.accountName = accountName;
 	}
 	public String getAlias() {
-		return Alias;
+		return alias;
 	}
 	public void setAlias(String alias) {
-		Alias = alias;
+		this.alias = alias;
 	}
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
 	public byte[] getAccountPicture() {
-		return AccountPicture;
+		return accountPicture;
 	}
 	public void setAccountPicture(byte[] bs) {
-		AccountPicture = bs;
+		this.accountPicture = bs;
 	}
 }

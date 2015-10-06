@@ -1,5 +1,6 @@
 package com.Schulprojekt.helloprojekt;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -9,7 +10,14 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
+import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.Schulprojekt.helloprojekt.GUILogik.UserServices;
+
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,19 +31,21 @@ public class UserSettingActivity extends Activity {
 	public Button btnSave;
 	public EditText userSettingUsername;
 	public EditText userSettingAliasname;
-	String userId;
-	String aliasName;
-	String accountName;
-	boolean accountState;
-	byte[] picture;
-	String password;
-	private final static String SERVICE_URI = "http:////hello-server//helloservice" +						//Pfad zum Server
-			"//messengerservice.svc";
+	public String userId;
+	public String aliasName;
+	public String accountName;
+	public boolean accountState;
+	public byte[] picture;
+	public String password;
+	public User user;
+	public Drawable d;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {													//Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_setting);
 		
+		// TODO prüfen ob die keys richtig sind!
 		Bundle b = getIntent().getExtras();																	//Erstellen eines Bundles
 		String userId = b.getString("userId");																//den String userId abrufen
 		String aliasName = b.getString("aliasName");														//den String aliasName abrufen
@@ -48,34 +58,6 @@ public class UserSettingActivity extends Activity {
 		userSettingUsername = (EditText) findViewById(R.id.UserSettingUsername);							//Datenbankzugriff auf den Username
 		userSettingUsername.setText(accountName);															//accountName setzen/ändern
 		
-		// Datenbankzugriff für Aliasname
-		try{
-			DefaultHttpClient httpClient = new DefaultHttpClient();
-			
-			HttpGet request = new HttpGet(SERVICE_URI + "/GetUserByAccountName/" + userSettingUsername);
-			
-			request.setHeader("Accept", "application/json");
-		    request.setHeader("Content-type", "application/json");
-		
-		    HttpResponse response = httpClient.execute(request);
-		    
-		    HttpEntity responseEntity = response.getEntity();
-		    
-		    char[] buffer = new char[(int)responseEntity.getContentLength()];
-		    InputStream stream = responseEntity.getContent();
-		    InputStreamReader reader = new InputStreamReader(stream);
-		    reader.read(buffer);
-		    stream.close();
-		
-		    JSONObject user = new JSONObject(new String(buffer));
-		    
-		    userSettingAliasname.setText(user.getString("aliasName"));
-		    
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		
-		
 		// Datenbankzugriff für Account löschen
 		btnDeleteAccount = (Button) findViewById(R.id.btnDeleteAccount);
 		btnDeleteAccount.setOnClickListener(new OnClickListener() {
@@ -84,26 +66,10 @@ public class UserSettingActivity extends Activity {
 			public void onClick(View v) {
 				if (v == btnDeleteAccount){
 					try{
-						DefaultHttpClient httpClient = new DefaultHttpClient();
+						// TODO ein popup für ja/nein?!
+						UserServices.deleteUser(userSettingUsername.getText().toString());
+						// TODO schließen der app oder auf login zurück?
 						
-						HttpGet request = new HttpGet(SERVICE_URI + "/DeleteUser/" + "");
-						
-						request.setHeader("Accept", "application/json");
-					    request.setHeader("Content-type", "application/json");
-					
-					    HttpResponse response = httpClient.execute(request);
-					    
-					    HttpEntity responseEntity = response.getEntity();
-					    
-					    char[] buffer = new char[(int)responseEntity.getContentLength()];
-					    InputStream stream = responseEntity.getContent();
-					    InputStreamReader reader = new InputStreamReader(stream);
-					    reader.read(buffer);
-					    stream.close();
-					
-					    JSONObject user = new JSONObject(new String(buffer));
-					    
-					    userSettingAliasname.setText(user.getString("aliasName"));
 					}catch (Exception e){
 						e.printStackTrace();
 					}
@@ -120,6 +86,27 @@ public class UserSettingActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if (v == btnSave){
+					user = UserServices.updateUser(userSettingUsername.getText().toString(), 
+							userSettingAliasname.getText().toString());
+					
+					Intent i = new Intent(UserSettingActivity.this, 						// sonst wird die nächste Activity ContactListActivity gestartet
+							ContactListActivity.class);
+					Bundle b = new Bundle();
+					b.putInt("userId", user.getAccountID());
+					b.putString("aliasName", user.getAlias());
+					b.putString("accountName", user.getAccountName());
+					
+					Bitmap bmp = ((BitmapDrawable)d).getBitmap();
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+					byte[] byteArray = baos.toByteArray();
+					
+					b.putByteArray("picture", byteArray);
+					b.putString("password", user.getPassword());
+					i.putExtras(b);
+					startActivity(i);
+					finish();
+					System.exit(0);
 					
 				}
 				
