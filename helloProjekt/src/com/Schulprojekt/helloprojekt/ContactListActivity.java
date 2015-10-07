@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.Schulprojekt.helloprojekt.GUILogik.ContactListEntry;
 import com.Schulprojekt.helloprojekt.GUILogik.MessageLoop;
+import com.Schulprojekt.helloprojekt.GUILogik.RelationshipServices;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,7 +40,6 @@ public class ContactListActivity extends Activity {
 	ArrayList<ContactListEntry> contactList;
 	String userName;
 	User user;
-	private final static String SERVICE_URI = "http://lt0.studio.entail.ca:8080/VehicleService.svc";		//Pfad zum Server
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {													//Activity wird aufgebaut
@@ -75,14 +75,14 @@ public class ContactListActivity extends Activity {
 //		userList.add(u4);
 //		//Test END
 		
-		ArrayList<User> friends = new ArrayList<User>();													//Erstellen einer UserArrayList
-		friends = getFriends();																				//Füllen der ArrayList
+		ArrayList<User> contacts = new ArrayList<User>();													//Erstellen einer UserArrayList
+		contacts = RelationshipServices.getRelationship(user.getAccountID());																			//Füllen der ArrayList
 		
 		int i = 0;
 		
 		ArrayList<ContactListEntry> contactList = new ArrayList<ContactListEntry>();						//Erstellen einer ArrayList
 		
-		for (User user : friends) {																			//Erweiterte For-Schleife zum Auslesen der Freundesliste
+		for (User user : contacts) {																			//Erweiterte For-Schleife zum Auslesen der Freundesliste
 			LinearLayout linlay = new LinearLayout(getApplicationContext());
 			linlay.setOrientation(LinearLayout.HORIZONTAL);
 			ImageView img = new ImageView(getApplicationContext());
@@ -164,31 +164,5 @@ public class ContactListActivity extends Activity {
 				startActivity(in);																			//Starten der neuen Activity
 	        }
 	    };
-}
-    public ArrayList<User> getFriends(){																	//Erstellen der Methode getFriends
-    	ArrayList<User> friends = new ArrayList<User>();													//Erstellen einer ArrayList
-    	Gson gs = new Gson();																				//Erstellen eines GsonObjektes
-    	String jsonString = "";																				//Erstellen eines JsonStrings
-			jsonString = gs.toJson(user.getAccountID());													//Füllen des JsonStrings
-			StringEntity se;																				//Erstellen eines StringEntity
-			try {
-				se = new StringEntity(jsonString);															//Füllen des StringEntitys
-			DefaultHttpClient httpClient = new DefaultHttpClient();											//Erstellen des HttpClients
-			HttpPost request = new HttpPost(SERVICE_URI+ "/GetRelationship");    							//Aufrufen der Mothe GetRelationship
-			request.setEntity(se);
-			request.setHeader("Accept", "application/json");
-			request.setHeader("Content-type", "application/json");
-			HttpResponse response = null;
-			response = httpClient.execute(request);
-			HttpEntity responseEntity = response.getEntity();
-			InputStream stream = null;
-			stream = responseEntity.getContent();
-			friends = gs.fromJson(stream.toString(), new TypeToken<List<User>>(){}.getType());				//Füllen der ArrayList friends
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return friends;
-    }
+	}
 }
