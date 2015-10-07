@@ -86,17 +86,24 @@ public class SimpleChatActivity extends Activity {
 		t.start();
 	}
 		
-	ScrollView scv = (ScrollView) findViewById(R.id.scrollViewChat);
+//	ScrollView scv = (ScrollView) findViewById(R.id.scrollViewChat);
 	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.chat, menu);
+		if(chatPartner.getAccountPicture() != null){
 		byte[] bArray = chatPartner.getAccountPicture();
 		Bitmap bitmap = BitmapFactory.decodeByteArray(bArray , 0, bArray.length);
 		BitmapDrawable d = new BitmapDrawable(bitmap);
 		getActionBar().setIcon(d);
+		}
+		else{
+			Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.dummycontact);
+			BitmapDrawable bmp = new BitmapDrawable(icon);
+			getActionBar().setIcon(bmp);
+		}
 		getActionBar().setTitle(chatPartner.getAlias());
 		return true;
 	}

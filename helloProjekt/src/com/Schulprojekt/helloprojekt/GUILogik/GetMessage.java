@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 
 import com.Schulprojekt.helloprojekt.SimpleChatActivity;
-import com.Schulprojekt.helloprojekt.Spiele.TicTacToeActivity;
 
 public class GetMessage extends Activity implements Runnable{
 	
@@ -19,24 +18,26 @@ public class GetMessage extends Activity implements Runnable{
 	String line;
 	ArrayList<String> course;
 	ArrayList<String> newMessages;
+	ArrayList<Message> messages;
 	int i = 0;
 	int mark = 0;
 	int partnerId = 0;
-	Thread t;
+	int accountID;
 	
 	public GetMessage(SimpleChatActivity chat, int accountId, int partnerId){
 		this.chat = chat;
 		this.partnerId = partnerId;
-		t = new Thread(new MessageLoop(accountId));
+		this.accountID = accountId;
 	}
 	
 	public void run(){
-		t.start();
 		while(running){
+			
+			MessageLoop();
+			
 			 try
 			    {
-				 Thread.sleep(4000);
-				 t.stop();
+				 Thread.sleep(8000);
 				 InputStream instream = openFileInput("/"+chat.chatPartner.getAccountID()); 
 			        if (instream != null)
 			        {
@@ -64,12 +65,31 @@ public class GetMessage extends Activity implements Runnable{
 			    			e.printStackTrace();
 			    		}
 			        }
-			        t.start();
 			    }    
 			 catch (Exception e) 
 	            {
 	                e.printStackTrace();
 	            }
 		}
+	}
+		
+		public void MessageLoop(){
+			messages = MessageServices.getMessages(accountID);
+	        log(messages);
+		}
+		
+		public void log(ArrayList<Message> message){
+        	
+        	for (Message m : message) {
+        		try {
+        			FileOutputStream fileout = new FileOutputStream("/"+m.getSender());
+        			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
+        			outputWriter.write("#123454321#"+m.getMessageText());
+        			outputWriter.close();
+        			
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}	
+			}
 	}
 }
