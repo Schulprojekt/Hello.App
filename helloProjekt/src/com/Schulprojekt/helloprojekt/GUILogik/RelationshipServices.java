@@ -21,7 +21,7 @@ private static Gson gson = new GsonBuilder().create();
 	 */
 	public static ArrayList<User> getRelationship(int accountId) {
 		ArrayList<User> contacts = new ArrayList<User>();
-		String param = "{\"accountId\":\"" + accountId + "\"}";
+		String param = "{\"accountID\":\"" + accountId + "\"}";
 
 		HttpResponse response = WebServerUtils.post("/Relationship/GetRelationship", param);
 		

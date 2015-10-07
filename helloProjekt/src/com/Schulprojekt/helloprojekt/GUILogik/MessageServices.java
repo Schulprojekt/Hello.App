@@ -21,7 +21,7 @@ private static Gson gson = new GsonBuilder().create();
 	 */
 	public static ArrayList<Message> getMessages(int accountId) {
 		ArrayList<Message> messages = new ArrayList<Message>();
-		String param = "{\"accountId\":\"" + accountId + "\"}";
+		String param = "{\"accountID\":\"" + accountId + "\"}";
 
 		HttpResponse response = WebServerUtils.post("/message/GetMessages", param);
 		
