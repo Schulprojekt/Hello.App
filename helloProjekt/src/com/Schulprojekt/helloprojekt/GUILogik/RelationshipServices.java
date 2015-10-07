@@ -23,7 +23,7 @@ private static Gson gson = new GsonBuilder().create();
 		ArrayList<User> contacts = new ArrayList<User>();
 		String param = "{\"accountId\":\"" + accountId + "\"}";
 
-		HttpResponse response = WebServerUtils.post("/relationship/GetRelationship", param);
+		HttpResponse response = WebServerUtils.post("/Relationship/GetRelationship", param);
 		
 		JsonReader reader;
 		try {
@@ -42,11 +42,11 @@ private static Gson gson = new GsonBuilder().create();
 	
 	public static void createRelationship(Relationship relationship){
 		String param = "{\"friendsId\":\"" + relationship.getFriendsId() + "\", \"userId\":\"" + relationship.getUserId() + "\"}";
-		HttpResponse response = WebServerUtils.post("/relationship/createRelationship", param);
+		HttpResponse response = WebServerUtils.post("/Relationship/createRelationship", param);
 	}
 
 	public static void deleteRelationship(Relationship relationship){
 		String param = "{\"friendsId\":\"" + relationship.getFriendsId() + "\", \"userId\":\"" + relationship.getUserId() + "\"}";
-		HttpResponse response = WebServerUtils.post("/relationship/DeleteRelationship", param);
+		HttpResponse response = WebServerUtils.post("/Relationship/DeleteRelationship", param);
 	}
 }
