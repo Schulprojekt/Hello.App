@@ -76,6 +76,8 @@ public class UserProfileActivity extends Activity {
 				public void onClick(View v) {
 					Relationship relationship = new Relationship(userId, userIdLogged);
 					RelationshipServices.createRelationship(relationship);
+					Relationship relationship2 = new Relationship(userIdLogged, userId);
+					RelationshipServices.createRelationship(relationship2);
 					
 					File chat = new File("/"+userId);
 					chat.mkdirs();
@@ -101,6 +103,8 @@ public class UserProfileActivity extends Activity {
 				public void onClick(View v) {
 					Relationship relationship = new Relationship(userId, userIdLogged);
 					RelationshipServices.deleteRelationship(relationship);
+					Relationship relationship2 = new Relationship(userIdLogged, userId);
+					RelationshipServices.deleteRelationship(relationship2);
 					
 					Intent i = new Intent(UserProfileActivity.this, 						// sonst wird die nächste Activity ContactListActivity gestartet
 							ContactListActivity.class);
