@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 
 import com.Schulprojekt.helloprojekt.SimpleChatActivity;
+import com.Schulprojekt.helloprojekt.Spiele.TicTacToeActivity;
 
 public class GetMessage extends Activity implements Runnable{
 	
