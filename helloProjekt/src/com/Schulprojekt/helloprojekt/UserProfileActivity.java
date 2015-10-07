@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,33 +25,34 @@ public class UserProfileActivity extends Activity {
 	TextView aliasname;
 	TextView accountname;
 	ImageView pictures;
-	Bundle b = getIntent().getExtras();																	//Füllen des Bundles
-	int userId = b.getInt("userId");
-	String accountName = b.getString("accountName");
-	String aliasName = b.getString("aliasName");
-	String password = b.getString("password");
-	byte[] picture = b.getByteArray("picture");
-	int userIdLogged = b.getInt("userIdLogged");
-	String accountNameLogged = b.getString("accountNameLogged");
-	String aliasNameLogged = b.getString("aliasNameLogged");
-	String passwordLogged = b.getString("passwordLogged");
-	byte[] pictureLogged = b.getByteArray("pictureLogged");
 	
-	User loggedUser = new User(userIdLogged,accountNameLogged,aliasNameLogged,passwordLogged,pictureLogged);
-	User chatPartner = new User(userId,accountName,aliasName,password,picture);
+	int userId;
+	String accountName;
+	String aliasName;
+	
+	int userIdLogged;
+	String accountNameLogged;
+	String aliasNameLogged;
+	String passwordLogged;
+	byte[] pictureLogged;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {													//Aufbau der Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_profile);
 		
+		Bundle b = getIntent().getExtras();																	//Füllen des Bundles
 		
-//    	b.putString("userId", "");
-//    	b.putString("accountName", "test");
-//    	b.putString("aliasName", "test");
-//    	b.putString("password", "test");
-//    	b.putBoolean("accountState", true);
-//    	b.putByteArray("picture", new byte[]{50});
+		userId = b.getInt("SearchedId");
+		accountName = b.getString("SearchedAccountName");
+		aliasName = b.getString("SearchedAliasName");
+		
+		userIdLogged = b.getInt("userId");
+		accountNameLogged = b.getString("accountName");
+		aliasNameLogged = b.getString("aliasName");
+		passwordLogged = b.getString("password");
+		pictureLogged = b.getByteArray("picture");
     	
     	aliasname = (TextView) findViewById(R.id.txt_profilName);
     	aliasname.setText(aliasName);
@@ -58,8 +60,8 @@ public class UserProfileActivity extends Activity {
     	accountname = (TextView) findViewById(R.id.txt_profilAccName);
     	accountname.setText(accountName);
     	
-    	ArrayList<User> friends = new ArrayList<User>();													//Erstellen einer UserArrayList
-		friends = getFriends();																				//Füllen der ArrayList
+    	ArrayList<User> friends = new ArrayList<User>();													//Erstellen einer ArrayList
+    	friends = RelationshipServices.getRelationship(userIdLogged);																			//Füllen der ArrayList
 		for (User user : friends) {
 			if(user.getAccountID() == userId){
 				btn_hinzufuegen.setText("Benutzer löschen");
@@ -72,10 +74,24 @@ public class UserProfileActivity extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					fuegeBenutzerHinzu(loggedUser, chatPartner);
+					Relationship relationship = new Relationship(userId, userIdLogged);
+					RelationshipServices.createRelationship(relationship);
 					
 					File chat = new File("/"+userId);
 					chat.mkdirs();
+					
+					Intent i = new Intent(UserProfileActivity.this, 						// sonst wird die nächste Activity ContactListActivity gestartet
+							ContactListActivity.class);
+					Bundle b = new Bundle();
+					
+					b.putInt("userId", userIdLogged);
+					b.putString("aliasName", aliasNameLogged);
+					b.putString("accountName", accountNameLogged);
+					b.putString("password", passwordLogged);
+					
+					i.putExtras(b);
+					startActivity(i);
+					finish();
 				}
 			});
 		} else {
@@ -83,8 +99,21 @@ public class UserProfileActivity extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					loescheBenutzer(loggedUser, chatPartner);
+					Relationship relationship = new Relationship(userId, userIdLogged);
+					RelationshipServices.deleteRelationship(relationship);
 					
+					Intent i = new Intent(UserProfileActivity.this, 						// sonst wird die nächste Activity ContactListActivity gestartet
+							ContactListActivity.class);
+					Bundle b = new Bundle();
+					
+					b.putInt("userId", userIdLogged);
+					b.putString("aliasName", aliasNameLogged);
+					b.putString("accountName", accountNameLogged);
+					b.putString("password", passwordLogged);
+					
+					i.putExtras(b);
+					startActivity(i);
+					finish();
 				}
 			});
 		}
@@ -106,27 +135,6 @@ public class UserProfileActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	public void fuegeBenutzerHinzu(User loggedUser, User chatPartner){
-	
-																			
-		Relationship relationship = new Relationship(userId, userIdLogged);
-		RelationshipServices.createRelationship(relationship);
 
-		}
-	public void loescheBenutzer(User loggedUser, User chatPartner){
-		
-		Relationship relationship = new Relationship(userId, userIdLogged);
-		RelationshipServices.deleteRelationship(relationship);
-
-		
-		}
-	
-	public ArrayList<User> getFriends(){																		//Erstellen der Methode getFriends
-	    	ArrayList<User> friends = new ArrayList<User>();													//Erstellen einer ArrayList
-	    	
-	    	friends = RelationshipServices.getRelationship(userIdLogged);
-	    	
-			return friends;
-	    }
 }
 

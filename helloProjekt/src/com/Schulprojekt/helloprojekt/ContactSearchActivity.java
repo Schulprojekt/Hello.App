@@ -52,6 +52,7 @@ public class ContactSearchActivity extends Activity {
 						
 						b.putString("SearchedAliasName", user.getAlias());
 						b.putString("SearchedAccountName", user.getAccountName());
+						b.putInt("SearchedId", user.getAccountID());
 						
 						b.putInt("userId", userId);
 						b.putString("aliasName", aliasName);
