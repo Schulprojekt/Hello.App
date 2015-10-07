@@ -88,8 +88,12 @@ public class ContactListActivity extends Activity {
 			File file = new File("/"+user.getAccountID());
 			
 			if(!file.exists()){
-				File chat = new File("/"+user.getAccountID());
-				chat.mkdirs();
+				try {
+					file.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 			LinearLayout linlay = new LinearLayout(getApplicationContext());

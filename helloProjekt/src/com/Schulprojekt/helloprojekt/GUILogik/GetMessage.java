@@ -84,7 +84,7 @@ public class GetMessage extends Activity implements Runnable{
         	
         	for (Message m : message) {
         		try {
-        			FileOutputStream fileout = new FileOutputStream("/"+m.getSender());
+        			FileOutputStream fileout = new FileOutputStream(""+m.getSender());
         			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
         			outputWriter.write("#123454321#"+m.getMessageText());
         			outputWriter.close();

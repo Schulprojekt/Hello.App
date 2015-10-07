@@ -1,6 +1,7 @@
 package com.Schulprojekt.helloprojekt;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -155,14 +156,15 @@ public class SimpleChatActivity extends Activity {
 			MessageServices.createMessage(message);
 	        
     		try {
-    			FileOutputStream fileout = new FileOutputStream("/"+chatPartner.getAccountID());
+    			File file = new File(""+chatPartner.getAccountID());
+    			file.mkdirs();
+    			FileOutputStream fileout = new FileOutputStream(""+chatPartner.getAccountID());
     			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
     			outputWriter.write("123gelesen"+txtChat.getText().toString());
     			outputWriter.close();
     		} catch (Exception e) {
     			e.printStackTrace();
-    		}	
-	        
+    		} 
 	        
 	        TextView sentText = new TextView(getApplicationContext());
 			sentText.setText(txtChat.getText());
