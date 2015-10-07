@@ -38,7 +38,8 @@ public class GetMessage extends Activity implements Runnable{
 			 try
 			    {
 				 Thread.sleep(8000);
-				 InputStream instream = openFileInput("/"+chat.chatPartner.getAccountID()); 
+				 int tim = chat.chatPartner.getAccountID();
+				 InputStream instream = openFileInput(Integer.toString(tim)); 
 			        if (instream != null)
 			        {
 			        	InputStreamReader inputreader = new InputStreamReader(instream); 
@@ -57,7 +58,8 @@ public class GetMessage extends Activity implements Runnable{
 			            	chat.refresh(course.get(r));
 			            }
 			            try {
-			    			FileOutputStream fileout = new FileOutputStream("/" + partnerId);
+			            	// TODO Warum nicht schon oben die partnerId ? - true = append to file, false = overwrite
+			    			FileOutputStream fileout = new FileOutputStream("/" + partnerId, true);
 			    			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
 			    			outputWriter.write("#00000000#");
 			    			outputWriter.close();

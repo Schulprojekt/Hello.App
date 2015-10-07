@@ -2,6 +2,8 @@ package com.Schulprojekt.helloprojekt;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -85,7 +87,8 @@ public class ContactListActivity extends Activity {
 		
 		for (User user : contacts) {																			//Erweiterte For-Schleife zum Auslesen der Freundesliste
 			
-			File file = new File("/"+user.getAccountID());
+			File file = new File("/data/data/com.Schulprojekt.helloprojekt.GUILogik/files/"+user.getAccountID());
+//			File file = new File("/"+user.getAccountID());
 			
 			if(!file.exists()){
 				try {
