@@ -177,10 +177,10 @@ public class ContactListActivity extends Activity {
 	        	b.putInt("loggedAccountId", user.getAccountID());
 	        	b.putString("loggedAccountName", user.getAccountName());									//Füllen des Bundles
 	        	b.putByteArray("loggedPicture", user.getAccountPicture());
-	        	b.putInt("partnerAccountId", contacts.get(1).getAccountID());
-				b.putString("partnerAliasName", contacts.get(1).getAlias().toString());
-				b.putString("partnerAccountName", contacts.get(1).getAccountName().toString());
-				b.putByteArray("partnerPicture", contacts.get(1).getAccountPicture());
+	        	b.putInt("partnerAccountId", contacts.get(v.getId()).getAccountID());
+				b.putString("partnerAliasName", contacts.get(v.getId()).getAlias().toString());
+				b.putString("partnerAccountName", contacts.get(v.getId()).getAccountName().toString());
+				b.putByteArray("partnerPicture", contacts.get(v.getId()).getAccountPicture());
 				in.putExtras(b);
 				startActivity(in);																			//Starten der neuen Activity
 	        }

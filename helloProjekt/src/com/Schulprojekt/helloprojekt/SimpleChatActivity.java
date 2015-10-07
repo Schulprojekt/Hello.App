@@ -120,7 +120,8 @@ public class SimpleChatActivity extends Activity {
 			        	Bundle b = new Bundle();
 			        	Intent i = new Intent(SimpleChatActivity.this, UserProfileActivity.class);
 			        	b.putString("userAccountName", loggedUser.getAccountName());
-			        	b.putString("partnerAccountName", chatPartner.getAccountName());
+			        	b.putString("SearchedAccountName", chatPartner.getAccountName());
+			        	b.putString("SearchedAliasName", chatPartner.getAlias());
 //			        	b.putString("userId", "");
 //			        	b.putString("accountName", chatPartner.getAccountName());
 //			        	b.putString("aliasName", chatPartner.getAlias());
