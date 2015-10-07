@@ -39,16 +39,45 @@
             android:id="@+id/txt_profilAlias"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:text="Aliasname:"
+            android:layout_weight="1"
+            android:text="Aliasname: "
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/txt_profilName"
             android:layout_width="145dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_alignRight="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginTop="24dp" >
+
+        <TextView
+            android:id="@+id/txt_profilAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accountname:  "
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/txt_profilAccName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.79"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="22sp" />
     </LinearLayout>
 
 </RelativeLayout>

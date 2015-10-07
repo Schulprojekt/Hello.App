@@ -35,6 +35,7 @@ public class UserProfileActivity extends Activity {
 	
 	Button btn_hinzufuegen;																					//Deklaration
 	TextView aliasname;
+	TextView accountname;
 	ImageView pictures;
 	Bundle b = getIntent().getExtras();																	//Füllen des Bundles
 	int userId = b.getInt("userId");
@@ -66,6 +67,9 @@ public class UserProfileActivity extends Activity {
     	
     	aliasname = (TextView) findViewById(R.id.txt_profilName);
     	aliasname.setText(aliasName);
+    	
+    	accountname = (TextView) findViewById(R.id.txt_profilAccName);
+    	accountname.setText(accountName);
     	
     	ArrayList<User> friends = new ArrayList<User>();													//Erstellen einer UserArrayList
 		friends = getFriends();																				//Füllen der ArrayList
