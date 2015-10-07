@@ -19,8 +19,8 @@ private static Gson gson = new GsonBuilder().create();
 	/**
 	 * @param args
 	 */
-	public static ArrayList<Relationship> getRelationship(int accountId) {
-		ArrayList<Relationship> relationships = new ArrayList<Relationship>();
+	public static ArrayList<User> getRelationship(int accountId) {
+		ArrayList<User> contacts = new ArrayList<User>();
 		String param = "{\"accountId\":\"" + accountId + "\"}";
 
 		HttpResponse response = WebServerUtils.post("/relationship/GetRelationship", param);
@@ -28,7 +28,7 @@ private static Gson gson = new GsonBuilder().create();
 		JsonReader reader;
 		try {
 			reader = new JsonReader(new InputStreamReader(response.getEntity().getContent()));
-			relationships = gson.fromJson(reader, new TypeToken<List<Relationship>>(){}.getType());
+			contacts = gson.fromJson(reader, new TypeToken<List<Relationship>>(){}.getType());
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,7 +37,7 @@ private static Gson gson = new GsonBuilder().create();
 			e.printStackTrace();
 		}
 		
-		return relationships;
+		return contacts;
 	}
 	
 	public static void createRelationship(Relationship relationship){
