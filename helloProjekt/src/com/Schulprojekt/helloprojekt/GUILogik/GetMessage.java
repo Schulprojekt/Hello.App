@@ -75,7 +75,9 @@ public class GetMessage extends Activity implements Runnable{
 		
 		public void MessageLoop(){
 			messages = MessageServices.getMessages(accountID);
+			if (messages != null){
 	        log(messages);
+			}
 		}
 		
 		public void log(ArrayList<Message> message){

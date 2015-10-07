@@ -1,5 +1,6 @@
 package com.Schulprojekt.helloprojekt;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -102,6 +103,11 @@ public class ContactListActivity extends Activity {
 				Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.dummycontact);
 				BitmapDrawable bmp = new BitmapDrawable(icon);
 				img.setImageDrawable(bmp);
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				icon.compress(Bitmap.CompressFormat.PNG, 100, baos);
+				byte[] byteArray = baos.toByteArray();
+				user.setAccountPicture(byteArray);
+				contacts.set(i, user);
 			}
 			img.setOnClickListener(getOnKlickListener(img));
 			img.setId(i);
