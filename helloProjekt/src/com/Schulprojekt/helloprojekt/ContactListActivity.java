@@ -13,6 +13,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -47,7 +48,7 @@ public class ContactListActivity extends Activity {
 //		SimpleThreads st = new SimpleThreads();
 		Bundle b = getIntent().getExtras();																	//Erstellen eines Bundles
 		user = new User();																					//Erstellen eines neuen Users
-		user.setAccountID(b.getInt("accountID"));															//Füllen der Accountid
+		user.setAccountID(b.getInt("userId"));															//Füllen der Accountid
 		user.setAccountName(b.getString("accountName"));													//Füllen des Accountnamens
 		user.setAlias(b.getString("aliasName"));															//Füllen des Aliasnamens
 		user.setPassword(b.getString("password"));															//Füllen des Passwortes
@@ -76,7 +77,7 @@ public class ContactListActivity extends Activity {
 //		//Test END
 		
 		ArrayList<User> contacts = new ArrayList<User>();													//Erstellen einer UserArrayList
-		contacts = RelationshipServices.getRelationship(user.getAccountID());																			//Füllen der ArrayList
+		contacts = RelationshipServices.getRelationship(b.getInt("userId"));																			//Füllen der ArrayList
 		
 		int i = 0;
 		
@@ -86,8 +87,15 @@ public class ContactListActivity extends Activity {
 			LinearLayout linlay = new LinearLayout(getApplicationContext());
 			linlay.setOrientation(LinearLayout.HORIZONTAL);
 			ImageView img = new ImageView(getApplicationContext());
+			if(user.getAccountPicture() != null){
 			BitmapDrawable bmp = new BitmapDrawable(BitmapFactory.decodeByteArray(user.getAccountPicture(), 0, user.getAccountPicture().length));
 			img.setImageDrawable(bmp);
+			}
+			else{
+				Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.dummycontact);
+				BitmapDrawable bmp = new BitmapDrawable(icon);
+				img.setImageDrawable(bmp);
+			}
 			img.setOnClickListener(getOnKlickListener(img));
 			img.setId(i);
 			TextView tv = new TextView(getApplicationContext());

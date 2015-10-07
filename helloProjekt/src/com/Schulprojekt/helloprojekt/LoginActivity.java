@@ -93,7 +93,7 @@ public class LoginActivity extends Activity {
 //								ByteArrayOutputStream baos = new ByteArrayOutputStream();
 //								bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
 //								byte[] byteArray = baos.toByteArray();
-//								
+////								
 //								b.putByteArray("picture", byteArray);
 								b.putString("password", user.getPassword());
 								i.putExtras(b);
