@@ -62,7 +62,8 @@ public class UserProfileActivity extends Activity {
     	
     	ArrayList<User> friends = new ArrayList<User>();													//Erstellen einer ArrayList
     	friends = RelationshipServices.getRelationship(userIdLogged);																			//Füllen der ArrayList
-		for (User user : friends) {
+
+    	for (User user : friends) {
 			if(user.getAccountID() == userId){
 				btn_hinzufuegen.setText("Benutzer löschen");
 			}

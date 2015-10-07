@@ -1,5 +1,6 @@
 package com.Schulprojekt.helloprojekt;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.Schulprojekt.helloprojekt.GUILogik.ContactListEntry;
-import com.Schulprojekt.helloprojekt.GUILogik.MessageLoop;
 import com.Schulprojekt.helloprojekt.GUILogik.RelationshipServices;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.google.gson.Gson;
@@ -83,6 +83,14 @@ public class ContactListActivity extends Activity {
 		ArrayList<ContactListEntry> contactList = new ArrayList<ContactListEntry>();						//Erstellen einer ArrayList
 		
 		for (User user : contacts) {																			//Erweiterte For-Schleife zum Auslesen der Freundesliste
+			
+			File file = new File("/"+user.getAccountID());
+			
+			if(!file.exists()){
+				File chat = new File("/"+user.getAccountID());
+				chat.mkdirs();
+			}
+			
 			LinearLayout linlay = new LinearLayout(getApplicationContext());
 			linlay.setOrientation(LinearLayout.HORIZONTAL);
 			ImageView img = new ImageView(getApplicationContext());
