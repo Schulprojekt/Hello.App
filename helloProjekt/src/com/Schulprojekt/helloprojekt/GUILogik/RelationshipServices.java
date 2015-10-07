@@ -28,7 +28,7 @@ private static Gson gson = new GsonBuilder().create();
 		JsonReader reader;
 		try {
 			reader = new JsonReader(new InputStreamReader(response.getEntity().getContent()));
-			contacts = gson.fromJson(reader, new TypeToken<List<Relationship>>(){}.getType());
+			contacts = gson.fromJson(reader, new TypeToken<List<User>>(){}.getType());
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
