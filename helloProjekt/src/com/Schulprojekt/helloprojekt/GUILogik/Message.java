@@ -3,78 +3,78 @@ package com.Schulprojekt.helloprojekt.GUILogik;
 import java.sql.Timestamp;
 
 public class Message { 																						//hier wird ein Objekt erstellt, dass dem Server übergeben werden soll
-	private int MessageID; 																					//Deklaration
-	private int Receiver;
-	private int Sender;
-	private String MessageText;
-	private byte[] Attachement;
-	private Timestamp MessageTime;
+	private int messageID; 																					//Deklaration
+	private int receiver;
+	private int sender;
+	private String messageText;
+	private byte[] attachement;
+	private Timestamp messageTime;
 
 	public Message(int messageID, int receiver, int sender, String messageText,
 			byte[] attachement, Timestamp messageTime) {
 		super();
-		MessageID = messageID;
-		Receiver = receiver;
-		Sender = sender;
-		MessageText = messageText;
-		Attachement = attachement;
-		MessageTime = messageTime;
+		this.messageID = messageID;
+		this.receiver = receiver;
+		this.sender = sender;
+		this.messageText = messageText;
+		this.attachement = attachement;
+		this.messageTime = messageTime;
 	}
 
 	public Message(int uuid, int uuid2, String messageText) {
 		super();
-		Receiver = uuid;
-		Sender = uuid2;
-		MessageText = messageText;
-		Attachement = null;
-		MessageTime = new Timestamp(System.currentTimeMillis());
+		this.receiver = uuid;
+		this.sender = uuid2;
+		this.messageText = messageText;
+		this.attachement = null;
+		this.messageTime = new Timestamp(System.currentTimeMillis());
 	}
 
 	public int getMessageID() {
-		return MessageID;
+		return messageID;
 	}
 
 	public void setMessageID(int messageID) {
-		MessageID = messageID;
+		this.messageID = messageID;
 	}
 
 	public int getReceiver() {
-		return Receiver;
+		return receiver;
 	}
 
 	public void setReceiver(int receiver) {
-		Receiver = receiver;
+		this.receiver = receiver;
 	}
 
 	public int getSender() {
-		return Sender;
+		return sender;
 	}
 
 	public void setSender(int sender) {
-		Sender = sender;
+		this.sender = sender;
 	}
 
 	public String getMessageText() {
-		return MessageText;
+		return messageText;
 	}
 
 	public void setMessageText(String messageText) {
-		MessageText = messageText;
+		this.messageText = messageText;
 	}
 
 	public byte[] getAttachement() {
-		return Attachement;
+		return attachement;
 	}
 
 	public void setAttachement(byte[] attachement) {
-		Attachement = attachement;
+		this.attachement = attachement;
 	}
 
 	public Timestamp getMessageTime() {
-		return MessageTime;
+		return messageTime;
 	}
 
 	public void setMessageTime(Timestamp messageTime) {
-		MessageTime = messageTime;
+		this.messageTime = messageTime;
 	}
 }
