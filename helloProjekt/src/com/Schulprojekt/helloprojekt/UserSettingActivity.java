@@ -3,6 +3,8 @@ package com.Schulprojekt.helloprojekt;
 import java.io.ByteArrayOutputStream;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -58,9 +60,27 @@ public class UserSettingActivity extends Activity {
 			public void onClick(View v) {
 				if (v == btnDeleteAccount){
 					try{
-						// TODO ein popup für ja/nein?!
-						UserServices.deleteUser(userSettingUsername.getText().toString());
-						// TODO schließen der app oder auf login zurück?
+						
+						AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
+		         		ad.setMessage("Wollen Sie Ihren Account wirklich löschen?");
+		         		ad.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+								
+								@Override
+								public void onClick(DialogInterface v, int id) {
+									UserServices.deleteUser(userSettingUsername.getText().toString());
+									Intent i = new Intent(UserSettingActivity.this, LoginActivity.class);
+									startActivity(i);
+									finish();
+									System.exit(0);
+								}
+							});
+							ad.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+								
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									
+								}
+							});
 						
 					}catch (Exception e){
 						e.printStackTrace();

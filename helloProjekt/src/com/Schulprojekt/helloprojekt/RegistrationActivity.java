@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.Schulprojekt.helloprojekt.GUILogik.UserServices;
+import com.Schulprojekt.helloprojekt.GUILogik.md5Generator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
@@ -46,6 +47,8 @@ public class RegistrationActivity extends Activity {
 	public EditText tvpasswortwh;
 	public User user;
 	public Drawable d;
+	public String md5Pass;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {														//Activity wird aufgebaut
         super.onCreate(savedInstanceState);
@@ -77,7 +80,8 @@ public class RegistrationActivity extends Activity {
     						try{
     							user = UserServices.getUserByAccountName(name);
     							if (user.getAccountName() == null) { 											// ist loginUsername null, kommt die Fehlermeldung
-    								user = UserServices.createUser(name, passwort);
+    								md5Pass = md5Generator.getMd5(passwort);
+    								user = UserServices.createUser(name, md5Pass);
     								
     								Intent i = new Intent(RegistrationActivity.this, 						// sonst wird die nächste Activity ContactListActivity gestartet
     										ContactListActivity.class);
@@ -85,18 +89,17 @@ public class RegistrationActivity extends Activity {
     								b.putInt("userId", user.getAccountID());
     								b.putString("aliasName", user.getAlias());
     								b.putString("accountName", user.getAccountName());
-    								
-    								Bitmap bmp = ((BitmapDrawable)d).getBitmap();
-    								ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    								bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
-    								byte[] byteArray = baos.toByteArray();
-    								
-    								b.putByteArray("picture", byteArray);
+//    								
+//    								Bitmap bmp = ((BitmapDrawable)d).getBitmap();
+//    								ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//    								bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//    								byte[] byteArray = baos.toByteArray();
+//    								
+//    								b.putByteArray("picture", byteArray);
     								b.putString("password", user.getPassword());
     								i.putExtras(b);
     								startActivity(i);
     								finish();
-    								System.exit(0);
     								
     							} else {
     								Toast.makeText(RegistrationActivity.this,

@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.Schulprojekt.helloprojekt.GUILogik.UserServices;
+import com.Schulprojekt.helloprojekt.GUILogik.md5Generator;
 import com.google.gson.Gson;
 
 public class LoginActivity extends Activity {
@@ -39,6 +40,7 @@ public class LoginActivity extends Activity {
 	public EditText loginPassword;
 	public Drawable d;
 	public User user;
+	public String md5Pass;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 										// Activity wird aufgebaut
@@ -68,6 +70,7 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if (v == btnLogin) { 															// wird der Button geklickt, wird die Verbindung zur Datenbank aufgebaut
+					String pass = loginPassword.getText().toString();
 					try {
 						user = UserServices.getUserByAccountName(loginUsername.getText().toString());
 						
@@ -76,8 +79,9 @@ public class LoginActivity extends Activity {
 									"Benutzername oder Passwort falsch!",
 									Toast.LENGTH_LONG).show();
 						} else {
+							md5Pass = md5Generator.getMd5(pass);
 							// TODO md5 passwort -> user.getPassword().equals(loginPassword.md5)
-							if (user.getPassword().equals(loginPassword)) {
+							if (user.getPassword().trim().equals(md5Pass)) {
 								Intent i = new Intent(LoginActivity.this, 						// sonst wird die nächste Activity ContactListActivity gestartet
 										ContactListActivity.class);
 								Bundle b = new Bundle();
@@ -85,17 +89,16 @@ public class LoginActivity extends Activity {
 								b.putString("aliasName", user.getAlias());
 								b.putString("accountName", user.getAccountName());
 								
-								Bitmap bmp = ((BitmapDrawable)d).getBitmap();
-								ByteArrayOutputStream baos = new ByteArrayOutputStream();
-								bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
-								byte[] byteArray = baos.toByteArray();
-								
-								b.putByteArray("picture", byteArray);
+//								Bitmap bmp = ((BitmapDrawable)d).getBitmap();
+//								ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//								bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//								byte[] byteArray = baos.toByteArray();
+//								
+//								b.putByteArray("picture", byteArray);
 								b.putString("password", user.getPassword());
 								i.putExtras(b);
 								startActivity(i);
 								finish();
-								System.exit(0);
 							} else {
 								Toast.makeText(LoginActivity.this,
 										"Benutzername oder Passwort falsch!",
@@ -115,16 +118,47 @@ public class LoginActivity extends Activity {
 					@Override
 					public void onClick(View v) {
 						if (v == imageView) { 													// wird imageView geklickt, wird der Boolean auf false gesetzt
-							Boolean methode = false;
-
-							if (methode) { 														// wurde der Boolean methode erzeugt, wird die nächste Activity ContactListActivity aufgerufen
-								startActivity(new Intent(LoginActivity.this,
-										ContactListActivity.class));
-							} else { 															// sonst kommt die Fehlermeldung
-								Toast.makeText(LoginActivity.this,
-										"Benutzername oder Passwort falsch!",
-										Toast.LENGTH_LONG).show();
+							String pass = loginPassword.getText().toString();
+							
+							try {
+								user = UserServices.getUserByAccountName(loginUsername.getText().toString());
+								
+								if (user.getAccountName() == null) { 											// ist loginUsername null, kommt die Fehlermeldung
+									Toast.makeText(LoginActivity.this,
+											"Benutzername oder Passwort falsch!",
+											Toast.LENGTH_LONG).show();
+								} else {
+									String eins = user.getPassword().trim();
+									
+									// TODO md5 passwort -> user.getPassword().equals(loginPassword.md5)
+									if (user.getPassword().trim().equals(pass)) {
+										Intent i = new Intent(LoginActivity.this, 						// sonst wird die nächste Activity ContactListActivity gestartet
+												ContactListActivity.class);
+										Bundle b = new Bundle();
+										b.putInt("userId", user.getAccountID());
+										b.putString("aliasName", user.getAlias());
+										b.putString("accountName", user.getAccountName());
+										
+//										Bitmap bmp = ((BitmapDrawable)d).getBitmap();
+//										ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//										bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//										byte[] byteArray = baos.toByteArray();
+//										
+//										b.putByteArray("picture", byteArray);
+										b.putString("password", user.getPassword());
+										i.putExtras(b);
+										startActivity(i);
+										finish();
+									} else {
+										Toast.makeText(LoginActivity.this,
+												"Benutzername oder Passwort falsch!",
+												Toast.LENGTH_LONG).show();
+									}
+								}	
+							} catch (Exception e) {
+								e.printStackTrace();
 							}
+							
 						}
 
 					}
