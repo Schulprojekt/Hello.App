@@ -6,11 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -32,14 +27,13 @@ import android.widget.TextView;
 
 import com.Schulprojekt.helloprojekt.GUILogik.GetMessage;
 import com.Schulprojekt.helloprojekt.GUILogik.Message;
+import com.Schulprojekt.helloprojekt.GUILogik.MessageServices;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.Schulprojekt.helloprojekt.Spiele.MainHangmanActivity;
 import com.Schulprojekt.helloprojekt.Spiele.TicTacToeActivity;
-import com.google.gson.Gson;
 
 public class SimpleChatActivity extends Activity {
 	
-	private final static String SERVICE_URI = "http://hello-server/helloservice/messengerservice.svc";
 
 	public ImageView imageViewGame;
 	public ImageView imgMessageSend;
@@ -148,18 +142,9 @@ public class SimpleChatActivity extends Activity {
 	
 	public void sendMessage(){
 		try{
-			Gson gs = new Gson();
-			String JsonString;
+	
 			Message message = new Message(chatPartner.getAccountID(), loggedUser.getAccountID(), txtChat.getText().toString());
-			JsonString = gs.toJson(message);
-			DefaultHttpClient httpClient = new DefaultHttpClient();
-			HttpPost request = new HttpPost(SERVICE_URI + "/CreateMessage");
-			request.setHeader("Accept", "application/json");
-	        request.setHeader("Content-type", "application/json");
-	        StringEntity se = new StringEntity(JsonString);
-	        request.setEntity(se);
-	        HttpResponse response = httpClient.execute(request);
-//	        HttpEntity responseEntity = response.getEntity();
+			MessageServices.createMessage(message);
 	        
     		try {
     			FileOutputStream fileout = new FileOutputStream("/"+chatPartner.getAccountID());
