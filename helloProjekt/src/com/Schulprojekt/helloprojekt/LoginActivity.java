@@ -1,21 +1,9 @@
 package com.Schulprojekt.helloprojekt;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +17,6 @@ import android.widget.Toast;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.Schulprojekt.helloprojekt.GUILogik.UserServices;
 import com.Schulprojekt.helloprojekt.GUILogik.md5Generator;
-import com.google.gson.Gson;
 
 public class LoginActivity extends Activity {
 	// TODO private statt public?
@@ -55,7 +42,7 @@ public class LoginActivity extends Activity {
 		loginPassword = (EditText) findViewById(R.id.loginPassword);							// auf Textfeld loginPassword zurgreifen
 		btnRegistration = (Button) findViewById(R.id.register); 								// auf Buttonregister zurgreifen
 		btnLogin = (Button) findViewById(R.id.login); 											// auf Button login zugreifen
-		imageView = (ImageView) findViewById(R.id.imageView); 									// auf ImageView imageView zugreifen
+		imageView = (ImageView) findViewById(R.id.imageViewLogin); 									// auf ImageView imageView zugreifen
 		btnRegistration.setOnClickListener(new OnClickListener() { 								// auf den Button Register einen OnClickListener setzen
 					@Override
 					public void onClick(View v) {
