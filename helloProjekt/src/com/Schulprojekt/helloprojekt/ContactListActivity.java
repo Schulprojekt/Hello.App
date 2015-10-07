@@ -37,7 +37,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class ContactListActivity extends Activity {
 
-	ArrayList<User> userList = new ArrayList<User>();														// Deklaration
+	ArrayList<User> contacts = new ArrayList<User>();														// Deklaration
 	ArrayList<ContactListEntry> contactList;
 	String userName;
 	User user;
@@ -76,7 +76,6 @@ public class ContactListActivity extends Activity {
 //		userList.add(u4);
 //		//Test END
 		
-		ArrayList<User> contacts = new ArrayList<User>();													//Erstellen einer UserArrayList
 		contacts = RelationshipServices.getRelationship(b.getInt("userId"));																			//Füllen der ArrayList
 		
 		int i = 0;
@@ -164,10 +163,10 @@ public class ContactListActivity extends Activity {
 	        	b.putInt("loggedAccountId", user.getAccountID());
 	        	b.putString("loggedAccountName", user.getAccountName());									//Füllen des Bundles
 	        	b.putByteArray("loggedPicture", user.getAccountPicture());
-	        	b.putInt("partnerAccountId", userList.get(v.getId()).getAccountID());
-				b.putString("partnerAliasName", userList.get(v.getId()).getAlias().toString());
-				b.putString("partnerAccountName", userList.get(v.getId()).getAccountName().toString());
-				b.putByteArray("partnerPicture", userList.get(v.getId()).getAccountPicture());
+	        	b.putInt("partnerAccountId", contacts.get(1).getAccountID());
+				b.putString("partnerAliasName", contacts.get(1).getAlias().toString());
+				b.putString("partnerAccountName", contacts.get(1).getAccountName().toString());
+				b.putByteArray("partnerPicture", contacts.get(1).getAccountPicture());
 				in.putExtras(b);
 				startActivity(in);																			//Starten der neuen Activity
 	        }
