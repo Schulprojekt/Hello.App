@@ -20,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.Schulprojekt.helloprojekt.GUILogik.Message;
+import com.Schulprojekt.helloprojekt.GUILogik.MessageServices;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.Schulprojekt.helloprojekt.Spiele.HangmanActivity;
 import com.Schulprojekt.helloprojekt.Spiele.TicTacToeActivity;
@@ -58,88 +59,17 @@ public class SelectGameActivity extends Activity {
 				Bundle bundle = getIntent().getExtras();	
 				int loggedUser = bundle.getInt("loggedUser");
 				int chatPartner = bundle.getInt("chatPartner");
-				User user = new User();
-				User user2 = new User();
+//				Message message = new Message(chatPartner, loggedUser, "tictactoe123:start");
+//				MessageServices.createMessage(message);
 				
-				DefaultHttpClient httpClient = new DefaultHttpClient();								      			//Client erstellen
+				Intent in = new Intent(SelectGameActivity.this,													//Aufbau des Pfades zur nächsten Activity
+		        		TicTacToeActivity.class);													
+				Bundle bu = new Bundle();																		//Erstellen eines Bundles
+				bu.putInt("loggedUser", loggedUser);							    							//Füllen des Bundles mit Key und dem dazugehörigen Wert
+				bu.putInt("chatPartner", chatPartner);
+				in.putExtras(bu);																					//Bundle ins Intent hinzufügen
+				startActivity(in);	
 				
-				Gson gson = new Gson();
-				String jsonString = "";
-				jsonString = gson.toJson(loggedUser);
-				StringEntity se;
-				try {
-					se = new StringEntity(jsonString);
-			
-				HttpPost request = new HttpPost(SERVICE_URI+ "/GetUserByAccountName");   							//Aufruf der Methode GetUserByAccountName
-				request.setEntity(se);
-				request.setHeader("Accept", "application/json");
-				request.setHeader("Content-type", "application/json");
-				HttpResponse response;
-				
-					response = httpClient.execute(request);
-					HttpEntity responseEntity = response.getEntity();
-					char[] buffer = new char[(int) responseEntity
-							.getContentLength()]; 																	//Daten im Array speichern
-					InputStream stream = responseEntity.getContent();
-					user = gson.fromJson(stream.toString(), User.class);
-					InputStreamReader reader = new InputStreamReader(stream); 										//Reader deklarieren
-					reader.read(buffer); 																			//Reader liest Buffer
-					stream.close();
-
-					
-				} catch (ClientProtocolException e1) {
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-
-				Gson gson2 = new Gson();
-				String jsonString2 = "";
-				jsonString2 = gson.toJson(chatPartner);
-				StringEntity se2;
-				try {
-					se2 = new StringEntity(jsonString);
-			
-				HttpPost request2 = new HttpPost(SERVICE_URI+ "/GetUserByAccountName" );  							//Aufruf der Methode GetUserByAccountName
-				request2.setEntity(se2);
-				request2.setHeader("Accept", "application/json");
-				request2.setHeader("Content-type", "application/json");
-				HttpResponse response2;
-					response2 = httpClient.execute(request2);
-					HttpEntity responseEntity = response2.getEntity();
-					char[] buffer = new char[(int) responseEntity
-							.getContentLength()]; 																	//Daten im Array speichern
-					InputStream stream2 = responseEntity.getContent();
-					user2= gson2.fromJson(stream2.toString(), User.class);
-					InputStreamReader reader = new InputStreamReader(stream2); 										//Reader deklarieren
-					reader.read(buffer); 																			//Reader liest Buffer
-					stream2.close();
-
-					
-				} catch (ClientProtocolException e1) {
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			
-				try {
-				Gson gson3 = new Gson();
-				String JsonString3;
-				Message message = new Message(user2.getAccountID(), user.getAccountID(), "tictactoe123:start");
-				JsonString3 = gson3.toJson(message);
-				DefaultHttpClient httpClient3 = new DefaultHttpClient();
-				HttpPost request3 = new HttpPost(SERVICE_URI + "/CreateMessage");									//Aufruf der Methode CreateMessage
-				request3.setHeader("Accept", "application/json");
-		        request3.setHeader("Content-type", "application/json");
-		        StringEntity se3 = new StringEntity(JsonString3);
-		        request3.setEntity(se3);
-		        HttpResponse response3 = httpClient3.execute(request3);
-		        
-				} catch (ClientProtocolException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 			}
 		});
 		
