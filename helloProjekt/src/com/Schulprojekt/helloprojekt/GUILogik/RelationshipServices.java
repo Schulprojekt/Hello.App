@@ -42,7 +42,7 @@ private static Gson gson = new GsonBuilder().create();
 	
 	public static void createRelationship(Relationship relationship){
 		String param = "{\"friendsId\":\"" + relationship.getFriendsId() + "\", \"userId\":\"" + relationship.getUserId() + "\"}";
-		HttpResponse response = WebServerUtils.post("/Relationship/createRelationship", param);
+		HttpResponse response = WebServerUtils.post("/Relationship/CreateRelationship", param);
 	}
 
 	public static void deleteRelationship(Relationship relationship){
