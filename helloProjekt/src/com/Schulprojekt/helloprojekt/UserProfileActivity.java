@@ -1,18 +1,7 @@
 package com.Schulprojekt.helloprojekt;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -27,12 +16,9 @@ import android.widget.TextView;
 import com.Schulprojekt.helloprojekt.GUILogik.Relationship;
 import com.Schulprojekt.helloprojekt.GUILogik.RelationshipServices;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class UserProfileActivity extends Activity {
 	
-	private final static String SERVICE_URI = "http://lt0.studio.entail.ca:8080/VehicleService.svc";		//Pfad zum server
 	
 	Button btn_hinzufuegen;																					//Deklaration
 	TextView aliasname;
@@ -72,10 +58,10 @@ public class UserProfileActivity extends Activity {
     	accountname = (TextView) findViewById(R.id.txt_profilAccName);
     	accountname.setText(accountName);
     	
-    	ArrayList<Relationship> friends = new ArrayList<Relationship>();													//Erstellen einer UserArrayList
+    	ArrayList<User> friends = new ArrayList<User>();													//Erstellen einer UserArrayList
 		friends = getFriends();																				//Füllen der ArrayList
-		for (Relationship relationship : friends) {
-			if(relationship.getFriendsId() == userId){
+		for (User user : friends) {
+			if(user.getAccountID() == userId){
 				btn_hinzufuegen.setText("Benutzer löschen");
 			}
 		}
@@ -135,8 +121,8 @@ public class UserProfileActivity extends Activity {
 		
 		}
 	
-	public ArrayList<Relationship> getFriends(){																		//Erstellen der Methode getFriends
-	    	ArrayList<Relationship> friends = new ArrayList<Relationship>();													//Erstellen einer ArrayList
+	public ArrayList<User> getFriends(){																		//Erstellen der Methode getFriends
+	    	ArrayList<User> friends = new ArrayList<User>();													//Erstellen einer ArrayList
 	    	
 	    	friends = RelationshipServices.getRelationship(userIdLogged);
 	    	
