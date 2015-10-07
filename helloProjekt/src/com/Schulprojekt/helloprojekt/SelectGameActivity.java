@@ -41,13 +41,13 @@ public class SelectGameActivity extends Activity {
 		buttonHangman.setOnClickListener(new OnClickListener() {												//auf den Button Hangman einen OnClickListenener setzen
 			public void onClick(View view) {
 				Bundle bundle = getIntent().getExtras();	
-				String loggedUser = bundle.getString("loggedUser");
-				String chatPartner = bundle.getString("chatPartner");
+				int loggedUser = bundle.getInt("loggedUser");
+				int chatPartner = bundle.getInt("chatPartner");
 				Intent i = new Intent(SelectGameActivity.this,													//Aufbau des Pfades zur nächsten Activity
 		        		HangmanActivity.class);													
 				Bundle b = new Bundle();																		//Erstellen eines Bundles
-				b.putString("loggedUser", loggedUser);							    							//Füllen des Bundles mit Key und dem dazugehörigen Wert
-				b.putString("chatPartner", chatPartner);
+				b.putInt("loggedUser", loggedUser);							    							//Füllen des Bundles mit Key und dem dazugehörigen Wert
+				b.putInt("chatPartner", chatPartner);
 				i.putExtras(b);																					//Bundle ins Intent hinzufügen
 				startActivity(i);																				//Activity wird gestartet
 			}
@@ -56,8 +56,8 @@ public class SelectGameActivity extends Activity {
 		buttonTicTacToe.setOnClickListener(new OnClickListener() {												//auf den Button TicTacToe einen OnClickListenener setzen
 			public void onClick(View view) {
 				Bundle bundle = getIntent().getExtras();	
-				String loggedUser = bundle.getString("loggedUser");
-				String chatPartner = bundle.getString("chatPartner");
+				int loggedUser = bundle.getInt("loggedUser");
+				int chatPartner = bundle.getInt("chatPartner");
 				User user = new User();
 				User user2 = new User();
 				

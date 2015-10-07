@@ -40,7 +40,7 @@ private static Gson gson = new GsonBuilder().create();
 		return messages;
 	}
 	
-	public void createMessage(Message message){																			//Deklaration
+	public static void createMessage(Message message){																			//Deklaration
 		String param = "{\"receiver\":\"" + message.getReceiver() + "\", \"sender\":\"" + message.getSender() + "\", \"messageText\":\"" + message.getMessageText() + "\"}";
 		HttpResponse response = WebServerUtils.post("/user/CreateUser", param);
 	}

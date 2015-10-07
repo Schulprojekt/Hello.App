@@ -69,8 +69,8 @@ public class SimpleChatActivity extends Activity {
 				Intent i = new Intent(SimpleChatActivity.this,
 		        		SelectGameActivity.class);													
 				Bundle b = new Bundle();															//Erstellen eines Bundles
-				b.putString("loggedUser", loggedUser.getAccountName());
-				b.putString("chatPartner", chatPartner.getAccountName());
+				b.putInt("loggedUser", loggedUser.getAccountID());
+				b.putInt("chatPartner", chatPartner.getAccountID());
 				i.putExtras(b);																		//Bundle ins Intent hinzufügen
 				startActivity(i);
 			}
