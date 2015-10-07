@@ -1,18 +1,6 @@
 package com.Schulprojekt.helloprojekt.Spiele;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,12 +13,9 @@ import android.widget.Toast;
 import com.Schulprojekt.helloprojekt.R;
 import com.Schulprojekt.helloprojekt.GUILogik.Message;
 import com.Schulprojekt.helloprojekt.GUILogik.MessageServices;
-import com.Schulprojekt.helloprojekt.GUILogik.User;
-import com.google.gson.Gson;
 
 
 public class HangmanActivity extends Activity {
-	private final static String SERVICE_URI = "http://hello-server/helloservice/messengerservice.svc";
 																										    //Deklaration
 	Button btn_beenden;
 	Button btn_senden;

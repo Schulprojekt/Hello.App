@@ -1,31 +1,7 @@
 package com.Schulprojekt.helloprojekt.Spiele;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.sql.Timestamp;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONStringer;
-
-import com.Schulprojekt.helloprojekt.R;
-import com.Schulprojekt.helloprojekt.GUILogik.Message;
-import com.Schulprojekt.helloprojekt.GUILogik.MessageServices;
-import com.Schulprojekt.helloprojekt.GUILogik.User;
-import com.Schulprojekt.helloprojekt.R.id;
-import com.Schulprojekt.helloprojekt.R.layout;
-import com.google.gson.Gson;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,8 +10,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.Schulprojekt.helloprojekt.R;
+
 public class TicTacToeActivity extends Activity {
-	private final static String SERVICE_URI = "http://hello-server/helloservice/messengerservice.svc";		//Pfad zur Datenbank
 	private Button buttonTicTacToe1, buttonTicTacToe2, buttonTicTacToe3, buttonTicTacToe4,					//Deklaration
 		buttonTicTacToe5, buttonTicTacToe6, buttonTicTacToe7, buttonTicTacToe8, buttonId,
 		buttonTicTacToe9, buttonNewGame, buttonExit;

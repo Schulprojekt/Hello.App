@@ -1,17 +1,6 @@
 package com.Schulprojekt.helloprojekt;
 
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
-
-import com.Schulprojekt.helloprojekt.GUILogik.User;
-import com.Schulprojekt.helloprojekt.GUILogik.UserServices;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,6 +14,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.Schulprojekt.helloprojekt.GUILogik.UserServices;
 
 public class UserSettingActivity extends Activity {															
 	public Button btnDeleteAccount;																			//Deklaration
