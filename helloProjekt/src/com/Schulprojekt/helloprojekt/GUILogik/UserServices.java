@@ -69,7 +69,7 @@ public class UserServices {
 		
 		user = getUserByAccountName(accountName);
 		
-		String param = "{\"accountID\":\"" + user.getAccountID() + "\", \"accountName\":\"" + user.getAccountName() + "\", \"alias\":\"" + user.getAlias() + "\", \"password\":\"" + user.getPassword() + "\"}";
+		String param = "{\"accountID\":\"" + user.getAccountID() + "\", \"accountName\":\"" + user.getAccountName() + "\", \"alias\":\"" + newAlias + "\", \"password\":\"" + user.getPassword() + "\"}";
 		
 		HttpResponse response = WebServerUtils.post("/user/UpdateUser", param);
 		
