@@ -28,5 +28,6 @@
     <string name="title_activity_user_profile">Benutzerprofil</string>
     <string name="title_activity_simple_chat">SimpleChatActivity</string>
     <string name="contact_profile">Profil</string>
+    <string name="contactListRefresh">Aktualisieren</string>
 
 </resources>
