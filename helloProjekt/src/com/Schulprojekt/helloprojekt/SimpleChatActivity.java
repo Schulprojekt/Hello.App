@@ -208,7 +208,8 @@ public class SimpleChatActivity extends Activity {
 		                		receivedText.setGravity(Gravity.LEFT);
 		                		layoutMessages.addView(receivedText);
 	                    	}
-	                    }else{
+	                    }else if(line.startsWith("#00000000#")){}
+	                    else{
 	                		TextView receivedText = new TextView(getApplicationContext());
 	                		receivedText.setText(line);
 	                		receivedText.setBackgroundColor(Color.WHITE);
@@ -230,16 +231,16 @@ public class SimpleChatActivity extends Activity {
 	    }
 	}
 
-	public void refresh(String message){
+	public void refresh(final String message){
 //		try {
 ////			t.sleep(8000);
 //		} catch (InterruptedException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		 if(line.startsWith("#123454321#")){
+		 if(message.startsWith("#123454321#")){
          	
-			String gama = line.substring(11);
+			String gama = message.substring(11);
          	if(gama.startsWith("hangman123:")){
          		
          		AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
@@ -250,7 +251,7 @@ public class SimpleChatActivity extends Activity {
 						public void onClick(DialogInterface v, int id) {
 							Intent i = new Intent(SimpleChatActivity.this, MainHangmanActivity.class);
 							Bundle b = new Bundle();
-							b.putString("wort", line.substring(22));
+							b.putString("wort", message.substring(22));
 							i.putExtras(b);
 							startActivity(i);
 						}
@@ -285,7 +286,8 @@ public class SimpleChatActivity extends Activity {
 							
 						}
 					});
-         	}else{
+         	}else if(gama.startsWith("#00000000#")){}
+         	else{
         		TextView receivedText = new TextView(getApplicationContext());
         		receivedText.setText(message.substring(11));
         		receivedText.setBackgroundColor(Color.GRAY);
