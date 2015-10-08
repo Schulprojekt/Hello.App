@@ -85,7 +85,7 @@ public class GetMessage extends Activity implements Runnable{
         	
         	for (Message m : message) {
         		try {
-        			FileOutputStream fileout = new FileOutputStream("/data/data/com.Schulprojekt.helloprojekt/files/"+m.getSender()+".txt");
+        			FileOutputStream fileout = new FileOutputStream("/data/data/com.Schulprojekt.helloprojekt/files/"+m.getSender()+".txt",true);
         			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
         			outputWriter.write("#123454321#"+m.getMessageText());
         			outputWriter.close();
