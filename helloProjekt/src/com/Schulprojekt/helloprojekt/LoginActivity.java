@@ -19,8 +19,7 @@ import com.Schulprojekt.helloprojekt.GUILogik.UserServices;
 import com.Schulprojekt.helloprojekt.GUILogik.md5Generator;
 
 public class LoginActivity extends Activity {
-	// TODO private statt public?
-	public Button btnRegistration; 																// Deklaration
+	public Button btnRegistration; 																			//Deklaration
 	public Button btnLogin;
 	public ImageView imageView;
 	public EditText loginUsername;
@@ -30,7 +29,7 @@ public class LoginActivity extends Activity {
 	public String md5Pass;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) { 										// Activity wird aufgebaut
+	protected void onCreate(Bundle savedInstanceState) { 													//Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
 		if (android.os.Build.VERSION.SDK_INT > 9) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -38,38 +37,37 @@ public class LoginActivity extends Activity {
 			StrictMode.setThreadPolicy(policy);
 		}
 		setContentView(R.layout.activity_login);
-		loginUsername = (EditText) findViewById(R.id.loginUsername); 							// auf Textfeld loginUsername zurgreifen
-		loginPassword = (EditText) findViewById(R.id.loginPassword);							// auf Textfeld loginPassword zurgreifen
-		btnRegistration = (Button) findViewById(R.id.register); 								// auf Buttonregister zurgreifen
-		btnLogin = (Button) findViewById(R.id.login); 											// auf Button login zugreifen
-		imageView = (ImageView) findViewById(R.id.imageViewLogin); 									// auf ImageView imageView zugreifen
-		btnRegistration.setOnClickListener(new OnClickListener() { 								// auf den Button Register einen OnClickListener setzen
+		loginUsername = (EditText) findViewById(R.id.loginUsername); 										//Auf Textfeld loginUsername zurgreifen
+		loginPassword = (EditText) findViewById(R.id.loginPassword);										//Auf Textfeld loginPassword zurgreifen
+		btnRegistration = (Button) findViewById(R.id.register); 											//Auf Buttonregister zurgreifen
+		btnLogin = (Button) findViewById(R.id.login); 														//Auf Button login zugreifen
+		imageView = (ImageView) findViewById(R.id.imageViewLogin); 											//Auf ImageView imageView zugreifen
+		btnRegistration.setOnClickListener(new OnClickListener() { 											//Auf den Button Register einen OnClickListener setzen
 					@Override
 					public void onClick(View v) {
 						if (v == btnRegistration) {
 							startActivity(new Intent(LoginActivity.this,
-									RegistrationActivity.class)); 								// auf RegistrationActivity weiterleiten, wenn Button geklickt wird
+									RegistrationActivity.class)); 											//Auf RegistrationActivity weiterleiten, wenn Button geklickt wird
 						}
 
 					}
 				});
-		btnLogin.setOnClickListener(new OnClickListener() { 									// auf den Button login einen OnClickListener setzen
+		btnLogin.setOnClickListener(new OnClickListener() { 												//Auf den Button login einen OnClickListener setzen
 			@Override
 			public void onClick(View v) {
-				if (v == btnLogin) { 															// wird der Button geklickt, wird die Verbindung zur Datenbank aufgebaut
+				if (v == btnLogin) { 																		//Wird der Button geklickt, wird die Verbindung zur Datenbank aufgebaut
 					String pass = loginPassword.getText().toString();
 					try {
 						user = UserServices.getUserByAccountName(loginUsername.getText().toString());
 						
-						if (user.getAccountName() == null) { 											// ist loginUsername null, kommt die Fehlermeldung
+						if (user.getAccountName() == null) { 												//Wenn loginUsername null ist, kommt die Fehlermeldung
 							Toast.makeText(LoginActivity.this,
 									"Benutzername oder Passwort falsch!",
 									Toast.LENGTH_LONG).show();
 						} else {
 							md5Pass = md5Generator.getMd5(pass);
-							// TODO md5 passwort -> user.getPassword().equals(loginPassword.md5)
 							if (user.getPassword().trim().equals(md5Pass)) {
-								Intent i = new Intent(LoginActivity.this, 						// sonst wird die nächste Activity ContactListActivity gestartet
+								Intent i = new Intent(LoginActivity.this, 									//Sonst wird die nächste Activity ContactListActivity gestartet
 										ContactListActivity.class);
 								Bundle b = new Bundle();
 								b.putInt("userId", user.getAccountID());
@@ -80,7 +78,7 @@ public class LoginActivity extends Activity {
 //								ByteArrayOutputStream baos = new ByteArrayOutputStream();
 //								bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
 //								byte[] byteArray = baos.toByteArray();
-////								
+//							
 //								b.putByteArray("picture", byteArray);
 								b.putString("password", user.getPassword());
 								i.putExtras(b);
@@ -100,26 +98,22 @@ public class LoginActivity extends Activity {
 			}
 		});
 		
-		// TODO muss das überhaupt noch?
-		imageView.setOnClickListener(new OnClickListener() { 									// auf das ImageView imageView einen OnClickListener setzen
+		imageView.setOnClickListener(new OnClickListener() { 												//Auf das ImageView imageView einen OnClickListener setzen
 					@Override
 					public void onClick(View v) {
-						if (v == imageView) { 													// wird imageView geklickt, wird der Boolean auf false gesetzt
+						if (v == imageView) { 																		//Wird der Button geklickt, wird die Verbindung zur Datenbank aufgebaut
 							String pass = loginPassword.getText().toString();
-							
 							try {
 								user = UserServices.getUserByAccountName(loginUsername.getText().toString());
 								
-								if (user.getAccountName() == null) { 											// ist loginUsername null, kommt die Fehlermeldung
+								if (user.getAccountName() == null) { 												//Wenn loginUsername null ist, kommt die Fehlermeldung
 									Toast.makeText(LoginActivity.this,
 											"Benutzername oder Passwort falsch!",
 											Toast.LENGTH_LONG).show();
 								} else {
-									String eins = user.getPassword().trim();
-									
-									// TODO md5 passwort -> user.getPassword().equals(loginPassword.md5)
-									if (user.getPassword().trim().equals(pass)) {
-										Intent i = new Intent(LoginActivity.this, 						// sonst wird die nächste Activity ContactListActivity gestartet
+									md5Pass = md5Generator.getMd5(pass);
+									if (user.getPassword().trim().equals(md5Pass)) {
+										Intent i = new Intent(LoginActivity.this, 									//Sonst wird die nächste Activity ContactListActivity gestartet
 												ContactListActivity.class);
 										Bundle b = new Bundle();
 										b.putInt("userId", user.getAccountID());
@@ -130,7 +124,7 @@ public class LoginActivity extends Activity {
 //										ByteArrayOutputStream baos = new ByteArrayOutputStream();
 //										bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
 //										byte[] byteArray = baos.toByteArray();
-//										
+//									
 //										b.putByteArray("picture", byteArray);
 										b.putString("password", user.getPassword());
 										i.putExtras(b);
@@ -145,7 +139,6 @@ public class LoginActivity extends Activity {
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
-							
 						}
 
 					}
@@ -154,13 +147,12 @@ public class LoginActivity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) { 											// Menü wird aufgebaut
-		//getMenuInflater().inflate(R.menu.login, menu);
-		return true; 																			// wenn Menü aufgebaut ist, gibt die Methode true zurück
+	public boolean onCreateOptionsMenu(Menu menu) { 														//Menü wird aufgebaut
+		return true; 																						//Wenn Menü aufgebaut ist, gibt die Methode true zurück
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) { 										// wird ein Item im Menüe ausgewählt, gibt die Methode true zurück
+	public boolean onOptionsItemSelected(MenuItem item) { 													//Wird ein Item im Menü ausgewählt, gibt die Methode true zurück
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;

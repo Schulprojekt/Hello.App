@@ -63,6 +63,12 @@ public class RegistrationActivity extends Activity {
     								b.putInt("userId", user.getAccountID());
     								b.putString("aliasName", user.getAlias());
     								b.putString("accountName", user.getAccountName());
+//    								Bitmap bmp = ((BitmapDrawable)d).getBitmap();
+//    								ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//    								bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//    								byte[] byteArray = baos.toByteArray();
+//    							
+//    								b.putByteArray("picture", byteArray);
     								b.putString("password", user.getPassword());
     								i.putExtras(b);
     								startActivity(i);
