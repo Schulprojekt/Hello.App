@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -32,6 +33,7 @@ import com.Schulprojekt.helloprojekt.GUILogik.GetMessage;
 import com.Schulprojekt.helloprojekt.GUILogik.Message;
 import com.Schulprojekt.helloprojekt.GUILogik.MessageServices;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
+import com.Schulprojekt.helloprojekt.GUILogik.UserServices;
 import com.Schulprojekt.helloprojekt.Spiele.MainHangmanActivity;
 import com.Schulprojekt.helloprojekt.Spiele.TicTacToeActivity;
 
@@ -46,6 +48,7 @@ public class SimpleChatActivity extends Activity {
 	public User chatPartner;
 	public String line;
 	public Thread t;
+	private final Context context = this;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -243,49 +246,45 @@ public class SimpleChatActivity extends Activity {
 			String gama = message.substring(11);
          	if(gama.startsWith("hangman123:")){
          		
-         		AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
-         		ad.setMessage("Sie wurden zu einem Spiel Hangman herausgefordert");
-         		ad.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface v, int id) {
-							Intent i = new Intent(SimpleChatActivity.this, MainHangmanActivity.class);
-							Bundle b = new Bundle();
-							b.putString("wort", message.substring(22));
-							i.putExtras(b);
-							startActivity(i);
-						}
-					});
-					ad.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							
-						}
-					});
+         		new AlertDialog.Builder(context).setTitle("Spielanfage")								//Erstellen eines Popup-Fensters
+				.setMessage("Sie wurden zu einem Spiel Hangman herausgefordert")
+				.setPositiveButton("Akzeptieren", new DialogInterface.OnClickListener() {					//Bei Klick auf Ja:
+					public void onClick(DialogInterface dialog, int which) {
+					
+						Intent i = new Intent(SimpleChatActivity.this, MainHangmanActivity.class);
+						Bundle b = new Bundle();
+						b.putString("wort", message.substring(22));
+						i.putExtras(b);
+						startActivity(i);
+				
+					}
+				}).setNegativeButton("Ablehnen", new DialogInterface.OnClickListener() {				//Bei Klich auf Nein:
+					public void onClick(DialogInterface dialog, int which) {
+																									//Keine Funktion ausführen
+					}
+				}).setIcon(R.drawable.ic_launcher).show();
          		
          	}else if(gama.startsWith("tictactoe123:")){
-         		AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
-         		ad.setMessage("Sie wurden zu einem Spiel TicTacToe herausgefordert");
-         		ad.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface v, int id) {
-							Intent i = new Intent(SimpleChatActivity.this, TicTacToeActivity.class);
-							Bundle b = new Bundle();
-							b.putString("loggedUser", loggedUser.getAccountName());
-							b.putString("chatPartner", chatPartner.getAccountName());
-							i.putExtras(b);
-							startActivity(i);
-						}
-					});
-					ad.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							
-						}
-					});
+         		
+         		new AlertDialog.Builder(context).setTitle("Spielanfrage")									//Erstellen eines Popup-Fensters
+				.setMessage("Sie wurden zu einem Spiel TicTacToe herausgefordert")
+				.setPositiveButton("Akzeptieren", new DialogInterface.OnClickListener() {					//Bei Klick auf Ja:
+					public void onClick(DialogInterface dialog, int which) {
+					
+						Intent i = new Intent(SimpleChatActivity.this, TicTacToeActivity.class);
+						Bundle b = new Bundle();
+						b.putString("loggedUser", loggedUser.getAccountName());
+						b.putString("chatPartner", chatPartner.getAccountName());
+						i.putExtras(b);
+						startActivity(i);
+				
+					}
+				}).setNegativeButton("Ablehnen", new DialogInterface.OnClickListener() {				//Bei Klich auf Nein:
+					public void onClick(DialogInterface dialog, int which) {
+																									//Keine Funktion ausführen
+					}
+				}).setIcon(R.drawable.ic_launcher).show();
+         		
          	}else if(gama.startsWith("#00000000#")){}
          	else{
         		TextView receivedText = new TextView(getApplicationContext());
