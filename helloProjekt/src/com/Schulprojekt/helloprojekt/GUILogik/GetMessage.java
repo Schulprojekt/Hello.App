@@ -38,7 +38,7 @@ public class GetMessage extends Activity implements Runnable{
 			 try
 			    {
 				 Thread.sleep(8000);
-				 InputStream instream = openFileInput("/data/data/com.Schulprojekt.helloprojekt/"+partnerId); 
+				 InputStream instream = openFileInput("/data/data/com.Schulprojekt.helloprojekt/"+partnerId+".txt"); 
 			        if (instream != null)
 			        {
 			        	InputStreamReader inputreader = new InputStreamReader(instream); 
@@ -58,7 +58,7 @@ public class GetMessage extends Activity implements Runnable{
 			            }
 			            try {
 			            	// TODO Warum nicht schon oben die partnerId ? - true = append to file, false = overwrite
-			    			FileOutputStream fileout = new FileOutputStream("/data/data/com.Schulprojekt.helloprojekt/" + partnerId, true);
+			    			FileOutputStream fileout = new FileOutputStream("/data/data/com.Schulprojekt.helloprojekt/files/" + partnerId+".txt", true);
 			    			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
 			    			outputWriter.write("#00000000#");
 			    			outputWriter.close();
@@ -85,7 +85,7 @@ public class GetMessage extends Activity implements Runnable{
         	
         	for (Message m : message) {
         		try {
-        			FileOutputStream fileout = new FileOutputStream(""+m.getSender());
+        			FileOutputStream fileout = new FileOutputStream("/data/data/com.Schulprojekt.helloprojekt/files/"+m.getSender()+".txt");
         			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
         			outputWriter.write("#123454321#"+m.getMessageText());
         			outputWriter.close();

@@ -75,7 +75,7 @@ public class ContactListActivity extends Activity {
 		
 		for (User user : contacts) {																			//Erweiterte For-Schleife zum Auslesen der Freundesliste
 			
-			File file = new File("/data/data/com.Schulprojekt.helloprojekt/"+user.getAccountID());
+			File file = new File("/data/data/com.Schulprojekt.helloprojekt/files/"+user.getAccountID()+".txt");
 //			File file = new File("/"+user.getAccountID());
 			
 			if(!file.exists()){
@@ -159,7 +159,7 @@ public class ContactListActivity extends Activity {
 		case R.id.contactListRefresh:
 			Intent i = getIntent();
 			finish();
-			startActivity(i);	
+			startActivity(i);
 		case R.id.act_AppExit:
 			finish();
 			break;

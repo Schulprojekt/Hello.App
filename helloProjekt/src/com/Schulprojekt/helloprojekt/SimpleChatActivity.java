@@ -3,9 +3,11 @@ package com.Schulprojekt.helloprojekt;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -70,6 +72,7 @@ public class SimpleChatActivity extends Activity {
 				startActivity(i);
 			}
 		});
+		
 		imgMessageSend = (ImageView) findViewById(R.id.imageViewMessageSend);
 		imgMessageSend.setOnClickListener(new View.OnClickListener() {
 			
@@ -158,7 +161,7 @@ public class SimpleChatActivity extends Activity {
 			MessageServices.createMessage(message);
 	        
     		try {
-    			FileOutputStream fileout = new FileOutputStream("/data/data/com.Schulprojekt.helloprojekt/"+chatPartner.getAccountID());
+    			FileOutputStream fileout = new FileOutputStream("/data/data/com.Schulprojekt.helloprojekt/files/"+chatPartner.getAccountID()+".txt");
     			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
     			outputWriter.write("123gelesen"+txtChat.getText().toString());
     			outputWriter.close();
@@ -182,14 +185,16 @@ public class SimpleChatActivity extends Activity {
 		
 	    try
 	    {
-	        InputStream instream = openFileInput("/"+chatPartner.getAccountID()); 
-	        if (instream != null)
-	        {
-	            InputStreamReader inputreader = new InputStreamReader(instream); 
-	            BufferedReader buffreader = new BufferedReader(inputreader); 
+//	        InputStream instream = openFileInput(Integer.toString(chatPartner.getAccountID())); 
+	        File file = new File("/data/data/com.Schulprojekt.helloprojekt/files/"+chatPartner.getAccountID()+".txt");
+//	        if (instream != null)
+//	        {
+//	            InputStreamReader inputreader = new InputStreamReader(instream); 
+//	            BufferedReader buffreader = new BufferedReader(inputreader); 
+	            BufferedReader br = new BufferedReader(new FileReader(file));
 	            try
 	            {
-	                while ((line = buffreader.readLine()) != null)
+	                while ((line = br.readLine()) != null){
 	                	
 	                    if(line.substring(0,10).equals("#123454321#")){
 	                    	
@@ -210,11 +215,12 @@ public class SimpleChatActivity extends Activity {
 	                		receivedText.setGravity(Gravity.RIGHT);
 	                		layoutMessages.addView(receivedText);
 	                    }
+	                }
 	            }catch (Exception e) 
 	            {
 	                e.printStackTrace();
 	            }
-	         }
+//	         }
 	    }
 	    catch (Exception e) 
 	    {
