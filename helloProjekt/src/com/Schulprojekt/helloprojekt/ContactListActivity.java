@@ -169,6 +169,8 @@ public class ContactListActivity extends Activity {
 			startActivity(intent);												
 			break;
 		case R.id.contactListRefresh:
+			finish();
+			System.exit(0);
 			Intent i = new Intent(ContactListActivity.this, ContactListActivity.class);
 			startActivity(i);	
 		case R.id.act_AppExit:
