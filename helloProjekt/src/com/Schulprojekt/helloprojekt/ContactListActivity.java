@@ -39,50 +39,32 @@ public class ContactListActivity extends Activity {
 //		SimpleThreads st = new SimpleThreads();
 		Bundle b = getIntent().getExtras();																	//Erstellen eines Bundles
 		user = new User();																					//Erstellen eines neuen Users
-		user.setAccountID(b.getInt("userId"));															//Füllen der Accountid
+		user.setAccountID(b.getInt("userId"));															    //Füllen der Accountid
 		user.setAccountName(b.getString("accountName"));													//Füllen des Accountnamens
 		user.setAlias(b.getString("aliasName"));															//Füllen des Aliasnamens
 		user.setPassword(b.getString("password"));															//Füllen des Passwortes
 		user.setAccountPicture(b.getByteArray("picture"));													//Füllen des Profilbildes
 		setContentView(R.layout.activity_contact_list);
-//		//Test
-//		Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.dummycontact);				
-//		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//		icon.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//		byte[] byteArray = stream.toByteArray();
-//		User u1 = new User(UUID.randomUUID(), "KnesKa", "KnesKa", byteArray);
-//		User u2 = new User(UUID.randomUUID(), "RehdTi", "RehdTi", byteArray);
-//		User u3 = new User(UUID.randomUUID(), "StehCh", "StehCh", byteArray);
-//		User u4 = new User(UUID.randomUUID(), "PetzSa", "PetzSa", byteArray);
-//		//Test END
-		
+
 		final LinearLayout linlayoutVertical = (LinearLayout) findViewById(R.id.linLayoutContactVertical);
 		findViewById(R.id.scrollViewContact);
 		findViewById(R.id.textViewContact);
+
 		
-//		//Test
-//		userList.add(u1);
-//		userList.add(u2);
-//		userList.add(u3);
-//		userList.add(u4);
-//		//Test END
-		
-		contacts = RelationshipServices.getRelationship(b.getInt("userId"));																			//Füllen der ArrayList
+		contacts = RelationshipServices.getRelationship(b.getInt("userId"));								//Füllen der ArrayList
 		
 		int i = 0;
 		
 		ArrayList<ContactListEntry> contactList = new ArrayList<ContactListEntry>();						//Erstellen einer ArrayList
 		
-		for (User user : contacts) {																			//Erweiterte For-Schleife zum Auslesen der Freundesliste
+		for (User user : contacts) {																		//Erweiterte For-Schleife zum Auslesen der Freundesliste
 			
 			File file = new File("/data/data/com.Schulprojekt.helloprojekt/files/"+user.getAccountID()+".txt");
-//			File file = new File("/"+user.getAccountID());
 			
 			if(!file.exists()){
 				try {
 					file.createNewFile();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -137,7 +119,7 @@ public class ContactListActivity extends Activity {
 		case R.id.contact_profile:
 			Intent in = new Intent(ContactListActivity.this, UserSettingActivity.class);					//Erstellen des Intent
 			Bundle b = new Bundle();																		//Erstellen des Bundles
-			b.putInt("userId", user.getAccountID());																	//Füllen des Bundles
+			b.putInt("userId", user.getAccountID());														//Füllen des Bundles
 			b.putString("accountName", user.getAccountName());
 			b.putString("aliasName", user.getAlias());
 			b.putByteArray("picture", user.getAccountPicture());
@@ -146,9 +128,9 @@ public class ContactListActivity extends Activity {
 			startActivity(in);																				//Starten der Activity
 			break;
 		case R.id.act_ContactSearch:
-			Intent intent = new Intent(ContactListActivity.this, ContactSearchActivity.class);					//Erstellen des Intent
-			Bundle bundle = new Bundle();																		//Erstellen des Bundles
-			bundle.putInt("userId", user.getAccountID());																	//Füllen des Bundles
+			Intent intent = new Intent(ContactListActivity.this, ContactSearchActivity.class);				//Erstellen des Intent
+			Bundle bundle = new Bundle();																	//Erstellen des Bundles
+			bundle.putInt("userId", user.getAccountID());													//Füllen des Bundles
 			bundle.putString("accountName", user.getAccountName());
 			bundle.putString("aliasName", user.getAlias());
 			bundle.putByteArray("picture", user.getAccountPicture());
