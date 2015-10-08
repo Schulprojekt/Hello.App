@@ -1,14 +1,10 @@
 package com.Schulprojekt.helloprojekt;
 
-import java.io.ByteArrayOutputStream;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
@@ -43,20 +39,19 @@ public class UserSettingActivity extends Activity {
 		
 
 		
-		// TODO prüfen ob die keys richtig sind!
 		Bundle b = getIntent().getExtras();																	//Erstellen eines Bundles
-		String userId = b.getString("userId");																//den String userId abrufen
-		String aliasName = b.getString("aliasName");														//den String aliasName abrufen
-		String accountName = b.getString("accountName");													//den String accountName abrufen
-		boolean accountState = b.getBoolean("accountState");												//den Boolean accountState abrufen
-		byte[] picture = b.getByteArray("picture");															//das Array picture abrufen
-		String password = b.getString("password");															//den String password abrufen
+		String userId = b.getString("userId");																//String userId abrufen
+		String aliasName = b.getString("aliasName");														//String aliasName abrufen
+		String accountName = b.getString("accountName");													//String accountName abrufen
+		boolean accountState = b.getBoolean("accountState");												//Boolean accountState abrufen
+		byte[] picture = b.getByteArray("picture");															//Array picture abrufen
+		String password = b.getString("password");															//String password abrufen
 		userSettingAliasname = (EditText) findViewById(R.id.UserSettingAliasname);							//Datenbankzugriff auf den Aliasname
 		userSettingAliasname.setText(aliasName);															//aliasName setzen/ändern
 		userSettingUsername = (EditText) findViewById(R.id.UserSettingUsername);							//Datenbankzugriff auf den Username
 		userSettingUsername.setText(accountName);															//accountName setzen/ändern
 		
-		// Datenbankzugriff für Account löschen
+																											//Datenbankzugriff für Account löschen
 		btnDeleteAccount = (Button) findViewById(R.id.btnDeleteAccount);
 		btnDeleteAccount.setOnClickListener(new OnClickListener() {
 			
@@ -64,58 +59,29 @@ public class UserSettingActivity extends Activity {
 			public void onClick(View v) {
 				if (v == btnDeleteAccount){
 					try{
-						
-						new AlertDialog.Builder(context).setTitle("Achtung!")
+						new AlertDialog.Builder(context).setTitle("Achtung!")								//Erstellen eines Popup-Fensters
 						.setMessage("Wollen Sie Ihren Account wirklich löschen?")
-						.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+						.setPositiveButton("Ja", new DialogInterface.OnClickListener() {					//Bei Klick auf Ja:
 						public void onClick(DialogInterface dialog, int which) {
-							
-							UserServices.deleteUser(userSettingUsername.getText().toString());
-							Intent i = new Intent(UserSettingActivity.this, LoginActivity.class);
-							startActivity(i);
+							UserServices.deleteUser(userSettingUsername.getText().toString());				//Eigener User wird gelöscht
+							Intent i = new Intent(UserSettingActivity.this, LoginActivity.class);			//Erstellen eines Intent
+							startActivity(i);																//Öffnen der Loginactivity
 							finish();
-							System.exit(0);
-							
+							System.exit(0);																	//UserSettingActivity schließen
 						}
-						}).setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+						}).setNegativeButton("Nein", new DialogInterface.OnClickListener() {				//Bei Klich auf Nein:
 						public void onClick(DialogInterface dialog, int which) {
-							
-							
-							
+																											//Keine Funktion ausführen
 						}
 						}).setIcon(R.drawable.ic_launcher).show();
-						
-//						AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
-//		         		ad.setMessage("Wollen Sie Ihren Account wirklich löschen?");
-//		         		ad.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-//								
-//								@Override
-//								public void onClick(DialogInterface v, int id) {
-//									UserServices.deleteUser(userSettingUsername.getText().toString());
-//									Intent i = new Intent(UserSettingActivity.this, LoginActivity.class);
-//									startActivity(i);
-//									finish();
-//									System.exit(0);
-//								}
-//							});
-//							ad.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
-//								
-//								@Override
-//								public void onClick(DialogInterface dialog, int which) {
-//									
-//								}
-//							});
-//						ad.show();
 					}catch (Exception e){
 						e.printStackTrace();
 					}
-					
 				}
-				
 			}
 		});
 		
-		// Datenbankzugriff für Speichern
+																										   	//Datenbankzugriff für Speichern
 		btnSave = (Button) findViewById(R.id.btnSave);
 		btnSave.setOnClickListener(new OnClickListener() {
 			
@@ -125,7 +91,7 @@ public class UserSettingActivity extends Activity {
 					user = UserServices.updateUser(userSettingUsername.getText().toString(), 
 							userSettingAliasname.getText().toString());
 					
-					Intent i = new Intent(UserSettingActivity.this, 						// sonst wird die nächste Activity ContactListActivity gestartet
+					Intent i = new Intent(UserSettingActivity.this, 										//Nächste Activity "ContactListActivity" wird gestartet
 							ContactListActivity.class);
 					Bundle b = new Bundle();
 					b.putInt("userId", user.getAccountID());
@@ -143,13 +109,13 @@ public class UserSettingActivity extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {																//Menü wird aufgebaut
+	public boolean onCreateOptionsMenu(Menu menu) {															//Menü wird aufgebaut
 		getMenuInflater().inflate(R.menu.user_setting, menu);
-		return true;																							//wenn Menü aufgebaut ist, gibt die Methode true zurück
+		return true;																						//Wenn Menü aufgebaut ist, gibt die Methode true zurück
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {														//wird ein Item im Menüe ausgewählt, gibt die Methode true zurück
+	public boolean onOptionsItemSelected(MenuItem item) {													//Wird ein Item im Menüe ausgewählt, gibt die Methode true zurück
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			finish();
