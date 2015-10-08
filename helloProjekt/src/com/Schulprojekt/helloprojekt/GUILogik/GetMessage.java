@@ -37,7 +37,7 @@ public class GetMessage extends Activity implements Runnable{
 			
 			 try
 			    {
-				 Thread.sleep(8000);
+//				 Thread.sleep(8000);
 				 InputStream instream = openFileInput("/data/data/com.Schulprojekt.helloprojekt/"+partnerId+".txt"); 
 			        if (instream != null)
 			        {
@@ -87,7 +87,7 @@ public class GetMessage extends Activity implements Runnable{
         		try {
         			FileOutputStream fileout = new FileOutputStream("/data/data/com.Schulprojekt.helloprojekt/files/"+m.getSender()+".txt",true);
         			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-        			outputWriter.write("#123454321#"+m.getMessageText());
+        			outputWriter.write("#123454321#"+m.getMessageText()+"\n");
         			outputWriter.close();
         			
         		} catch (Exception e) {

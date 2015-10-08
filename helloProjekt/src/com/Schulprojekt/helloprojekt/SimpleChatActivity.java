@@ -86,7 +86,7 @@ public class SimpleChatActivity extends Activity {
 		layoutMessages = (LinearLayout) findViewById(R.id.layoutMessages);
 		
 		receiveMessage();
-		Thread t = new Thread(new GetMessage(this, loggedUser.getAccountID(), chatPartner.getAccountID()));
+		Thread t = new Thread(new GetMessage(SimpleChatActivity.this, loggedUser.getAccountID(), chatPartner.getAccountID()));
 		t.start();
 	}
 		
@@ -196,7 +196,7 @@ public class SimpleChatActivity extends Activity {
 	            {
 	                while ((line = br.readLine()) != null){
 	                	
-	                    if(line.substring(0,10).equals("#123454321#")){
+	                    if(line.startsWith("#123454321#")){
 	                    	
 	                    	if(line.substring(11,21).equalsIgnoreCase("hangman123:") || line.substring(11,23).equalsIgnoreCase("tictactoe123:")){
 	                    	}else{
