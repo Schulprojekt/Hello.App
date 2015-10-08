@@ -40,12 +40,8 @@ public class UserSettingActivity extends Activity {
 
 		
 		Bundle b = getIntent().getExtras();																	//Erstellen eines Bundles
-		String userId = b.getString("userId");																//String userId abrufen
 		String aliasName = b.getString("aliasName");														//String aliasName abrufen
 		String accountName = b.getString("accountName");													//String accountName abrufen
-		boolean accountState = b.getBoolean("accountState");												//Boolean accountState abrufen
-		byte[] picture = b.getByteArray("picture");															//Array picture abrufen
-		String password = b.getString("password");															//String password abrufen
 		userSettingAliasname = (EditText) findViewById(R.id.UserSettingAliasname);							//Datenbankzugriff auf den Aliasname
 		userSettingAliasname.setText(aliasName);															//aliasName setzen/ändern
 		userSettingUsername = (EditText) findViewById(R.id.UserSettingUsername);							//Datenbankzugriff auf den Username
