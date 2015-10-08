@@ -31,9 +31,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="95dp"
         android:ems="10"
-        android:text="Bitte ein Wort eingeben"
         android:textColor="#ffffff"
         android:textSize="19sp"
+        android:hint="Bitte ein Wort eingeben"
         android:textStyle="bold" />
 
     <Button
