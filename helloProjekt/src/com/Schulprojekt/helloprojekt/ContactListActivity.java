@@ -2,18 +2,8 @@ package com.Schulprojekt.helloprojekt;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -34,8 +24,6 @@ import android.widget.TextView;
 import com.Schulprojekt.helloprojekt.GUILogik.ContactListEntry;
 import com.Schulprojekt.helloprojekt.GUILogik.RelationshipServices;
 import com.Schulprojekt.helloprojekt.GUILogik.User;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 //import com.Schulprojekt.helloprojekt.GUILogik.SimpleThreads;
 
 public class ContactListActivity extends Activity {
