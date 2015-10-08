@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,11 +34,14 @@ public class UserSettingActivity extends Activity {
 	public String password;
 	public User user;
 	public Drawable d;
+	private final Context context = this;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {													//Activity wird aufgebaut
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_setting);
+		
+
 		
 		// TODO prüfen ob die keys richtig sind!
 		Bundle b = getIntent().getExtras();																	//Erstellen eines Bundles
@@ -61,27 +65,47 @@ public class UserSettingActivity extends Activity {
 				if (v == btnDeleteAccount){
 					try{
 						
-						AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
-		         		ad.setMessage("Wollen Sie Ihren Account wirklich löschen?");
-		         		ad.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-								
-								@Override
-								public void onClick(DialogInterface v, int id) {
-									UserServices.deleteUser(userSettingUsername.getText().toString());
-									Intent i = new Intent(UserSettingActivity.this, LoginActivity.class);
-									startActivity(i);
-									finish();
-									System.exit(0);
-								}
-							});
-							ad.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
-								
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									
-								}
-							});
+						new AlertDialog.Builder(context).setTitle("Achtung!")
+						.setMessage("Wollen Sie Ihren Account wirklich löschen?")
+						.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							
+							UserServices.deleteUser(userSettingUsername.getText().toString());
+							Intent i = new Intent(UserSettingActivity.this, LoginActivity.class);
+							startActivity(i);
+							finish();
+							System.exit(0);
+							
+						}
+						}).setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							
+							
+							
+						}
+						}).setIcon(R.drawable.ic_launcher).show();
 						
+//						AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
+//		         		ad.setMessage("Wollen Sie Ihren Account wirklich löschen?");
+//		         		ad.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+//								
+//								@Override
+//								public void onClick(DialogInterface v, int id) {
+//									UserServices.deleteUser(userSettingUsername.getText().toString());
+//									Intent i = new Intent(UserSettingActivity.this, LoginActivity.class);
+//									startActivity(i);
+//									finish();
+//									System.exit(0);
+//								}
+//							});
+//							ad.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+//								
+//								@Override
+//								public void onClick(DialogInterface dialog, int which) {
+//									
+//								}
+//							});
+//						ad.show();
 					}catch (Exception e){
 						e.printStackTrace();
 					}
