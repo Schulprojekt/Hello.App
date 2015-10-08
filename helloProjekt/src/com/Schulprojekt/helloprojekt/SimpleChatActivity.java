@@ -163,7 +163,7 @@ public class SimpleChatActivity extends Activity {
     		try {
     			FileOutputStream fileout = new FileOutputStream("/data/data/com.Schulprojekt.helloprojekt/files/"+chatPartner.getAccountID()+".txt", true);
     			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-    			outputWriter.write("123gelesen"+txtChat.getText().toString());
+    			outputWriter.write(txtChat.getText().toString()+"\n");
     			outputWriter.close();
     		} catch (Exception e) {
     			e.printStackTrace();

@@ -60,7 +60,7 @@ public class GetMessage extends Activity implements Runnable{
 			            	// TODO Warum nicht schon oben die partnerId ? - true = append to file, false = overwrite
 			    			FileOutputStream fileout = new FileOutputStream("/data/data/com.Schulprojekt.helloprojekt/files/" + partnerId+".txt", true);
 			    			OutputStreamWriter outputWriter=new OutputStreamWriter(fileout);
-			    			outputWriter.write("#00000000#");
+			    			outputWriter.write("#00000000#\n");
 			    			outputWriter.close();
 			    		} catch (Exception e) {
 			    			e.printStackTrace();
