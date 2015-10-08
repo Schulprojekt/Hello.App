@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.Schulprojekt.helloprojekt.GUILogik.UserServices;
-import com.Schulprojekt.helloprojekt.GUILogik.md5Generator;
+import com.Schulprojekt.helloprojekt.GUILogik.Md5Generator;
 
 
 public class RegistrationActivity extends Activity {
@@ -54,7 +54,7 @@ public class RegistrationActivity extends Activity {
     						try{
     							user = UserServices.getUserByAccountName(name);
     							if (user.getAccountName() == null) { 											//Wenn loginUsername null ist, kommt die Fehlermeldung
-    								md5Pass = md5Generator.getMd5(passwort);
+    								md5Pass = Md5Generator.getMd5(passwort);
     								user = UserServices.createUser(name, md5Pass);
     								
     								Intent i = new Intent(RegistrationActivity.this, 							//Sonst wird die nächste Activity "ContactListActivity" gestartet

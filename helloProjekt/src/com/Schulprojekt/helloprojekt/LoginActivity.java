@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.Schulprojekt.helloprojekt.GUILogik.User;
 import com.Schulprojekt.helloprojekt.GUILogik.UserServices;
-import com.Schulprojekt.helloprojekt.GUILogik.md5Generator;
+import com.Schulprojekt.helloprojekt.GUILogik.Md5Generator;
 
 public class LoginActivity extends Activity {
 	public Button btnRegistration; 																			//Deklaration
@@ -65,7 +65,7 @@ public class LoginActivity extends Activity {
 									"Benutzername oder Passwort falsch!",
 									Toast.LENGTH_LONG).show();
 						} else {
-							md5Pass = md5Generator.getMd5(pass);
+							md5Pass = Md5Generator.getMd5(pass);
 							if (user.getPassword().trim().equals(md5Pass)) {
 								Intent i = new Intent(LoginActivity.this, 									//Sonst wird die nächste Activity ContactListActivity gestartet
 										ContactListActivity.class);
@@ -111,7 +111,7 @@ public class LoginActivity extends Activity {
 											"Benutzername oder Passwort falsch!",
 											Toast.LENGTH_LONG).show();
 								} else {
-									md5Pass = md5Generator.getMd5(pass);
+									md5Pass = Md5Generator.getMd5(pass);
 									if (user.getPassword().trim().equals(md5Pass)) {
 										Intent i = new Intent(LoginActivity.this, 									//Sonst wird die nächste Activity ContactListActivity gestartet
 												ContactListActivity.class);

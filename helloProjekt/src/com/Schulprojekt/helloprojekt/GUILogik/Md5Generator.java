@@ -3,7 +3,7 @@ package com.Schulprojekt.helloprojekt.GUILogik;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class md5Generator {
+public class Md5Generator {
 	
 	public static String getMd5(String pass){
 		
