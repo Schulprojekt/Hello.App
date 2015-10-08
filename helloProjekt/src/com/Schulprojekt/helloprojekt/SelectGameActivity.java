@@ -31,7 +31,7 @@ public class SelectGameActivity extends Activity {
 				Intent i = new Intent(SelectGameActivity.this,													//Aufbau des Pfades zur nächsten Activity
 		        		HangmanActivity.class);													
 				Bundle b = new Bundle();																		//Erstellen eines Bundles
-				b.putInt("loggedUser", loggedUser);							    							//Füllen des Bundles mit Key und dem dazugehörigen Wert
+				b.putInt("loggedUser", loggedUser);							    								//Füllen des Bundles mit Key und dem dazugehörigen Wert
 				b.putInt("chatPartner", chatPartner);
 				i.putExtras(b);																					//Bundle ins Intent hinzufügen
 				startActivity(i);																				//Activity wird gestartet
@@ -51,7 +51,7 @@ public class SelectGameActivity extends Activity {
 				Bundle bu = new Bundle();																		//Erstellen eines Bundles
 				bu.putInt("loggedUser", loggedUser);							    							//Füllen des Bundles mit Key und dem dazugehörigen Wert
 				bu.putInt("chatPartner", chatPartner);
-				in.putExtras(bu);																					//Bundle ins Intent hinzufügen
+				in.putExtras(bu);																				//Bundle ins Intent hinzufügen
 				startActivity(in);	
 				
 			}
