@@ -65,6 +65,7 @@ public class UserProfileActivity extends Activity {
 
     	for (User user : friends) {
 			if(user.getAccountID() == userId){
+				btn_hinzufuegen = (Button) findViewById(R.id.btn_hinzufuegen);
 				btn_hinzufuegen.setText("Benutzer löschen");
 			}
 		}
