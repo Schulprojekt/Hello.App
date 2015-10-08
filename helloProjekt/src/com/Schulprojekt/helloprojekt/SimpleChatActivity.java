@@ -237,9 +237,10 @@ public class SimpleChatActivity extends Activity {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		 if(line.substring(0,10).equals("#123454321#")){
+		 if(line.startsWith("#123454321#")){
          	
-         	if(line.substring(11,21).equalsIgnoreCase("hangman123:")){
+			String gama = line.substring(11);
+         	if(gama.startsWith("hangman123:")){
          		
          		AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
          		ad.setMessage("Sie wurden zu einem Spiel Hangman herausgefordert");
@@ -262,7 +263,7 @@ public class SimpleChatActivity extends Activity {
 						}
 					});
          		
-         	}else if(line.substring(11,21).equalsIgnoreCase("tictactoe123:")){
+         	}else if(gama.startsWith("tictactoe123:")){
          		AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
          		ad.setMessage("Sie wurden zu einem Spiel TicTacToe herausgefordert");
          		ad.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
