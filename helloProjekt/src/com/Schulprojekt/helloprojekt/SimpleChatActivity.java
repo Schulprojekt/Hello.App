@@ -45,6 +45,7 @@ public class SimpleChatActivity extends Activity {
 	private User loggedUser;
 	public User chatPartner;
 	public String line;
+	public Thread t;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class SimpleChatActivity extends Activity {
 		layoutMessages = (LinearLayout) findViewById(R.id.layoutMessages);
 		
 		receiveMessage();
-		Thread t = new Thread(new GetMessage(SimpleChatActivity.this, loggedUser.getAccountID(), chatPartner.getAccountID()));
+		t = new Thread(new GetMessage(SimpleChatActivity.this, loggedUser.getAccountID(), chatPartner.getAccountID()));
 		t.start();
 	}
 		
@@ -230,6 +231,12 @@ public class SimpleChatActivity extends Activity {
 	}
 
 	public void refresh(String message){
+//		try {
+////			t.sleep(8000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		 if(line.substring(0,10).equals("#123454321#")){
          	
          	if(line.substring(11,21).equalsIgnoreCase("hangman123:")){

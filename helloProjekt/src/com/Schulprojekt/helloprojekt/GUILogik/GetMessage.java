@@ -14,7 +14,7 @@ import com.Schulprojekt.helloprojekt.SimpleChatActivity;
 public class GetMessage extends Activity implements Runnable{
 	
 	SimpleChatActivity chat;
-	boolean running;
+	boolean running = true;
 	String line;
 	ArrayList<String> course;
 	ArrayList<String> newMessages;
@@ -37,7 +37,7 @@ public class GetMessage extends Activity implements Runnable{
 			
 			 try
 			    {
-//				 Thread.sleep(8000);
+				 Thread.sleep(8000);
 				 InputStream instream = openFileInput("/data/data/com.Schulprojekt.helloprojekt/"+partnerId+".txt"); 
 			        if (instream != null)
 			        {
@@ -77,7 +77,7 @@ public class GetMessage extends Activity implements Runnable{
 		public void MessageLoop(){
 			messages = MessageServices.getMessages(accountID);
 			if (messages != null){
-	        log(messages);
+				log(messages);
 			}
 		}
 		
