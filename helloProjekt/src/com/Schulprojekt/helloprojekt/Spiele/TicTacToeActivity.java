@@ -14,7 +14,8 @@ import com.Schulprojekt.helloprojekt.R;
 
 public class TicTacToeActivity extends Activity {
 	private Button buttonTicTacToe1, buttonTicTacToe2, buttonTicTacToe3, buttonTicTacToe4,					//Deklaration
-		buttonTicTacToe5, buttonTicTacToe6, buttonTicTacToe7, buttonTicTacToe8, buttonId,
+		buttonTicTacToe5, buttonTicTacToe6, buttonTicTacToe7, buttonTicTacToe8, 
+//		buttonId,
 		buttonTicTacToe9, buttonNewGame, buttonExit;
 	private boolean noughtsTurn = false; 																	//false=X true=O der erste Spieler beginnt mit X
 	private char board[][] = new char[3][3]; 																//das Array wird mit den Positionen des Spielfeldes gefüllt
@@ -163,13 +164,13 @@ public class TicTacToeActivity extends Activity {
 	    public void onClick(View view) {																	//Methode onClick
 	        if (view instanceof Button) {																	//alle Objekte des Typen Buttons ansprechen
 	            Button B = (Button) view;
-	            int id = 0;
+//	            int id = 0;
 	            board[y][x] = noughtsTurn ? 'O' : 'X';														//wurde der Button geklickt  
 	            B.setText(noughtsTurn ? "O" : "X");															//erscheint ein X oder O auf dem Button
 	            B.setEnabled(false);																		//disable den Button
 	            noughtsTurn = !noughtsTurn;																	//beim nächsten Zug darf nicht das gleiche Zeichen gesetzt werden					
-	            id = B.getId();																				//speichert in der Variable id die ID des geklickten Buttons        
-	            buttonId = (Button) B.findViewById(id);													    //sucht den Button über die Variable id
+//	            id = B.getId();																				//speichert in der Variable id die ID des geklickten Buttons        
+//	            buttonId = (Button) B.findViewById(id);													    //sucht den Button über die Variable id
 	            if (checkWin() == true) {																	//überprüfe, ob checkWin() true zurück gibt
 	                disableButtons();																		//führe sofort die Methode disableButtons() aus
 	            }
