@@ -197,8 +197,8 @@ public class SimpleChatActivity extends Activity {
 	                while ((line = br.readLine()) != null){
 	                	
 	                    if(line.startsWith("#123454321#")){
-	                    	
-	                    	if(line.substring(11,21).equalsIgnoreCase("hangman123:") || line.substring(11,23).equalsIgnoreCase("tictactoe123:")){
+	                    	String gama = line.substring(11);
+	                    	if(gama.startsWith("hangman123:") || gama.startsWith("tictactoe123:")){
 	                    	}else{
 	                    		TextView receivedText = new TextView(getApplicationContext());
 		                		receivedText.setText(line.substring(11));
