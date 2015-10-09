@@ -203,6 +203,24 @@ public class SimpleChatActivity extends Activity {
 	                    if(line.startsWith("#123454321#")){
 	                    	String gama = line.substring(11);
 	                    	if(gama.startsWith("hangman123:") || gama.startsWith("tictactoe123:")){
+	                    		final String blabla = line.substring(22);
+	                    		new AlertDialog.Builder(context).setTitle("Spielanfage")								//Erstellen eines Popup-Fensters
+	            				.setMessage("Sie wurden zu einem Spiel Hangman herausgefordert")
+	            				.setPositiveButton("Akzeptieren", new DialogInterface.OnClickListener() {					//Bei Klick auf Ja:
+	            					public void onClick(DialogInterface dialog, int which) {
+	            					
+	            						Intent i = new Intent(SimpleChatActivity.this, MainHangmanActivity.class);
+	            						Bundle b = new Bundle();
+	            						b.putString("wort", blabla.toUpperCase());
+	            						i.putExtras(b);
+	            						startActivity(i);
+	            				
+	            					}
+	            				}).setNegativeButton("Ablehnen", new DialogInterface.OnClickListener() {				//Bei Klich auf Nein:
+	            					public void onClick(DialogInterface dialog, int which) {
+	            																									//Keine Funktion ausführen
+	            					}
+	            				}).setIcon(R.drawable.ic_launcher).show();
 	                    	}else{
 	                    		TextView receivedText = new TextView(getApplicationContext());
 		                		receivedText.setText(line.substring(11));
